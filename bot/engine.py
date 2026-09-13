@@ -359,6 +359,16 @@ def build_call(asset, market, quote, ticker, cfg):
         conf = confidence_state((live or {}).get("p"))
     phase = "called" if fired else ("lean" if mins_left > 0 else "closing")
 
+    lean_dir = (lean or {}).get("dir")
+    lean_nb, lean_na = no_side(yes_bid, yes_ask, no_bid, no_ask)
+    lean_entry = (yes_ask if lean_dir == "UP" else (lean_na if lean_dir == "DOWN" else None))
+    if lean is not None:
+        lean["entry_price"] = lean_entry
+        lean["entry_cents"] = (round(lean_entry * 100) if lean_entry else None)
+        lean["side"] = ("YES" if lean_dir == "UP" else ("NO" if lean_dir == "DOWN" else None))
+        if lean_entry:
+            lean["text"] = lean["text"] + f" \u2014 buy {lean['side']} at {cents(lean_entry)}"
+
     price_label, price_yes, price_no, no_bid_eff, no_ask_eff = price_strings(
         call, yes_bid, yes_ask, no_bid, no_ask)
     entry = yes_ask if call == "UP" else (no_ask_eff if call == "DOWN" else None)
@@ -399,6 +409,9 @@ def build_call(asset, market, quote, ticker, cfg):
                           else None),
         win_prob=((live or {}).get("p")), win_prob_model=((live or {}).get("model")),
         win_prob_market=((live or {}).get("market")),
+        lean_entry_price=lean_entry,
+        lean_entry_cents=(round(lean_entry * 100) if lean_entry else None),
+        call_entry_cents=(round(entry * 100) if entry else None),
         no_edge=no_edge, no_edge_price=no_edge_price, edge_points=edge_points,
         cand_model_p=model_p, cand_market_p=market_p, tradeable=tradeable,
         side_ask=side_ask, max_call_price=max_price, min_edge_points=min_edge,
@@ -611,7 +624,7 @@ ENTRY_KEYS = ("ticker", "call", "weak", "conviction", "gap", "gap_pct", "sigma",
               "drivers", "tier", "tier_label", "no_edge", "no_edge_price", "edge_points",
               "tradeable", "side_ask", "cand_model_p", "cand_market_p",
               "fng_value", "fng_class", "fng_tilt", "fng_text", "expected",
-              "reversal_trigger", "reversal_why")
+              "reversal_trigger", "reversal_why", "call_entry_cents")
 
 
 def make_entry(c, mark, final):
@@ -725,14 +738,17 @@ def flow_reversal(call, wt, wo, mom_multi, sigma, gap, gap_dir, tech=None):
 
     # Thresholds are deliberately high: on these books a 3x-median 50-lot print
     # happens constantly, and a flag that fires on 95% of rounds is not a flag.
-    MIN_TRADE, MIN_X = 250.0, 6.0
-    MIN_ORDER = 500.0
+    MIN_TRADE, MIN_X, FRESH = 500.0, 8.0, 150.0
+    MIN_ORDER = 1000.0
 
     if wt and wt.get("available"):
         med = wt.get("median") or 1
         for b in (wt.get("big") or []):
             if (b.get("side") == against and b.get("size", 0) >= MIN_TRADE
-                    and b["size"] / med >= MIN_X):
+                    and b["size"] / med >= MIN_X
+                    and (b.get("ts") is None or time.time() - b["ts"] <= FRESH)
+                    and (wt.get("no_vol") or 0 if call == "UP" else wt.get("yes_vol") or 0)
+                    >= (wt.get("yes_vol") or 0 if call == "UP" else wt.get("no_vol") or 0)):
                 why.append(f"{b['size']:,.0f}-lot {against} print ({b['size']/med:.0f}x median)")
                 trigger = "whale_trade"
                 break
