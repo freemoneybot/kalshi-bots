@@ -357,8 +357,6 @@ def build_call(asset, market, quote, ticker, cfg):
         live = win_probability(fired_call, spot, target, sigma, secs_left,
                                yes_bid, yes_ask)
         conf = confidence_state((live or {}).get("p"))
-        if live and live.get("model") is not None and live.get("market") is not None:
-            edge_points = (live["model"] - live["market"]) * 100.0
     phase = "called" if fired else ("lean" if mins_left > 0 else "closing")
 
     price_label, price_yes, price_no, no_bid_eff, no_ask_eff = price_strings(
@@ -396,6 +394,9 @@ def build_call(asset, market, quote, ticker, cfg):
         fired_entry_price=(fired or {}).get("entry_price"),
         fired_reason=(fired or {}).get("reason"),
         fired_drivers=(fired or {}).get("drivers"),
+        live_edge_points=(((live or {}).get("model") - (live or {}).get("market")) * 100.0
+                          if (live and live.get("model") is not None and live.get("market") is not None)
+                          else None),
         win_prob=((live or {}).get("p")), win_prob_model=((live or {}).get("model")),
         win_prob_market=((live or {}).get("market")),
         no_edge=no_edge, no_edge_price=no_edge_price, edge_points=edge_points,
