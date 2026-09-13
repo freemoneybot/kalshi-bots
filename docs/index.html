@@ -6,106 +6,101 @@
 <style>
 :root{
  --bg:#080a0e; --card:#11151c; --card2:#0c1015; --line:#1d222c;
- --txt:#e8ecf3;
+ --txt:#e8ecf3; --dim:#8a93a3; --dim2:#616b7d;
  --up:#25d07d; --dn:#ff5c5c; --amber:#ffb020; --no:#7e889a; --acc:#4aa3ff;
  --r:14px;
 }
-:root{--dim:#8a93a3;--dim2:#616b7d}
 *{box-sizing:border-box;-webkit-text-size-adjust:100%}
 html,body{overflow-x:hidden}
 body{margin:0 auto;background:var(--bg);color:var(--txt);max-width:720px;
  font:15px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,Segoe UI,system-ui,sans-serif;
- padding:16px 14px 60px}
+ padding:16px 14px 56px}
 .num{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
-h1{font-size:19px;font-weight:750;letter-spacing:.02em;margin:0 0 4px}
+h1{font-size:18px;font-weight:750;letter-spacing:.02em;margin:0 0 3px}
 .sub{color:var(--dim);font-size:12px;margin-bottom:14px}
 .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--up);
  margin-right:7px;vertical-align:middle}
 .dot.stale{background:var(--amber)}.dot.dead{background:var(--dn)}
 
-/* ---------- tab bar ---------- */
 .tabs{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;
  padding:5px;background:var(--card2);border:1px solid var(--line);border-radius:12px;
  margin-bottom:16px;position:sticky;top:0;z-index:9;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:1 1 0;min-width:62px;text-align:center;padding:11px 8px;border-radius:9px;
- font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--dim);
+.tab{flex:1 1 0;min-width:58px;text-align:center;padding:11px 6px;border-radius:9px;
+ font-size:13px;font-weight:700;letter-spacing:.05em;color:var(--dim);
  background:transparent;border:0;cursor:pointer;white-space:nowrap;transition:.15s}
 .tab[aria-selected="true"]{background:#1b222d;color:var(--txt);box-shadow:inset 0 0 0 1px #2a3342}
 .tab .pipdot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:5px;vertical-align:middle}
 
-/* ---------- cards ---------- */
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
- padding:16px;margin-bottom:14px}
-.card h2{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+ padding:18px 16px;margin-bottom:14px}
+.card h2{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);
  margin:0 0 10px;font-weight:650}
-.hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:4px}
-.asset{font-size:22px;font-weight:800;letter-spacing:.04em}
-.tick{color:var(--dim2);font-size:11px;text-align:right;word-break:break-all;line-height:1.35}
-.countdown{font-size:12px;color:var(--dim)}
+.hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.asset{font-size:21px;font-weight:800;letter-spacing:.04em}
+.hd .meta{color:var(--dim2);font-size:11px;text-align:right;line-height:1.4}
 
-.callbox{border-radius:12px;padding:14px;text-align:center;margin:14px 0 12px}
-.callbox .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.8}
-.callbox .big{font-size:26px;font-weight:850;letter-spacing:.03em;margin-top:3px;line-height:1.2}
-.callbox .sm{font-size:12px;margin-top:6px;opacity:.9}
-.c-up{background:rgba(37,208,125,.12);border:1px solid rgba(37,208,125,.42);color:var(--up)}
-.c-dn{background:rgba(255,92,92,.12);border:1px solid rgba(255,92,92,.42);color:var(--dn)}
-.c-no{background:rgba(126,136,154,.09);border:1px solid rgba(126,136,154,.3);color:var(--no)}
-.lean{background:#0e1218;border:1px dashed #2b3342}
-.lean .big{font-size:20px;font-weight:750;opacity:.92}
-.lean.up{color:#7fe0b0}.lean.dn{color:#ff9a9a}.lean.none{color:var(--dim)}
-.leantag{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2);margin-top:7px}
+/* hero */
+.hero{text-align:center;margin:16px 0 14px}
+.hero .lbl{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim2)}
+.hero .big{font-size:34px;font-weight:850;letter-spacing:.02em;line-height:1.15;margin-top:2px}
+.hero .line2{font-size:14px;margin-top:6px;color:var(--dim)}
+.hero .line2 b{font-weight:700}
+.up{color:var(--up)}.dn{color:var(--dn)}.neu{color:var(--no)}.amb{color:var(--amber)}
+.hero.lean .big{font-size:24px;font-weight:750;opacity:.9}
 
-.badge{display:block;text-align:center;border-radius:11px;padding:11px;margin:0 0 12px;
- font-weight:850;font-size:15px;letter-spacing:.1em}
-.b-high{background:rgba(37,208,125,.16);color:var(--up);border:1px solid rgba(37,208,125,.45)}
-.b-low{background:rgba(255,176,32,.14);color:var(--amber);border:1px solid rgba(255,176,32,.45)}
-.b-bail{background:rgba(255,92,92,.2);color:#fff;border:1px solid var(--dn);
- box-shadow:0 0 0 3px rgba(255,92,92,.14);font-size:17px}
-.b-coin{background:rgba(126,136,154,.16);color:#cfd6e2;border:1px dashed #5b6678}
-.b-unknown{background:#12161d;color:var(--dim);border:1px solid var(--line)}
-.badge .note{display:block;font-weight:500;font-size:11.5px;letter-spacing:.02em;
- margin-top:5px;opacity:.85;text-transform:none}
+/* chip row */
+.chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:0 0 14px}
+.chip{font-size:11.5px;font-weight:750;letter-spacing:.07em;padding:6px 11px;border-radius:99px;
+ border:1px solid var(--line);color:var(--dim);background:var(--card2)}
+.chip.ok{color:var(--up);border-color:rgba(37,208,125,.45);background:rgba(37,208,125,.10)}
+.chip.warn{color:var(--amber);border-color:rgba(255,176,32,.45);background:rgba(255,176,32,.10)}
+.chip.bad{color:#fff;border-color:var(--dn);background:rgba(255,92,92,.22)}
+.chip.info{color:#8ec5ff;border-color:rgba(74,163,255,.4);background:rgba(74,163,255,.10)}
 
-.wp{margin:0 0 12px}
+/* win prob */
+.wp{margin:0 0 14px}
 .wp .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
-.wp .k{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-.wp .p{font-size:24px;font-weight:800}
-.bar{height:7px;border-radius:99px;background:#1a1f28;overflow:hidden;position:relative}
+.wp .k{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.wp .p{font-size:22px;font-weight:800}
+.bar{height:6px;border-radius:99px;background:#1a1f28;overflow:hidden;position:relative}
 .bar i{display:block;height:100%;border-radius:99px;transition:width .4s ease}
 .bar u{position:absolute;top:-3px;bottom:-3px;width:2px;background:#3a4354;left:50%}
-.wp .sm{font-size:11px;color:var(--dim);margin-top:6px}
+.wp .sm{font-size:11px;color:var(--dim2);margin-top:5px}
 
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
-.cell{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:9px 10px;min-width:0}
-.cell .k{color:var(--dim);font-size:10px;letter-spacing:.09em;text-transform:uppercase}
-.cell .v{font-size:15px;margin-top:3px;word-break:break-word}
-.why{color:#c2c9d6;font-size:13px;margin-top:8px}
-.flip{background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.35);color:#ffd28a;
- border-radius:10px;padding:10px;font-size:12.5px;margin-top:10px}
-.sig{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
-.s{font-size:12.5px;color:#bcc4d2;margin:5px 0}.s b{color:var(--txt);font-weight:650}
-.lu{color:var(--up)}.ld{color:var(--dn)}.lm{color:var(--dim)}
-.pips{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
-.pip{width:13px;height:13px;border-radius:4px}
-.pip.w{background:rgba(37,208,125,.85)}.pip.l{background:rgba(255,92,92,.85)}
-.rec{border-top:1px solid var(--line);margin-top:12px;padding-top:10px;font-size:12.5px;color:#bcc4d2}
-.pct{font-weight:850;font-size:19px}
+/* one compact signal row */
+.sigrow{font-size:12.5px;color:#b9c1cf;line-height:1.75;margin:0 0 12px;word-break:break-word}
+.sigrow b{color:var(--txt);font-weight:650}
+.sep{color:var(--dim2);margin:0 2px}
+
+/* reversal alert */
+.alert{display:flex;gap:9px;align-items:flex-start;background:rgba(255,176,32,.12);
+ border:1px solid rgba(255,176,32,.5);color:#ffd28a;border-radius:11px;
+ padding:11px 12px;font-size:13px;font-weight:600;margin:0 0 13px;line-height:1.45}
+.alert .ic{font-size:15px;line-height:1.2}
+
+/* record */
+.rec{border-top:1px solid var(--line);margin-top:14px;padding-top:11px;
+ font-size:12.5px;color:var(--dim)}
+.rec .top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.pct{font-weight:850;font-size:20px}
 .good{color:var(--up)}.bad{color:var(--dn)}.mid{color:var(--amber)}
-.small{color:var(--dim);font-size:11.5px;line-height:1.6;display:block}
-.banner{border-radius:11px;padding:11px 12px;font-size:12px;line-height:1.55;margin-bottom:14px}
-.warn{background:#241a09;border:1px solid #4d3810;color:#f0c27a}
-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
+.rec .sm{display:block;color:var(--dim2);font-size:11.5px;margin-top:4px}
+.pnl{font-weight:800;font-size:15px}
+.pips{display:flex;gap:4px;flex-wrap:wrap;margin-top:9px}
+.pip{width:12px;height:12px;border-radius:4px}
+.pip.w{background:rgba(37,208,125,.85)}.pip.l{background:rgba(255,92,92,.85)}
+
+table{width:100%;border-collapse:collapse;font-size:12px}
 th,td{text-align:left;padding:7px 5px;border-bottom:1px solid var(--line);white-space:nowrap}
-th{color:var(--dim);font-size:10px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
-footer{color:var(--dim2);font-size:11.5px;margin-top:24px;line-height:1.65}
-input,button{font:inherit}
+th{color:var(--dim2);font-size:10px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+footer{color:var(--dim2);font-size:11px;margin-top:22px;line-height:1.6}
+.small{color:var(--dim2);font-size:11.5px}
 
 .chartcard{padding:12px 10px 10px}
 .chartcard h2{margin:0 0 8px 2px}
 .tvbox{height:400px;width:100%;overflow:hidden;border-radius:10px}
-@media(max-width:400px){.tvbox{height:380px}}
-@media(max-width:400px){.asset{font-size:20px}.callbox .big{font-size:23px}.grid{gap:7px}}
+@media(max-width:400px){.tvbox{height:360px}.asset{font-size:19px}.hero .big{font-size:30px}}
 </style></head><body>
 
 <h1>KALSHI 15-MINUTE BOTS</h1>
@@ -115,174 +110,230 @@ input,button{font:inherit}
 <div id="view"></div>
 <div id="charts"></div>
 
-<footer>
-One call per round, at the 7-minute mark. Before it, the card shows an <b>expected</b> lean only —
-a lean is never recorded and never counts in the record below. After the call, the win % is
-recomputed every refresh from the distance to the target line in units of remaining-time
-volatility, cross-checked against the market's own implied price.<br><br>
-Numbers are fetched server-side (Kalshi's API refuses browser requests) and served with this page.
-Spot: Coinbase for SOL/ETH/XRP and BTC. Kalshi settles the crypto contracts against CF Benchmarks
-RTI, so spot here is a close proxy, not the settlement print.<br>Anthony's private dashboard.
-</footer>
+<footer>One call per round at minute 7. Pre-7 is an expected lean — never recorded.
+Spot: Coinbase; Kalshi settles vs CF Benchmarks RTI. Near coin-flip markets, fees included in breakeven. Anthony's dashboard.</footer>
 
 <script>
 const BOTS=["sol","eth","xrp","btc"];
-const SMALL=30;
 let SNAP=null, TAB=(location.hash||"#all").slice(1).toLowerCase();
 if(!BOTS.includes(TAB))TAB="all";
 
 const esc=s=>String(s==null?"":s).replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));
-const f=(v,d)=>v==null?"—":"$"+Number(v).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
-const pc=v=>v==null?"—":(v*100).toFixed(0)+"%";
-const cts=v=>v==null?"—":(v*100).toFixed(0)+"¢";
-
-function mmss(sec){if(sec==null||!isFinite(sec))return"—";sec=Math.max(0,Math.round(sec));
+const num=v=>typeof v==="number"&&isFinite(v);
+const f=(v,d)=>num(v)?"$"+Number(v).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d}):"—";
+const pc=v=>num(v)?(v*100).toFixed(0)+"%":"—";
+const cts=v=>num(v)?(v*100).toFixed(0)+"¢":"—";
+function mmss(sec){if(!num(sec))return"—";sec=Math.max(0,Math.round(sec));
   return Math.floor(sec/60)+":"+String(sec%60).padStart(2,"0");}
-
-function confClass(s){return s==="HIGH"?"b-high":s==="LOW"?"b-low":s==="BAIL"?"b-bail":"b-unknown";}
 function barColor(p){return p>=0.70?"var(--up)":p>=0.45?"var(--amber)":"var(--dn)";}
 
-/* ------------------------------------------------ record block */
-function wrHTML(label,t){
-  if(!t||!t.settled)return `<div class="rec"><b>${esc(label)}</b> — no settled calls yet`+
-    (t?` <span class="small">(${t.no_calls} no-calls)</span>`:"")+`</div>`;
-  const p=t.win_rate,be=t.breakeven;
-  const cls=(be!=null&&p>be)?"good":(p>=0.5?"mid":"bad");
-  let h=`<div class="rec"><b>${esc(label)}</b> <span class="pct num ${cls}">${pc(p)}</span> `+
-    `<span class="small" style="display:inline">(${t.right}W-${t.wrong}L · ${t.no_calls} no-calls)</span>`;
-  if(t.streak)h+=` <span class="small" style="display:inline;color:${t.streak>0?"var(--up)":"var(--dn)"}">`+
-    `· ${Math.abs(t.streak)} ${t.streak>0?"W":"L"} streak</span>`;
-  if(t.small_sample)h+=`<span class="small">sample still under ${SMALL} settled calls</span>`;
-  if(be!=null)h+=`<span class="small">breakeven ${pc(be)} at avg entry ${cts(t.avg_entry)} including Kalshi's fee — the line that actually matters</span>`;
-  if(t.last20!=null)h+=`<span class="small">last 20: ${pc(t.last20)} (${t.last20_w}W-${t.last20_l}L)</span>`;
-  const q=x=>x&&x.wr!=null?`${pc(x.wr)} (${x.w}W-${x.l}L)`:"no data yet";
-  if(t.tiers){
-    const T=t.tiers, tq=x=>x&&x.n?`${x.w}W-${x.l}L (${pc(x.wr)})`:"none yet";
-    h+=`<span class="small">by tier — strong ${tq(T.strong)} · medium ${tq(T.medium)} · coin flip ${tq(T.coin_flip)}</span>`;
-    if(T.coin_flip&&T.coin_flip.n)h+=`<span class="small">coin-flip calls settle near 50% by definition and pull the overall number down — that is expected, not a bug. They exist because a call goes out every round.</span>`;
+/* ---------- paper P&L: find whatever the engine named it, render nothing if absent ---------- */
+const PNLKEY=/^(paper_?p(nl|_l|and_?l)?|pnl|paper|p_l|paper_profit|profit)$/i;
+function findPnl(o){
+  if(!o||typeof o!=="object")return null;
+  for(const k of Object.keys(o)){
+    if(PNLKEY.test(k)||/pnl/i.test(k)&&!/key/i.test(k)){
+      const v=o[k];
+      if(num(v))return{total:v,src:o};
+      if(v&&typeof v==="object")return{total:pickNum(v,["total","total_cents","net","net_cents","pnl","pnl_cents","cents","dollars","total_dollars"]),obj:v};
+    }
   }
-  h+=`<span class="small">older entries: high conviction ${q(t.high_conv)} · plain/weak ${q(t.plain)}</span>`;
+  return null;
+}
+function pickNum(o,keys){for(const k of keys){if(o&&num(o[k]))return o[k];}return null;}
+/* cents if the magnitude/name says cents, else dollars */
+function pnlText(p){
+  if(!p||!num(p.total))return null;
+  const o=p.obj||{};
+  let v=p.total, unit="¢";
+  const cents = o.unit==="cents"||o.total_cents!=null||o.pnl_cents!=null||o.net_cents!=null||Math.abs(v)>=1000;
+  let disp;
+  if(o.unit==="dollars"||o.total_dollars!=null){disp="$"+v.toFixed(2);}
+  else if(cents){disp=(v>=0?"+":"")+"$"+(v/100).toFixed(2);}
+  else {disp=(v>=0?"+":"")+"$"+v.toFixed(2);}
+  if(v>=0&&disp[0]!=="+"&&disp[0]!=="-")disp="+"+disp;
+  const n=pickNum(o,["n","calls","settled","trades"]);
+  const stake=pickNum(o,["stake","stake_cents","stake_dollars"]);
+  const roi=pickNum(o,["roi","return"]);
+  let sub=[];
+  if(num(stake))sub.push((stake>=10?("$"+(stake/100).toFixed(0)):("$"+stake.toFixed(0)))+"/call");
+  if(num(n))sub.push(n+" settled");
+  if(num(roi))sub.push((roi>=0?"+":"")+(roi*100).toFixed(0)+"% ROI");
+  return {disp, cls:v>=0?"good":"bad", sub:sub.join(" · ")};
+}
+function pnlHTML(label,src,inline){
+  const p=pnlText(findPnl(src));
+  if(!p)return "";
+  return `<span class="pnl ${p.cls} num">${esc(p.disp)}</span>`+
+    (p.sub?` <span class="small">${esc(p.sub)}</span>`:"");
+}
+
+/* ---------- record ---------- */
+function wrHTML(label,t,extraPnl){
+  const pnl=pnlHTML(label,t)||(extraPnl?pnlHTML(label,extraPnl):"");
+  if(!t||!t.settled)return `<div class="rec"><b>${esc(label)}</b> — no settled calls`+
+    (pnl?` <span class="sep">·</span> ${pnl}`:"")+`</div>`;
+  const p=t.win_rate,be=t.breakeven;
+  const cls=(num(be)&&p>be)?"good":(p>=0.5?"mid":"bad");
+  let h=`<div class="rec"><div class="top"><b>${esc(label)}</b> `+
+    `<span class="pct num ${cls}">${pc(p)}</span> `+
+    `<span class="num">${t.right}W–${t.wrong}L</span>`;
+  if(pnl)h+=` <span class="sep">·</span> ${pnl}`;
+  h+=`</div>`;
+  let bits=[];
+  if(num(be))bits.push("breakeven "+pc(be)+" @ "+cts(t.avg_entry));
+  if(num(t.last20))bits.push("last 20: "+pc(t.last20));
+  if(t.streak)bits.push(Math.abs(t.streak)+(t.streak>0?"W":"L")+" streak");
+  if(bits.length)h+=`<span class="sm num">${esc(bits.join(" · "))}</span>`;
+  const T=t.tiers;
+  if(T){
+    const tq=(n,x)=>x&&x.n?n+" "+x.w+"–"+x.l:null;
+    const tb=[tq("strong",T.strong),tq("med",T.medium),tq("flip",T.coin_flip)].filter(Boolean);
+    if(tb.length)h+=`<span class="sm num">${esc(tb.join(" · "))}</span>`;
+  }
   return h+`</div>`;
 }
 
 function pipsHTML(key){
   const rows=(SNAP.recent||{})[key]||[];
   if(!rows.length)return "";
-  return `<div class="pips">`+rows.map(r=>`<span class="pip ${r.correct?"w":"l"}" title="${esc(r.call)} ${r.correct?"win":"loss"}"></span>`).join("")+`</div>`;
+  return `<div class="pips">`+rows.map(r=>`<span class="pip ${r.correct?"w":"l"}"></span>`).join("")+`</div>`;
 }
 
-/* ------------------------------------------------ one bot card */
+/* ---------- reversal: only when real ---------- */
+function reversalHTML(r){
+  const rv=r.reversal;
+  if(!r.reversal_flag&&!(rv&&rv.flag))return "";
+  const level=rv&&rv.level?String(rv.level):"";
+  let txt="";
+  if(rv&&Array.isArray(rv.reasons)&&rv.reasons.length)txt=rv.reasons.join(" · ");
+  else if(r.reversal_text)txt=String(r.reversal_text).replace(/^PROJECTED FLIP INCOMING\s*—\s*/,"");
+  if(!txt)return "";
+  if(txt.length>180)txt=txt.slice(0,177)+"…";
+  const dir=rv&&rv.direction?String(rv.direction).toUpperCase():"";
+  const head="FLIP"+(dir?" "+(dir==="UP"?"↑":"↓"):"")+(level&&level!=="watch"?" · "+level.toUpperCase():"");
+  return `<div class="alert"><span class="ic">⚠</span><span><b>${esc(head)}</b> — ${esc(txt)}</span></div>`;
+}
+
+/* ---------- one compact signal row ---------- */
+function sigRow(r){
+  const b=[];
+  if(num(r.rsi))b.push("RSI "+r.rsi.toFixed(0)+(r.rsi_state?" "+r.rsi_state:""));
+  if(r.fvg_distance!=null&&num(r.fvg_distance))b.push("FVG "+Number(r.fvg_distance).toFixed(2)+" away");
+  else if(Array.isArray(r.fvgs)&&r.fvgs.length)b.push("FVG open");
+  const m=r.momentum_multi||{};
+  if(num(m.m3))b.push("mom "+(m.m3>0?"+":"")+m.m3.toFixed(r.dec==null?2:r.dec));
+  if(num(r.dist_vol))b.push(r.dist_vol.toFixed(1)+"σ to line");
+  if(r.skew&&num(r.skew.yes_mid))b.push("book "+cts(r.skew.yes_mid)+(r.skew.market_dir?" "+String(r.skew.market_dir).toUpperCase():""));
+  if(num(r.open_interest))b.push("OI "+Number(r.open_interest).toLocaleString(undefined,{maximumFractionDigits:0}));
+  if(!b.length)return "";
+  return `<div class="sigrow num">`+b.map(esc).join('<span class="sep">·</span>')+`</div>`;
+}
+
+/* ---------- key numbers, one line ---------- */
+function keyRow(r){
+  const d=r.dec==null?2:r.dec;
+  const bits=[];
+  bits.push("spot "+f(r.spot,d).replace("$",""));
+  bits.push("line "+f(r.target,d).replace("$",""));
+  if(num(r.gap))bits.push("gap "+(r.gap>0?"+":"")+f(r.gap,d).replace("$",""));
+  if(num(r.band))bits.push("band "+f(r.band,d).replace("$",""));
+  return `<div class="sigrow num">`+bits.map(esc).join('<span class="sep">·</span>')+`</div>`;
+}
+
+/* ---------- card ---------- */
 function card(key,r,rec,full){
   const d=r.dec==null?2:r.dec;
-  const head=`<div class="hd"><span class="asset">${esc(r.label)}</span>`+
-    `<span class="tick num">${esc(r.ticker||"")}<br><span class="countdown">`+
-    (r.closed||r.error?"":`${mmss(r.secs_left)} to close · minute ${(r.elapsed_min||0).toFixed(1)}`)+`</span></span></div>`;
-  if(r.error)return `<div class="card">${head}<div class="callbox c-no"><div class="big">DATA ERROR</div></div>
-    <div class="why">${esc(r.error)} — retrying.</div>${wrHTML(r.label,rec)}${pipsHTML(key)}</div>`;
-  if(r.closed)return `<div class="card">${head}<div class="callbox c-no"><div class="big">BETWEEN ROUNDS</div></div>
-    <div class="why">${esc(r.note)}</div><div class="why small">Last spot: ${f(r.spot,d)} (${esc(r.spot_source)}).</div>
+  const head=`<div class="hd"><span class="asset">${esc(r.label)}</span><span class="meta num">`+
+    (r.closed||r.error?esc(r.ticker||""):`${mmss(r.secs_left)} left<br>min ${(r.elapsed_min||0).toFixed(1)}`)+
+    `</span></div>`;
+
+  if(r.error)return `<div class="card">${head}
+    <div class="hero"><div class="big neu">DATA ERROR</div><div class="line2">${esc(r.error)}</div></div>
+    ${wrHTML(r.label,rec)}${pipsHTML(key)}</div>`;
+  if(r.closed)return `<div class="card">${head}
+    <div class="hero"><div class="big neu">BETWEEN ROUNDS</div>
+    <div class="line2 num">last ${f(r.spot,d)}</div></div>
     ${wrHTML(r.label,rec)}${pipsHTML(key)}</div>`;
 
   let h=`<div class="card">${head}`;
   const fired=r.fired_call==="UP"||r.fired_call==="DOWN";
   const stoodDown=r.fired_call==="NO CALL";
-
   const noEdge=r.no_edge===true||r.conviction==="no_edge";
 
-  if(noEdge){
-    h+=`<div class="callbox" style="background:rgba(74,163,255,.10);border:1px solid rgba(74,163,255,.4);color:#8ec5ff">
-      <div class="lbl">minute 7</div>
-      <div class="big">NO EDGE — already priced ${cts(r.no_edge_price)}</div>
-      <div class="sm">signal is there, the money isn't — not called, not recorded</div></div>`;
-    h+=`<div class="why">${esc(r.reason)}</div>`;
+  if(noEdge&&!fired){
+    h+=`<div class="hero"><div class="lbl">minute 7</div>
+      <div class="big" style="color:#8ec5ff">NO EDGE</div>
+      <div class="line2 num">priced ${cts(r.no_edge_price)} — not called</div></div>`;
   }else if(stoodDown){
-    h+=`<div class="callbox c-no"><div class="lbl">the call · minute ${r.fired_mark==null?7:r.fired_mark}</div>
-      <div class="big">— NO CALL</div>
-      <div class="sm">stood down this round — no position, nothing to win or lose</div></div>`;
-    h+=`<div class="why">${esc(r.fired_reason||r.reason)}</div>`;
+    h+=`<div class="hero"><div class="lbl">minute ${r.fired_mark==null?7:r.fired_mark}</div>
+      <div class="big neu">NO CALL</div>
+      <div class="line2">stood down</div></div>`;
   }else if(fired){
-    h+=`<div class="callbox ${r.fired_call==="UP"?"c-up":"c-dn"}">
-      <div class="lbl">the call · minute ${r.fired_mark==null?7:r.fired_mark}</div>
-      <div class="big">${r.fired_call==="UP"?"↑ UP":"↓ DOWN"}</div>
-      <div class="sm num">${esc(r.fired_price_label||r.price_label||"")}</div></div>`;
-    const p=r.win_prob;
-    const tier=r.tier||r.conviction;
-    if(tier==="strong"||tier==="medium"||tier==="coin_flip"){
-      const tc=tier==="strong"?"b-high":tier==="medium"?"b-low":"b-coin";
-      const tl=tier==="strong"?"STRONG":tier==="medium"?"MEDIUM":"COIN FLIP";
-      const tn=tier==="strong"?"gap well outside the noise, signals agree":
-        tier==="medium"?"decent read, some conflict":
-        "the gap is INSIDE the noise band — near 50/50, called because every round gets a call";
-      h+=`<div class="badge ${tc}">${tl}<span class="note">${tn}</span></div>`;
-    }
-    if(r.no_edge)h+=`<div class="badge" style="background:rgba(74,163,255,.12);color:#8ec5ff;border:1px solid rgba(74,163,255,.45)">NO EDGE — ALREADY PRICED ${cts(r.no_edge_price)}<span class="note">the call stands; there is no money left in it at this price</span></div>`;
-    h+=`<div class="badge ${confClass(r.confidence)}">${esc(r.confidence_label||"NO READ")}
-      <span class="note">${esc(r.confidence_note||"")}</span></div>`;
-    h+=`<div class="wp"><div class="row"><span class="k">live win probability</span>
-        <span class="p num" style="color:${p==null?"var(--dim)":barColor(p)}">${pc(p)}</span></div>
-      <div class="bar"><u></u><i style="width:${p==null?0:Math.round(p*100)}%;background:${p==null?"#333":barColor(p)}"></i></div>
-      <div class="sm num">model ${pc(r.win_prob_model)} · market implied ${pc(r.win_prob_market)}`+
-      (r.edge_points==null?"":` · edge ${r.edge_points>0?"+":""}${r.edge_points.toFixed(0)} pts`)+
-      ` · ${mmss(r.secs_left)} left</div></div>`;
+    const up=r.fired_call==="UP";
+    const price=num(r.fired_entry_price)?cts(r.fired_entry_price):(r.fired_price_label||r.price_label||"");
+    let l2=`<b class="num">${esc(price)}</b>`;
+    if(num(r.edge_points))l2+=` <span class="sep">·</span> edge <b class="num ${r.edge_points>0?"good":"bad"}">${(r.edge_points>0?"+":"")+r.edge_points.toFixed(0)} pts</b>`;
+    h+=`<div class="hero"><div class="lbl">the call · minute ${r.fired_mark==null?7:r.fired_mark}</div>
+      <div class="big ${up?"up":"dn"}">${up?"↑ UP":"↓ DOWN"}</div>
+      <div class="line2">${l2}</div></div>`;
   }else{
     const L=r.expected||{};
     const dir=L.dir;
-    h+=`<div class="callbox lean ${dir==="UP"?"up":dir==="DOWN"?"dn":"none"}">
-      <div class="lbl">before the 7-minute mark</div>
-      <div class="big">${dir?("Expected: "+(dir==="UP"?"↑ UP":"↓ DOWN")):"Expected: no lean yet"}</div>
-      <div class="leantag">expected — not the call yet · not recorded</div></div>`;
-    if(L.why&&L.why.length)h+=`<div class="why">${esc(L.why.join(" · "))}</div>`;
-    h+=`<div class="why small">The real call fires at minute 7. Right now: minute ${(r.elapsed_min||0).toFixed(1)}.</div>`;
+    h+=`<div class="hero lean"><div class="lbl">pre-7 lean</div>
+      <div class="big ${dir==="UP"?"up":dir==="DOWN"?"dn":"neu"}">${dir?(dir==="UP"?"↑ UP":"↓ DOWN"):"no lean"}</div>`;
+    let l2=[];
+    if(num(r.cand_market_p))l2.push(cts(r.cand_market_p));
+    if(num(r.edge_points))l2.push("edge "+(r.edge_points>0?"+":"")+r.edge_points.toFixed(0)+" pts");
+    h+=`<div class="line2 num">${esc(l2.join(" · ")||"expected — not recorded")}</div></div>`;
   }
 
-  h+=`<div class="grid">
-    <div class="cell"><div class="k">spot</div><div class="v num">${f(r.spot,d)}</div></div>
-    <div class="cell"><div class="k">target line</div><div class="v num">${f(r.target,d)}</div></div>
-    <div class="cell"><div class="k">distance</div><div class="v num">${r.gap==null?"—":(r.gap>0?"+":"")+f(r.gap,d).replace("$","")+(r.dist_vol?` · ${r.dist_vol.toFixed(1)}σ`:"")}</div></div>
-    <div class="cell"><div class="k">noise band</div><div class="v num">${f(r.band,d)}</div></div>
-    <div class="cell"><div class="k">contract</div><div class="v num">${esc(r.price_yes||"")}<br>${esc(r.price_no||"")}</div></div>
-    <div class="cell"><div class="k">rsi(14)</div><div class="v num">${r.rsi==null?"—":r.rsi.toFixed(0)} <span class="small" style="display:inline">${esc(r.rsi_state||"")}</span></div></div>
-    <div class="cell"><div class="k">momentum 3m</div><div class="v num">${r.momentum_multi&&r.momentum_multi.m3!=null?(r.momentum_multi.m3>0?"+":"")+r.momentum_multi.m3.toFixed(d):"—"}</div></div>
-    <div class="cell"><div class="k">book skew</div><div class="v num">${r.skew&&r.skew.yes_mid!=null?cts(r.skew.yes_mid)+" "+(r.skew.market_dir||"").toUpperCase():"—"}</div></div>
-    <div class="cell"><div class="k">vol / min</div><div class="v num">${f(r.sigma,d)}</div></div>
-    <div class="cell"><div class="k">open interest</div><div class="v num">${r.open_interest==null?"—":Number(r.open_interest).toLocaleString(undefined,{maximumFractionDigits:0})}</div></div>
-  </div>`;
+  /* chips: tier + confidence */
+  const chips=[];
+  const tier=r.tier||r.conviction;
+  if(fired&&(tier==="strong"||tier==="medium"||tier==="coin_flip")){
+    chips.push(`<span class="chip ${tier==="strong"?"ok":tier==="medium"?"warn":""}">${tier==="coin_flip"?"COIN FLIP":tier.toUpperCase()}</span>`);
+  }
+  if(fired&&r.confidence){
+    const c=r.confidence==="BAIL"?"bad":r.confidence==="HIGH"?"ok":r.confidence==="LOW"?"warn":"";
+    chips.push(`<span class="chip ${c}">${esc(r.confidence)}</span>`);
+  }
+  if(fired&&r.no_edge)chips.push(`<span class="chip info">PRICED ${cts(r.no_edge_price)}</span>`);
+  if(chips.length)h+=`<div class="chips">${chips.join("")}</div>`;
 
-  if(r.reversal_flag)h+=`<div class="flip">⚠ ${esc(r.reversal_text)}</div>`;
-  if(!stoodDown){
-    let why=String(fired?(r.fired_reason||r.reason):r.reason||"").split("PROJECTED FLIP")[0].trim();
-    h+=`<div class="why">${esc(why)}</div>`;
+  if(fired){
+    const p=r.win_prob;
+    h+=`<div class="wp"><div class="row"><span class="k">win prob</span>
+      <span class="p num" style="color:${num(p)?barColor(p):"var(--dim)"}">${pc(p)}</span></div>
+      <div class="bar"><u></u><i style="width:${num(p)?Math.round(p*100):0}%;background:${num(p)?barColor(p):"#333"}"></i></div>
+      <div class="sm num">model ${pc(r.win_prob_model)} <span class="sep">·</span> market ${pc(r.win_prob_market)} <span class="sep">·</span> ${mmss(r.secs_left)} left</div></div>`;
   }
 
-  if(full&&r.signals&&r.signals.length){
-    h+=`<div class="sig">`+r.signals.map(s=>{
-      const c=s.lean==="up"?"lu":s.lean==="down"?"ld":"lm";
-      return `<div class="s"><b>${esc(s.name)}</b> <span class="${c}">${s.lean?s.lean.toUpperCase():"—"}</span> · ${esc(s.text)}</div>`;
-    }).join("")+`</div>`;
-  }
-  h+=wrHTML(r.label,rec)+pipsHTML(key);
+  h+=reversalHTML(r);
+  h+=keyRow(r);
+  h+=sigRow(r);
+  h+=wrHTML(r.label,rec,r)+pipsHTML(key);
   return h+`</div>`;
 }
 
-/* ------------------------------------------------ log table */
+/* ---------- log ---------- */
 function logHTML(filter){
   let rows=(SNAP.log||[]).filter(r=>!r.is_scalp);
   if(filter)rows=rows.filter(r=>String(r.ticker||"").toUpperCase().includes(filter.toUpperCase()));
-  rows=rows.slice(0,18);
+  rows=rows.slice(0,14);
   if(!rows.length)return `<div class="small">nothing yet</div>`;
   return `<table><thead><tr><th>time</th><th>call</th><th>price</th><th>result</th></tr></thead><tbody>`+
    rows.map(r=>{
-    const t=r.ts?new Date(r.ts*1000).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}):"—";
-    const c=r.call==="UP"?"lu":r.call==="DOWN"?"ld":"lm";
-    const res=r.call==="NO CALL"?`<span class="lm">stood down</span>`:
-      r.correct==null?(r.result?"pending":"open"):(r.correct?`<span class="good">WIN</span>`:`<span class="bad">LOSS</span>`);
+    const t=r.ts?new Date(r.ts*1000).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}):"—";
+    const c=r.call==="UP"?"good":r.call==="DOWN"?"bad":"small";
+    const res=r.call==="NO CALL"?`<span class="small">—</span>`:
+      r.correct==null?`<span class="small">open</span>`:(r.correct?`<span class="good">W</span>`:`<span class="bad">L</span>`);
     return `<tr><td class="num">${t}</td><td class="${c}">${esc(r.call)}</td>`+
-      `<td class="num">${r.entry_price!=null?cts(r.entry_price):"—"}</td><td>${res}</td></tr>`;
+      `<td class="num">${num(r.entry_price)?cts(r.entry_price):"—"}</td><td>${res}</td></tr>`;
    }).join("")+`</tbody></table>`;
 }
 
-
-/* ------------------------------------------------ TradingView charts (lazy, one per bot tab) */
+/* ---------- TradingView charts (lazy, one per bot tab) ---------- */
 const TVSYM={sol:"COINBASE:SOLUSD",eth:"COINBASE:ETHUSD",xrp:"COINBASE:XRPUSD",btc:"COINBASE:BTCUSD"};
 function mountChart(tab){
   const wrap=document.getElementById("charts");
@@ -308,7 +359,7 @@ function mountChart(tab){
   el.style.display="";
 }
 
-/* ------------------------------------------------ render */
+/* ---------- render ---------- */
 function tabsHTML(){
   const mk=(id,label)=>{
     let dotc="";
@@ -329,21 +380,15 @@ function render(){
   const dot=document.getElementById("dot");
   dot.className="dot"+(age>120?" dead":age>60?" stale":"");
   document.getElementById("clock").textContent=
-    `updated ${age<60?Math.round(age)+"s":Math.round(age/60)+"m"} ago · `+
-    new Date(SNAP.generated_at*1000).toLocaleTimeString();
+    `updated ${age<60?Math.round(age)+"s":Math.round(age/60)+"m"} ago`;
   document.getElementById("tabs").innerHTML=tabsHTML();
 
   const rec=SNAP.record||{}, A=SNAP.assets||{};
   let h="";
   if(TAB==="all"){
-    h+=`<div class="card"><h2>Headline record — all bots</h2>${wrHTML("ALL ASSETS",rec._overall)}</div>`;
-    h+=`<div class="banner warn"><b>Read this every time.</b> These are near coin-flip markets.
-      This is a filter that tries to keep you out of the noise, plus price-action reads that are
-      widely-used heuristics and <b>not</b> proven on a 15-minute binary. Kalshi charges a fee, so a
-      win rate above 50% is not automatically profitable — the breakeven line sits next to every
-      percentage. Small size, or none.</div>`;
+    h+=`<div class="card"><h2>Headline record</h2>${wrHTML("ALL BOTS",rec._overall,SNAP)}</div>`;
     BOTS.forEach(b=>{if(A[b])h+=card(b,A[b],rec[b],false);});
-    h+=`<div class="card"><h2>Recent calls &amp; how they settled</h2>${logHTML(null)}</div>`;
+    h+=`<div class="card"><h2>Recent calls</h2>${logHTML(null)}</div>`;
   }else{
     const r=A[TAB];
     h+= r?card(TAB,r,rec[TAB],true):`<div class="card">no data for ${esc(TAB)}</div>`;
