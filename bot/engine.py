@@ -1,6 +1,6 @@
 """The call engine + record keeping + Kalshi fees."""
 import json, math, os, time, datetime as dt
-from kalshi_core import ASSETS, KALSHI, RECORD_DIR, _get, DISCLAIMER
+from kalshi_core import ASSETS, CRYPTO, KALSHI, RECORD_DIR, _get, DISCLAIMER
 import signals as S
 import flow as F
 import fng as FNG
@@ -136,7 +136,10 @@ def build_call(asset, market, quote, ticker, cfg):
                 market_dir=("up" if (yes_mid or 0) > 0.5 else "down") if yes_mid else None,
                 edge=(abs((yes_mid or 0.5) - 0.5) * 200))    # in cents off the coin flip
     hist = asset_history(asset, gap_dir)
-    fear_greed = FNG.read()
+    # Crypto Fear & Greed is a CRYPTO index: it must never tilt gold, silver or oil.
+    fear_greed = (FNG.read() if asset in CRYPTO
+                  else {"available": False,
+                        "why": "crypto Fear & Greed does not apply to this market"})
 
     # ---- base filter: the noise band, scaled to the time LEFT in the round
     band = (sigma * math.sqrt(max(mins_left, 0.25)) * st["noise_k"]) if sigma else None
@@ -310,30 +313,36 @@ def build_call(asset, market, quote, ticker, cfg):
             if model_p is not None and market_p is not None:
                 edge_points = (model_p - market_p) * 100.0
         too_rich = bool(side_ask and side_ask > max_price)
+        # One exception, and it is an EV exception, not a confidence one: a
+        # slightly richer contract still pays when our edge over the market is
+        # big (2x the gate) and the price is not yet in the dead zone.
+        stretch = float(st.get("stretch_price") or 0.78)
+        if (too_rich and side_ask <= stretch and edge_points is not None
+                and edge_points >= 2.0 * min_edge):
+            too_rich = False
+            reasons.append(f"Over the {cents(max_price)} ceiling, taken anyway on "
+                           f"{edge_points:+.1f} pts of edge.")
         thin_edge = (edge_points is not None and edge_points < min_edge)
         tradeable = not (too_rich or thin_edge)
-        edge_txt = (f"edge {edge_points:+.1f} pts (our {model_p*100:.0f}% vs the market's "
-                    f"{market_p*100:.0f}%)") if edge_points is not None else "edge unmeasurable"
+        edge_txt = (f"edge {edge_points:+.1f} pts ({model_p*100:.0f}% us vs "
+                    f"{market_p*100:.0f}% market)") if edge_points is not None else "edge unmeasurable"
         if too_rich or thin_edge:
             no_edge = True
             no_edge_price = side_ask
             why = []
             if too_rich:
-                why.append(f"that side already costs {cents(side_ask)} (over the "
-                           f"{cents(max_price)} ceiling) \u2014 risking {cents(side_ask)} to win "
-                           f"{cents(1 - side_ask)}, so one loss erases "
-                           f"{max(1, int(side_ask / max(1 - side_ask, 0.01)))} wins")
+                why.append(f"costs {cents(side_ask)} to win {cents(1 - side_ask)}")
             if thin_edge:
-                why.append(f"{edge_txt} is under the {min_edge:.0f}-point edge this gate needs "
-                           f"\u2014 the price already knows what we know")
-            reasons.append("PRICED OUT \u2014 the call stands and the read has not changed, but "
-                           + "; ".join(why) + ". Don't buy it here.")
+                why.append(edge_txt)
+            reasons.append("PRICED OUT \u2014 " + "; ".join(why) + ". Call stands; don't buy it here.")
         else:
-            reasons.append(f"EV OK \u2014 {cents(side_ask)} to win {cents(1 - side_ask)}, "
-                           f"{edge_txt}. This one pays if it lands.")
+            reasons.append(f"BUY \u2014 {cents(side_ask)} to win {cents(1 - side_ask)}, {edge_txt}.")
 
-    if call != "NO CALL" and flip_warn["flag"]:
-        reasons.append(flip_warn["text"])
+    # REVERSAL: order flow only (see flow_reversal). The technical read stays
+    # as a quiet note; it no longer raises the flag on its own.
+    rev = flow_reversal(call, wt, wo, mom_multi, sigma, gap, gap_dir, tech=flip_warn)
+    if call != "NO CALL" and rev["flag"]:
+        reasons.append(rev["text"])
 
     # ---- the pre-minute-7 LEAN (never recorded, never settled) and the live
     # win probability of the headline call once it has actually fired.
@@ -373,8 +382,10 @@ def build_call(asset, market, quote, ticker, cfg):
         flip=flip, scalp=F.scalp(yes_ask, no_ask_eff, sig_lean, yes_bid=yes_bid,
                                  no_bid=no_bid_eff, trades=wt, orders=wo),
         rsi=rsi_v, rsi_state=rsi_st, momentum_multi=mom_multi, fvg_distance=fvg_dist,
-        dist_vol=dist_vol, skew=skew, history=hist, reversal=flip_warn,
-        reversal_flag=bool(flip_warn["flag"]), reversal_text=flip_warn["text"],
+        dist_vol=dist_vol, skew=skew, history=hist, reversal=rev,
+        reversal_flag=bool(rev["flag"]), reversal_text=rev["text"],
+        reversal_trigger=rev.get("trigger"), reversal_why=rev.get("why"),
+        reversal_technical=flip_warn,
         drivers=drivers, gate_k=float(st.get("conviction_gate_k") or 1.5),
         spot_source=quote.source, quote_age=quote.age, bars_note=ticker.source_note(),
         close_time=market["close_time"], dec=A["dec"], ts=time.time(),
@@ -598,7 +609,8 @@ ENTRY_KEYS = ("ticker", "call", "weak", "conviction", "gap", "gap_pct", "sigma",
               "rsi", "rsi_state", "dist_vol", "reversal_flag", "reversal_text",
               "drivers", "tier", "tier_label", "no_edge", "no_edge_price", "edge_points",
               "tradeable", "side_ask", "cand_model_p", "cand_market_p",
-              "fng_value", "fng_class", "fng_tilt", "fng_text", "expected")
+              "fng_value", "fng_class", "fng_tilt", "fng_text", "expected",
+              "reversal_trigger", "reversal_why")
 
 
 def make_entry(c, mark, final):
@@ -693,6 +705,113 @@ def asset_history(asset, direction):
     return dict(n=n, w=w, l=n - w, wr=(w / n if n else None), small=n < 5,
                 direction=direction)
 
+# ---------------------------------------------------------------- reversal (flow only)
+def flow_reversal(call, wt, wo, mom_multi, sigma, gap, gap_dir, tech=None):
+    """REVERSAL RISK fires on ORDER FLOW, not on soft technicals.
+
+    Anthony, Sep 13 2026: "Only announce reversal if whale orders come in etc" —
+    the old technical version fired on 60% of calls, which is no signal at all.
+    Triggers, all measured against the side we called:
+      * a size-outlier executed trade taken on the opposite side
+      * lopsided taker volume (>=3:1) against us
+      * a large resting order stacking on the opposite side since the last look
+      * or a hard adverse move: price back through the target line with
+        3-min momentum >= 1.5x per-minute vol against the call
+    RSI / FVG are never a trigger; they ride along as a note when flow fires.
+    """
+    if call not in ("UP", "DOWN"):
+        return dict(flag=False, text="", why=[], trigger=None)
+    against = "NO" if call == "UP" else "YES"
+    why, trigger = [], None
+
+    if wt and wt.get("available"):
+        for b in (wt.get("big") or []):
+            if b.get("side") == against:
+                med = wt.get("median") or 1
+                why.append(f"a {b['size']:,.0f}-lot {against} print "
+                           f"({b['size']/med:.0f}x the median trade) hit against the call")
+                trigger = "whale_trade"
+                break
+        yv, nv = wt.get("yes_vol") or 0, wt.get("no_vol") or 0
+        mine, theirs = (yv, nv) if call == "UP" else (nv, yv)
+        if trigger is None and (wt.get("n") or 0) >= 10 and theirs >= 3 * max(mine, 1):
+            why.append(f"taker volume is {theirs:,.0f} vs {mine:,.0f} against the call")
+            trigger = "flow_imbalance"
+
+    if wo and wo.get("available"):
+        for note in (wo.get("changes") or []):
+            if f"{against} order appeared" in note:
+                why.append(note + " (size stacking against the call)")
+                trigger = trigger or "whale_order"
+                break
+        if trigger is None:
+            for b in (wo.get("big") or []):
+                if b.get("side") == against and (b.get("x_median") or 0) >= 4:
+                    why.append(f"a {b['size']:,.0f}-lot {against} order rests at "
+                               f"{b['price']*100:.0f}\u00a2 ({b['x_median']:.0f}x the book's median)")
+                    trigger = "whale_order"
+                    break
+
+    if trigger is None:
+        m3 = (mom_multi or {}).get("m3")
+        crossed = (gap_dir == "down" and call == "UP") or (gap_dir == "up" and call == "DOWN")
+        adverse = m3 is not None and sigma and ((m3 < 0 and call == "UP") or (m3 > 0 and call == "DOWN")) \
+            and abs(m3) >= 1.5 * sigma
+        if crossed and adverse:
+            why.append(f"price is back through the target line with 3-min momentum "
+                       f"{abs(m3)/sigma:.1f}x vol against the call")
+            trigger = "hard_cross"
+
+    if trigger is None:
+        return dict(flag=False, text="", why=[], trigger=None)
+    if tech and tech.get("flag") and tech.get("text"):
+        why.append("technicals agree")
+    return dict(flag=True, trigger=trigger,
+                text="REVERSAL RISK \u2014 " + "; ".join(why) + ".", why=why)
+
+
+# ---------------------------------------------------------------- paper P&L
+PAPER_STAKE_CONTRACTS = 1
+
+
+def paper_pnl(calls):
+    """Paper profit and loss on the recorded headline calls, 1 contract each.
+
+    A win returns $1.00 and costs the recorded entry price plus Kalshi's fee;
+    a loss costs the entry price plus the fee. Entries with no recorded price
+    are excluded and counted, never guessed. Leans and scalps never count.
+    """
+    settled = [c for c in calls
+               if not c.get("is_scalp") and not EARLY(c)
+               and c.get("call") in ("UP", "DOWN")
+               and c.get("result") in ("yes", "no") and c.get("correct") is not None]
+    priced = [c for c in settled if c.get("entry_price")]
+    excluded = len(settled) - len(priced)
+    pnl = 0.0
+    fees = 0.0
+    staked = 0.0
+    w = 0
+    for c in priced:
+        px = float(c["entry_price"])
+        fee = kalshi_fee(px, PAPER_STAKE_CONTRACTS)
+        staked += px
+        fees += fee
+        if c.get("correct"):
+            pnl += (1.0 - px) - fee
+            w += 1
+        else:
+            pnl += -px - fee
+    n = len(priced)
+    return dict(stake="1 contract per call", n=n, w=w, l=n - w,
+                excluded_no_price=excluded,
+                pnl_dollars=round(pnl, 2), pnl_cents=round(pnl * 100, 1),
+                staked_dollars=round(staked, 2), fees_dollars=round(fees, 2),
+                avg_pnl_cents=(round(pnl * 100 / n, 1) if n else None),
+                avg_entry_cents=(round(sum(float(c["entry_price"]) for c in priced) * 100 / n, 1)
+                                 if n else None),
+                roi=(round(pnl / staked, 4) if staked else None))
+
+
 def tally(calls, small_sample=30):
     calls = [c for c in calls if not c.get("is_scalp") and not EARLY(c)]
     settled = [c for c in calls if c.get("result") in ("yes", "no") and c.get("call") in ("UP", "DOWN")]
@@ -720,7 +839,9 @@ def tally(calls, small_sample=30):
     entries = [c["entry_price"] for c in settled if c.get("entry_price")]
     avg_entry = sum(entries) / len(entries) if entries else None
     be = breakeven_win_rate(avg_entry) if avg_entry else None
+    pnl = paper_pnl(calls)
     return dict(
+        pnl=pnl,
         right=right, wrong=wrong, no_calls=len(nocalls), settled=len(settled),
         win_rate=all_wr, last20=last20_wr, last20_w=l20r, last20_l=l20w,
         high_conv=dict(wr=hi_wr, w=hir, l=hiw), plain=dict(wr=pl_wr, w=plr, l=plw),
