@@ -110,7 +110,7 @@ footer{color:var(--dim2);font-size:11px;margin-top:22px;line-height:1.6}
 <div id="view"></div>
 <div id="charts"></div>
 
-<footer>One call per round at minute 7. Pre-7 is an expected lean — never recorded.
+<footer>One call per round at minute 6. Pre-6 is an expected lean — never recorded.
 Spot: Coinbase; Kalshi settles vs CF Benchmarks RTI. Near coin-flip markets, fees included in breakeven. Anthony's dashboard.</footer>
 
 <script>
@@ -268,28 +268,28 @@ function card(key,r,rec,full){
   const noEdge=r.no_edge===true||r.conviction==="no_edge";
 
   if(noEdge&&!fired){
-    h+=`<div class="hero"><div class="lbl">minute 7</div>
+    h+=`<div class="hero"><div class="lbl">minute 6</div>
       <div class="big" style="color:#8ec5ff">NO EDGE</div>
       <div class="line2 num">priced ${cts(r.no_edge_price)} — not called</div></div>`;
   }else if(stoodDown){
-    h+=`<div class="hero"><div class="lbl">minute ${r.fired_mark==null?7:r.fired_mark}</div>
+    h+=`<div class="hero"><div class="lbl">minute ${r.fired_mark==null?6:r.fired_mark}</div>
       <div class="big neu">NO CALL</div>
       <div class="line2">stood down</div></div>`;
   }else if(fired){
     const up=r.fired_call==="UP";
-    const fp=num(r.fired_entry_price)?r.fired_entry_price:(num(r.entry_price)?r.entry_price:null);
+    const fp=num(r.call_entry_cents)?r.call_entry_cents/100:(num(r.fired_entry_price)?r.fired_entry_price:(num(r.entry_price)?r.entry_price:null));
     const price=num(fp)?("buy "+(up?"YES":"NO")+" "+cts(fp)):(r.fired_price_label||r.price_label||"");
     let l2=`<b class="num">${esc(price)}</b>`;
     if(num(r.edge_points))l2+=` <span class="sep">·</span> edge <b class="num ${r.edge_points>0?"good":"bad"}">${(r.edge_points>0?"+":"")+r.edge_points.toFixed(0)} pts</b>`;
-    h+=`<div class="hero"><div class="lbl">the call · minute ${r.fired_mark==null?7:r.fired_mark}</div>
+    h+=`<div class="hero"><div class="lbl">the call · minute ${r.fired_mark==null?6:r.fired_mark}</div>
       <div class="big ${up?"up":"dn"}">${up?"↑ UP":"↓ DOWN"}</div>
       <div class="line2">${l2}</div></div>`;
   }else{
     const L=r.expected||{};
     const dir=L.dir;
-    h+=`<div class="hero lean"><div class="lbl">pre-7 lean</div>
+    h+=`<div class="hero lean"><div class="lbl">pre-6 lean</div>
       <div class="big ${dir==="UP"?"up":dir==="DOWN"?"dn":"neu"}">${dir?(dir==="UP"?"↑ UP":"↓ DOWN"):"no lean"}</div>`;
-    const ep=num(L.entry_price)?L.entry_price:(num(r.entry_price)?r.entry_price:r.cand_market_p);
+    const ep=num(r.lean_entry_cents)?r.lean_entry_cents/100:(num(L.entry_price)?L.entry_price:(num(r.lean_entry_price)?r.lean_entry_price:(num(r.entry_price)?r.entry_price:r.cand_market_p)));
     let l2=[];
     if(num(ep))l2.push("buy "+(L.side||(dir==="UP"?"YES":"NO"))+" "+cts(ep));
     if(num(r.edge_points))l2.push("edge "+(r.edge_points>0?"+":"")+r.edge_points.toFixed(0)+" pts");
@@ -336,7 +336,7 @@ function logHTML(filter){
     const c=r.call==="UP"?"good":r.call==="DOWN"?"bad":"small";
     const res=r.correct==null?`<span class="small">open</span>`:(r.correct?`<span class="good">W</span>`:`<span class="bad">L</span>`);
     return `<tr><td class="num">${t}</td><td class="${c}">${esc(r.call)}</td>`+
-      `<td class="num">${num(r.entry_price)?cts(r.entry_price):"—"}</td><td>${res}</td></tr>`;
+      `<td class="num">${num(r.call_entry_cents)?cts(r.call_entry_cents/100):(num(r.entry_price)?cts(r.entry_price):"—")}</td><td>${res}</td></tr>`;
    }).join("")+`</tbody></table>`;
 }
 

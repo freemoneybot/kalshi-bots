@@ -768,17 +768,9 @@ def flow_reversal(call, wt, wo, mom_multi, sigma, gap, gap_dir, tech=None):
                 why.append(f"{against} takers {theirs:,.0f} vs {mine:,.0f}")
                 trigger = "flow_imbalance"
 
-    if trigger is None and wo and wo.get("available"):
-        import re as _re
-        for note in (wo.get("changes") or []):
-            if f"{against} order appeared" not in note:
-                continue
-            m = _re.match(r"a ([\d,]+)-lot", note)
-            size = float(m.group(1).replace(",", "")) if m else 0.0
-            if size >= MIN_ORDER:
-                why.append(f"{size:,.0f}-lot {against} order just stacked")
-                trigger = "whale_order"
-                break
+    # Resting-order stacking was tried and dropped: these books show 1,000-lot
+    # orders appearing and vanishing constantly, so it fired on a third of rounds
+    # and meant nothing. Executed flow only.
 
     if trigger is None:
         return dict(flag=False, text="", why=[], trigger=None)
