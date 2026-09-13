@@ -277,7 +277,8 @@ function card(key,r,rec,full){
       <div class="line2">stood down</div></div>`;
   }else if(fired){
     const up=r.fired_call==="UP";
-    const price=num(r.fired_entry_price)?cts(r.fired_entry_price):(r.fired_price_label||r.price_label||"");
+    const fp=num(r.fired_entry_price)?r.fired_entry_price:(num(r.entry_price)?r.entry_price:null);
+    const price=num(fp)?("buy "+(up?"YES":"NO")+" "+cts(fp)):(r.fired_price_label||r.price_label||"");
     let l2=`<b class="num">${esc(price)}</b>`;
     if(num(r.edge_points))l2+=` <span class="sep">·</span> edge <b class="num ${r.edge_points>0?"good":"bad"}">${(r.edge_points>0?"+":"")+r.edge_points.toFixed(0)} pts</b>`;
     h+=`<div class="hero"><div class="lbl">the call · minute ${r.fired_mark==null?7:r.fired_mark}</div>
@@ -288,8 +289,9 @@ function card(key,r,rec,full){
     const dir=L.dir;
     h+=`<div class="hero lean"><div class="lbl">pre-7 lean</div>
       <div class="big ${dir==="UP"?"up":dir==="DOWN"?"dn":"neu"}">${dir?(dir==="UP"?"↑ UP":"↓ DOWN"):"no lean"}</div>`;
+    const ep=num(L.entry_price)?L.entry_price:(num(r.entry_price)?r.entry_price:r.cand_market_p);
     let l2=[];
-    if(num(r.cand_market_p))l2.push(cts(r.cand_market_p));
+    if(num(ep))l2.push("buy "+(L.side||(dir==="UP"?"YES":"NO"))+" "+cts(ep));
     if(num(r.edge_points))l2.push("edge "+(r.edge_points>0?"+":"")+r.edge_points.toFixed(0)+" pts");
     h+=`<div class="line2 num">${esc(l2.join(" · ")||"expected — not recorded")}</div></div>`;
   }
