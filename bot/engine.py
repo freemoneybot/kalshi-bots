@@ -3,6 +3,7 @@ import json, math, os, time, datetime as dt
 from kalshi_core import ASSETS, KALSHI, RECORD_DIR, _get, DISCLAIMER
 import signals as S
 import flow as F
+import fng as FNG
 
 
 # ---------------------------------------------------------------- Kalshi fees
@@ -135,6 +136,7 @@ def build_call(asset, market, quote, ticker, cfg):
                 market_dir=("up" if (yes_mid or 0) > 0.5 else "down") if yes_mid else None,
                 edge=(abs((yes_mid or 0.5) - 0.5) * 200))    # in cents off the coin flip
     hist = asset_history(asset, gap_dir)
+    fear_greed = FNG.read()
 
     # ---- base filter: the noise band, scaled to the time LEFT in the round
     band = (sigma * math.sqrt(max(mins_left, 0.25)) * st["noise_k"]) if sigma else None
@@ -187,6 +189,12 @@ def build_call(asset, market, quote, ticker, cfg):
                          f"({hist['wr']*100:.0f}%) \u2014 under water")
         if chop:
             fails.append("an unfilled bullish AND bearish gap are both open (chop)")
+        if (fear_greed.get("available") and fear_greed.get("tilt")
+                and gap_dir in ("up", "down") and fear_greed["tilt"] != gap_dir
+                and fear_greed.get("strength", 0) >= 2):
+            fails.append(f"fear & greed is at {fear_greed['value']} "
+                         f"({fear_greed['classification']}) \u2014 an extreme reading tilting "
+                         f"against a {gap_dir.upper()} move")
         if spread > st["max_spread_dollars"]:
             fails.append(f"the spread is {spread*100:.0f}\u00a2 wide")
 
@@ -248,6 +256,8 @@ def build_call(asset, market, quote, ticker, cfg):
         if mom_multi and mom_multi.get("m3") is not None:
             drivers.append(f"momentum {mom_multi['m3']:+,.{dec}f}/3m"
                            + (f", {mom_multi['m15']:+,.{dec}f}/15m" if mom_multi.get("m15") is not None else ""))
+        if fear_greed.get("available") and fear_greed.get("tilt"):
+            drivers.append(fear_greed["text"])
         if hist["n"]:
             drivers.append(f"this asset's {gap_dir.upper()} setups: {hist['w']}W-{hist['l']}L"
                            + (" (small sample \u2014 weighted lightly)" if hist["n"] < 5 else ""))
@@ -272,14 +282,25 @@ def build_call(asset, market, quote, ticker, cfg):
         reasons.append(blocked)
 
 
-    # ---- PRICE-EDGE GATE: no call when the market has already decided it.
-    # An UP call at YES 95c risks 95c to win 5c; one loss erases nineteen wins.
-    # This is not a NO CALL (no signal) — it is signal with no money in it.
+    # ---- EXPECTED-VALUE GATE (Sep 13 2026, Anthony: "Stop calling so high ...
+    # but we want decent profits"). Two tests, both on money rather than on how
+    # certain the read feels:
+    #   (a) PRICE: the side we'd buy must still be cheap enough to pay. YES at
+    #       88c risks 88 to win 12 — a 76% win rate makes nothing there.
+    #   (b) EDGE: our own win probability must beat the market's implied
+    #       probability by at least min_edge_points. Near-certain and fairly
+    #       priced is not a trade; it is the market already being right.
+    # The DIRECTION still stands and is still recorded (he wants calls); what
+    # this gate changes is whether the card says BUY IT or PRICED OUT.
     no_edge = False
     no_edge_price = None
     edge_points = None
     model_p = None
     market_p = None
+    tradeable = None
+    max_price = float(st.get("max_call_price") or 0.65)
+    min_edge = float(st.get("min_edge_points") or 3.0)
+    side_ask = None
     if call in ("UP", "DOWN"):
         _nb, _na = no_side(yes_bid, yes_ask, no_bid, no_ask)
         side_ask = yes_ask if call == "UP" else _na
@@ -288,22 +309,37 @@ def build_call(asset, market, quote, ticker, cfg):
             model_p, market_p = wp.get("model"), wp.get("market")
             if model_p is not None and market_p is not None:
                 edge_points = (model_p - market_p) * 100.0
-        max_price = float(st.get("max_call_price") or 0.85)
-        if side_ask and side_ask > max_price:
+        too_rich = bool(side_ask and side_ask > max_price)
+        thin_edge = (edge_points is not None and edge_points < min_edge)
+        tradeable = not (too_rich or thin_edge)
+        edge_txt = (f"edge {edge_points:+.1f} pts (our {model_p*100:.0f}% vs the market's "
+                    f"{market_p*100:.0f}%)") if edge_points is not None else "edge unmeasurable"
+        if too_rich or thin_edge:
             no_edge = True
             no_edge_price = side_ask
-            reasons.append(f"NO EDGE \u2014 the signal is {('UP' if gap_dir == 'up' else 'DOWN')} and it "
-                       f"still reads that way, but that side already costs {cents(side_ask)}. "
-                       f"Risking {cents(side_ask)} to win {cents(1 - side_ask)} is not a trade \u2014 "
-                       f"one loss erases {max(1, int(side_ask / max(1 - side_ask, 0.01)))} wins. "
-                       f"The call stands \u2014 don't buy it at this price.")
+            why = []
+            if too_rich:
+                why.append(f"that side already costs {cents(side_ask)} (over the "
+                           f"{cents(max_price)} ceiling) \u2014 risking {cents(side_ask)} to win "
+                           f"{cents(1 - side_ask)}, so one loss erases "
+                           f"{max(1, int(side_ask / max(1 - side_ask, 0.01)))} wins")
+            if thin_edge:
+                why.append(f"{edge_txt} is under the {min_edge:.0f}-point edge this gate needs "
+                           f"\u2014 the price already knows what we know")
+            reasons.append("PRICED OUT \u2014 the call stands and the read has not changed, but "
+                           + "; ".join(why) + ". Don't buy it here.")
+        else:
+            reasons.append(f"EV OK \u2014 {cents(side_ask)} to win {cents(1 - side_ask)}, "
+                           f"{edge_txt}. This one pays if it lands.")
 
     if call != "NO CALL" and flip_warn["flag"]:
         reasons.append(flip_warn["text"])
 
     # ---- the pre-minute-7 LEAN (never recorded, never settled) and the live
     # win probability of the headline call once it has actually fired.
-    lean = expected_lean(gap_dir, sig_lean, mom_multi, skew, dist_vol)
+    lean = expected_lean(gap_dir, sig_lean, mom_multi, skew, dist_vol,
+                         rsi_v=rsi_v, rsi_st=rsi_st, fvg_dist=fvg_dist, hist=hist,
+                         fng=fear_greed, sigma=sigma, dec=dec, band=band, gap=gap)
     fired = headline_entry(asset, market["ticker"])
     fired_call = (fired or {}).get("call")
     live = None
@@ -352,7 +388,13 @@ def build_call(asset, market, quote, ticker, cfg):
         win_prob=((live or {}).get("p")), win_prob_model=((live or {}).get("model")),
         win_prob_market=((live or {}).get("market")),
         no_edge=no_edge, no_edge_price=no_edge_price, edge_points=edge_points,
-        cand_model_p=model_p, cand_market_p=market_p,
+        cand_model_p=model_p, cand_market_p=market_p, tradeable=tradeable,
+        side_ask=side_ask, max_call_price=max_price, min_edge_points=min_edge,
+        fear_greed=fear_greed,
+        fng_value=(fear_greed.get('value') if fear_greed.get('available') else None),
+        fng_class=(fear_greed.get('classification') if fear_greed.get('available') else None),
+        fng_tilt=(fear_greed.get('tilt') if fear_greed.get('available') else None),
+        fng_text=(fear_greed.get('text') if fear_greed.get('available') else None),
         confidence=conf["state"], confidence_label=conf["label"],
         confidence_note=conf["note"],
     )
@@ -423,36 +465,98 @@ def confidence_state(p):
                 note="the call is going wrong — consider exiting the position")
 
 
-def expected_lean(gap_dir, sig_lean, mom_multi, skew, dist_vol):
-    """The pre-minute-7 LEAN. Not a call, never recorded, never settled.
+def expected_lean(gap_dir, sig_lean, mom_multi, skew, dist_vol, rsi_v=None,
+                  rsi_st=None, fvg_dist=None, hist=None, fng=None, sigma=None,
+                  dec=2, band=None, gap=None):
+    """The pre-minute-7 EXPECTED lean. Firm, signal-driven, named — and still a
+    lean: never recorded, never settled, never in the tally.
 
-    Simple honest vote: which way the gap sits, which way the price action
-    leans, which way the last 3 minutes moved, which way the market is priced.
+    Weighted vote across the same evidence the minute-7 call uses: where spot
+    sits against the target line (in vol units), the price-action read, 3/5/15
+    minute momentum, RSI, the nearest unfilled FVG (a gap is a magnet), the
+    book's own skew, this asset's settled history for this setup, and the
+    crypto fear & greed index as contrarian context at the extremes.
     """
-    votes = {"up": 0, "down": 0}
-    why = []
+    score = {"up": 0.0, "down": 0.0}
+    why = []          # (weight, text) for the drivers actually moving the lean
+
+    def vote(d, w, text):
+        if d in ("up", "down") and w > 0:
+            score[d] += w
+            why.append((w, text))
+
+    # 1. distance to the target line, in per-minute vol units
     if gap_dir in ("up", "down"):
-        votes[gap_dir] += 1
-        why.append(f"spot is {gap_dir} against the target line")
-    if sig_lean in ("up", "down"):
-        votes[sig_lean] += 1
-        why.append(f"price action leans {sig_lean.upper()}")
-    m3 = (mom_multi or {}).get("m3")
-    if m3:
-        d = "up" if m3 > 0 else "down"
-        votes[d] += 1
-        why.append(f"3-min momentum {d.upper()}")
+        dv = dist_vol or 0.0
+        w = 1.0 + min(dv, 3.0) * 0.5
+        vote(gap_dir, w, (f"spot is {gap_dir.upper()} of the line by {dv:.1f}x per-minute vol"
+                          if dist_vol else f"spot is {gap_dir.upper()} of the line"))
+    # 2. price action (FVG / sweep / run / S-R vote)
+    vote(sig_lean, 1.2, f"price action leans {str(sig_lean).upper()}")
+    # 3. momentum, short and long
+    m = mom_multi or {}
+    if m.get("m3"):
+        vote("up" if m["m3"] > 0 else "down", 0.9, f"3-min momentum {m['m3']:+,.{dec}f}")
+    if m.get("m5"):
+        vote("up" if m["m5"] > 0 else "down", 0.5, f"5-min momentum {m['m5']:+,.{dec}f}")
+    if m.get("m15"):
+        vote("up" if m["m15"] > 0 else "down", 0.5, f"15-min momentum {m['m15']:+,.{dec}f}")
+    # 4. RSI — trend weight in the middle, contrarian at the extremes
+    if rsi_v is not None:
+        if rsi_st == "overbought":
+            vote("down", 0.8, f"RSI {rsi_v:.0f} overbought")
+        elif rsi_st == "oversold":
+            vote("up", 0.8, f"RSI {rsi_v:.0f} oversold")
+        elif rsi_v >= 55:
+            vote("up", 0.4, f"RSI {rsi_v:.0f} firm")
+        elif rsi_v <= 45:
+            vote("down", 0.4, f"RSI {rsi_v:.0f} soft")
+    # 5. nearest unfilled FVG: price tends to trade back into it
+    fd = fvg_dist or {}
+    near, nd = None, None
+    for side, d in (("above", "up"), ("below", "down")):
+        row = fd.get(side)
+        if row and row.get("distance") is not None:
+            if near is None or row["distance"] < near["distance"]:
+                near, nd = row, d
+    if near is not None and sigma:
+        x = near["distance"] / sigma
+        if x <= 2.5:
+            w = 0.9 if x <= 1.0 else 0.5
+            vote(nd, w, f"unfilled FVG {x:.1f}x vol {nd.upper()} of spot (magnet)")
+    # 6. the book's own skew
     md = (skew or {}).get("market_dir")
-    if md in ("up", "down"):
-        votes[md] += 1
-        why.append(f"market is priced {md.upper()}")
-    if votes["up"] == votes["down"]:
-        return dict(dir=None, text="Expected: no lean yet — the reads disagree",
-                    votes=votes, why=why, strength=0)
-    d = "up" if votes["up"] > votes["down"] else "down"
-    n = max(votes.values()); tot = votes["up"] + votes["down"]
-    return dict(dir=d.upper(), text=f"Expected: {d.upper()}", votes=votes, why=why,
-                strength=(n / tot if tot else 0))
+    if md:
+        vote(md, 0.7, f"book is priced {md.upper()} "
+                      f"(YES mid {(skew or {}).get('yes_mid', 0)*100:.0f}\u00a2)")
+    # 7. this asset's settled history for this setup
+    h = hist or {}
+    if h.get("n", 0) >= 5 and h.get("wr") is not None and gap_dir in ("up", "down"):
+        if h["wr"] >= 0.6:
+            vote(gap_dir, 0.6, f"its own {gap_dir.upper()} setups are {h['w']}W-{h['l']}L")
+        elif h["wr"] < 0.45:
+            vote("down" if gap_dir == "up" else "up", 0.5,
+                 f"its own {gap_dir.upper()} setups are only {h['w']}W-{h['l']}L")
+    # 8. fear & greed, contrarian at the extremes only
+    if fng and fng.get("available") and fng.get("tilt"):
+        vote(fng["tilt"], 0.4 * fng.get("strength", 1),
+             f"fear & greed {fng['value']} ({fng['classification']})")
+
+    tot = score["up"] + score["down"]
+    if not tot:
+        return dict(dir=None, text="Expected: no lean yet \u2014 no signal in the tape",
+                    votes=score, why=[], drivers=[], strength=0, firm=False)
+    d = "up" if score["up"] >= score["down"] else "down"
+    net = abs(score["up"] - score["down"])
+    conf = score[d] / tot
+    why.sort(key=lambda r: -r[0])
+    drivers = [t for _, t in why[:3]]
+    firm = bool(net >= 1.0 and conf >= 0.6)
+    label = "Expected: {} \u2014 {}".format(
+        d.upper(), "FIRM" if firm else ("leaning" if net >= 0.5 else "thin"))
+    text = f"{label} \u2014 {'; '.join(drivers)}" if drivers else label
+    return dict(dir=d.upper(), text=text, votes=score, why=[t for _, t in why],
+                drivers=drivers, strength=conf, net=net, firm=firm)
 
 
 def headline_entry(asset, ticker):
@@ -492,7 +596,9 @@ ENTRY_KEYS = ("ticker", "call", "weak", "conviction", "gap", "gap_pct", "sigma",
               "open_interest", "entry_price", "breakeven", "fee", "reason",
               "signal_lean", "gap_dir", "mins_left", "ts",
               "rsi", "rsi_state", "dist_vol", "reversal_flag", "reversal_text",
-              "drivers", "tier", "tier_label", "no_edge", "no_edge_price", "edge_points")
+              "drivers", "tier", "tier_label", "no_edge", "no_edge_price", "edge_points",
+              "tradeable", "side_ask", "cand_model_p", "cand_market_p",
+              "fng_value", "fng_class", "fng_tilt", "fng_text", "expected")
 
 
 def make_entry(c, mark, final):
