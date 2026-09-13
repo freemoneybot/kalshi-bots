@@ -114,9 +114,16 @@ footer{color:var(--dim2);font-size:11px;margin-top:22px;line-height:1.6}
 Spot: Coinbase; Kalshi settles vs CF Benchmarks RTI. Near coin-flip markets, fees included in breakeven. Anthony's dashboard.</footer>
 
 <script>
-const BOTS=["sol","eth","xrp","btc"];
+const ORDER=["sol","eth","xrp","btc","doge","gold","silver","oil"];
+let BOTS=ORDER.slice(0,4);
+function botList(){
+  const k=Object.keys((SNAP&&SNAP.assets)||{});
+  if(!k.length)return BOTS;
+  const known=ORDER.filter(a=>k.includes(a));
+  const extra=k.filter(a=>!ORDER.includes(a)).sort();
+  return known.concat(extra);
+}
 let SNAP=null, TAB=(location.hash||"#all").slice(1).toLowerCase();
-if(!BOTS.includes(TAB))TAB="all";
 
 const esc=s=>String(s==null?"":s).replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));
 const num=v=>typeof v==="number"&&isFinite(v);
@@ -145,21 +152,18 @@ function pickNum(o,keys){for(const k of keys){if(o&&num(o[k]))return o[k];}retur
 function pnlText(p){
   if(!p||!num(p.total))return null;
   const o=p.obj||{};
-  let v=p.total, unit="¢";
-  const cents = o.unit==="cents"||o.total_cents!=null||o.pnl_cents!=null||o.net_cents!=null||Math.abs(v)>=1000;
-  let disp;
-  if(o.unit==="dollars"||o.total_dollars!=null){disp="$"+v.toFixed(2);}
-  else if(cents){disp=(v>=0?"+":"")+"$"+(v/100).toFixed(2);}
-  else {disp=(v>=0?"+":"")+"$"+v.toFixed(2);}
-  if(v>=0&&disp[0]!=="+"&&disp[0]!=="-")disp="+"+disp;
+  let v=p.total;
+  const dollars=num(o.pnl_dollars)?o.pnl_dollars:(num(o.total_dollars)?o.total_dollars:
+    ((o.unit==="cents"||o.total_cents!=null||o.pnl_cents!=null||o.net_cents!=null||Math.abs(v)>=1000)?v/100:v));
+  const disp=(dollars<0?"−$":"+$")+Math.abs(dollars).toFixed(2);
   const n=pickNum(o,["n","calls","settled","trades"]);
-  const stake=pickNum(o,["stake","stake_cents","stake_dollars"]);
   const roi=pickNum(o,["roi","return"]);
+  const stake=typeof o.stake==="string"?o.stake:(num(o.stake)?"$"+o.stake+"/call":null);
   let sub=[];
-  if(num(stake))sub.push((stake>=10?("$"+(stake/100).toFixed(0)):("$"+stake.toFixed(0)))+"/call");
+  if(stake)sub.push(stake);
   if(num(n))sub.push(n+" settled");
-  if(num(roi))sub.push((roi>=0?"+":"")+(roi*100).toFixed(0)+"% ROI");
-  return {disp, cls:v>=0?"good":"bad", sub:sub.join(" · ")};
+  if(num(roi))sub.push((roi>=0?"+":"−")+Math.abs(roi*100).toFixed(0)+"% ROI");
+  return {disp, cls:dollars>=0?"good":"bad", sub:sub.join(" · ")};
 }
 function pnlHTML(label,src,inline){
   const p=pnlText(findPnl(src));
@@ -251,10 +255,12 @@ function card(key,r,rec,full){
   if(r.error)return `<div class="card">${head}
     <div class="hero"><div class="big neu">DATA ERROR</div><div class="line2">${esc(r.error)}</div></div>
     ${wrHTML(r.label,rec)}${pipsHTML(key)}</div>`;
-  if(r.closed)return `<div class="card">${head}
-    <div class="hero"><div class="big neu">BETWEEN ROUNDS</div>
+  if(r.closed){
+    const shut=/closed|not open|no market|no contract/i.test(String(r.note||""))&&!/between/i.test(String(r.note||""));
+    return `<div class="card">${head}
+    <div class="hero"><div class="big neu">${shut?"MARKET CLOSED":"BETWEEN ROUNDS"}</div>
     <div class="line2 num">last ${f(r.spot,d)}</div></div>
-    ${wrHTML(r.label,rec)}${pipsHTML(key)}</div>`;
+    ${wrHTML(r.label,rec)}${pipsHTML(key)}</div>`;}
 
   let h=`<div class="card">${head}`;
   const fired=r.fired_call==="UP"||r.fired_call==="DOWN";
@@ -334,11 +340,12 @@ function logHTML(filter){
 }
 
 /* ---------- TradingView charts (lazy, one per bot tab) ---------- */
-const TVSYM={sol:"COINBASE:SOLUSD",eth:"COINBASE:ETHUSD",xrp:"COINBASE:XRPUSD",btc:"COINBASE:BTCUSD"};
+const TVSYM={sol:"COINBASE:SOLUSD",eth:"COINBASE:ETHUSD",xrp:"COINBASE:XRPUSD",btc:"COINBASE:BTCUSD",
+  doge:"COINBASE:DOGEUSD",gold:"TVC:GOLD",silver:"TVC:SILVER",oil:"TVC:USOIL"};
 function mountChart(tab){
   const wrap=document.getElementById("charts");
   for(const c of wrap.children)c.style.display="none";
-  if(!BOTS.includes(tab))return;
+  if(!TVSYM[tab])return;
   let el=document.getElementById("chart-"+tab);
   if(!el){
     el=document.createElement("div");
@@ -371,7 +378,7 @@ function tabsHTML(){
     }
     return `<button class="tab" role="tab" aria-selected="${TAB===id}" data-tab="${id}">${label}${dotc}</button>`;
   };
-  return mk("all","ALL")+BOTS.map(b=>mk(b,b.toUpperCase())).join("");
+  return mk("all","ALL")+botList().map(b=>mk(b,b.toUpperCase())).join("");
 }
 
 function render(){
@@ -384,10 +391,11 @@ function render(){
   document.getElementById("tabs").innerHTML=tabsHTML();
 
   const rec=SNAP.record||{}, A=SNAP.assets||{};
+  if(TAB!=="all"&&!A[TAB])TAB="all";
   let h="";
   if(TAB==="all"){
     h+=`<div class="card"><h2>Headline record</h2>${wrHTML("ALL BOTS",rec._overall,SNAP)}</div>`;
-    BOTS.forEach(b=>{if(A[b])h+=card(b,A[b],rec[b],false);});
+    botList().forEach(b=>{if(A[b])h+=card(b,A[b],rec[b],false);});
     h+=`<div class="card"><h2>Recent calls</h2>${logHTML(null)}</div>`;
   }else{
     const r=A[TAB];
@@ -404,7 +412,7 @@ document.getElementById("tabs").addEventListener("click",e=>{
 });
 window.addEventListener("hashchange",()=>{
   const t=(location.hash||"#all").slice(1).toLowerCase();
-  TAB=BOTS.includes(t)?t:"all"; render();
+  TAB=t||"all"; render();
 });
 
 async function load(){

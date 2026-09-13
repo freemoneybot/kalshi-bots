@@ -707,19 +707,17 @@ def asset_history(asset, direction):
 
 # ---------------------------------------------------------------- reversal (flow only)
 def flow_reversal(call, wt, wo, mom_multi, sigma, gap, gap_dir, tech=None):
-    """REVERSAL RISK fires on ORDER FLOW, not on soft technicals.
+    """REVERSAL RISK = order flow says the move is ABOUT TO turn. Leading only.
 
-    Anthony, Sep 13 2026: "Only announce reversal if whale orders come in etc" —
-    the old technical version fired on 60% of calls, which is no signal at all.
-    Triggers, all measured against the side we called:
-      * a size-outlier executed trade taken on the opposite side
-      * lopsided taker volume (>=3:1) against us
-      * a large resting order stacking on the opposite side since the last look
-      * or a hard adverse move: price back through the target line with
-        3-min momentum >= 1.5x per-minute vol against the call
-    RSI / FVG are never a trigger; they ride along as a note when flow fires.
+    Anthony, Sep 13 2026: "Only announce reversal if whale orders come in etc" /
+    "only announce flip WHEN it's coming". The old technical flag fired on 60%
+    of calls. Now: a size event against the called side, while the call is still
+    ahead. Once price has already crossed back, this is silent \u2014 that is BAIL's job.
     """
     if call not in ("UP", "DOWN"):
+        return dict(flag=False, text="", why=[], trigger=None)
+    # Already crossed = already losing = BAIL, not a warning.
+    if (call == "UP" and gap_dir == "down") or (call == "DOWN" and gap_dir == "up"):
         return dict(flag=False, text="", why=[], trigger=None)
     against = "NO" if call == "UP" else "YES"
     why, trigger = [], None
@@ -728,46 +726,34 @@ def flow_reversal(call, wt, wo, mom_multi, sigma, gap, gap_dir, tech=None):
         for b in (wt.get("big") or []):
             if b.get("side") == against:
                 med = wt.get("median") or 1
-                why.append(f"a {b['size']:,.0f}-lot {against} print "
-                           f"({b['size']/med:.0f}x the median trade) hit against the call")
+                why.append(f"{b['size']:,.0f}-lot {against} print ({b['size']/med:.0f}x median) "
+                           f"against the call")
                 trigger = "whale_trade"
                 break
         yv, nv = wt.get("yes_vol") or 0, wt.get("no_vol") or 0
         mine, theirs = (yv, nv) if call == "UP" else (nv, yv)
         if trigger is None and (wt.get("n") or 0) >= 10 and theirs >= 3 * max(mine, 1):
-            why.append(f"taker volume is {theirs:,.0f} vs {mine:,.0f} against the call")
+            why.append(f"taker volume {theirs:,.0f} vs {mine:,.0f} against the call")
             trigger = "flow_imbalance"
 
-    if wo and wo.get("available"):
+    if trigger is None and wo and wo.get("available"):
         for note in (wo.get("changes") or []):
             if f"{against} order appeared" in note:
-                why.append(note + " (size stacking against the call)")
-                trigger = trigger or "whale_order"
+                why.append(note.replace(" order appeared at", " order stacked at"))
+                trigger = "whale_order"
                 break
         if trigger is None:
             for b in (wo.get("big") or []):
                 if b.get("side") == against and (b.get("x_median") or 0) >= 4:
-                    why.append(f"a {b['size']:,.0f}-lot {against} order rests at "
-                               f"{b['price']*100:.0f}\u00a2 ({b['x_median']:.0f}x the book's median)")
+                    why.append(f"{b['size']:,.0f}-lot {against} order at {b['price']*100:.0f}\u00a2 "
+                               f"({b['x_median']:.0f}x the book)")
                     trigger = "whale_order"
                     break
 
     if trigger is None:
-        m3 = (mom_multi or {}).get("m3")
-        crossed = (gap_dir == "down" and call == "UP") or (gap_dir == "up" and call == "DOWN")
-        adverse = m3 is not None and sigma and ((m3 < 0 and call == "UP") or (m3 > 0 and call == "DOWN")) \
-            and abs(m3) >= 1.5 * sigma
-        if crossed and adverse:
-            why.append(f"price is back through the target line with 3-min momentum "
-                       f"{abs(m3)/sigma:.1f}x vol against the call")
-            trigger = "hard_cross"
-
-    if trigger is None:
         return dict(flag=False, text="", why=[], trigger=None)
-    if tech and tech.get("flag") and tech.get("text"):
-        why.append("technicals agree")
     return dict(flag=True, trigger=trigger,
-                text="REVERSAL RISK \u2014 " + "; ".join(why) + ".", why=why)
+                text="FLIP COMING \u2014 " + "; ".join(why) + ".", why=why)
 
 
 # ---------------------------------------------------------------- paper P&L
