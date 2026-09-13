@@ -1,0 +1,139 @@
+name: kalshi-bots
+
+# ---------------------------------------------------------------------------
+# WHY IT IS SHAPED LIKE THIS
+#
+# A GitHub Actions job is killed at 6 hours. The bots must poll every ~25s,
+# because the call is locked at the 12-minute mark of a 15-minute contract and
+# a cron that fires every 5 minutes would miss it. So: one long job that loops
+# for 5h25m, then exits cleanly and asks GitHub to start the next one
+# (workflow_dispatch, using the built-in GITHUB_TOKEN — no personal token, no
+# card, nothing to configure).
+#
+# The `schedule:` cron below is the SAFETY NET, not the mechanism. Every 30
+# minutes it tries to start a run; the `guard` job lets it through only if no
+# healthy run is already going. So if a runner dies at 2am, the bots are back
+# within half an hour on their own.
+# ---------------------------------------------------------------------------
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 * * * *'
+
+permissions:
+  contents: write      # commit the track record and the rendered page back
+  actions: write       # let the job start its own successor
+
+env:
+  RUN_SECONDS: '19500'        # 5h25m of looping, inside the 6h ceiling
+  # Every commit that touches docs/ starts a GitHub Pages build. Committing
+  # every 2 minutes started a new build while the previous one was still
+  # running, and the overlapping builds failed or cancelled each other
+  # (2026-09-13, 08:52-08:59Z). Five minutes leaves each build room to finish.
+  PUBLISH_EVERY: '300'
+  STALE_AFTER: '19200'        # a run older than this is on its way out; ignore it
+
+jobs:
+  # --- is another healthy run already going? -------------------------------
+  guard:
+    runs-on: ubuntu-latest
+    outputs:
+      go: ${{ steps.check.outputs.go }}
+    steps:
+      - id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          now=$(date +%s)
+          # Every in-progress/queued run of THIS workflow except this one.
+          others=$(gh api -X GET \
+            "repos/${{ github.repository }}/actions/workflows/bots.yml/runs" \
+            -f per_page=50 \
+            --jq '.workflow_runs[] | select(.status=="in_progress" or .status=="queued") | "\(.id) \(.run_started_at)"' || true)
+          # How long since ANY commit landed on the repo. A run that is
+          # "in_progress" but has not committed a snapshot in ten minutes is
+          # wedged, not healthy — that is what hid a dead loop for 4 hours on
+          # 2026-09-13. Age of the run alone is not health.
+          # Only the bots' own snapshot commits count as a heartbeat; a human
+          # push to the repo must not make a wedged run look alive.
+          last_commit=$(gh api "repos/${{ github.repository }}/commits?per_page=30" \
+            --jq '[.[] | select(.commit.message | startswith("bots:"))][0].commit.committer.date' || true)
+          [ "$last_commit" = "null" ] && last_commit=""
+          commit_age=999999
+          if [ -n "${last_commit:-}" ]; then
+            commit_age=$(( now - $(date -d "$last_commit" +%s) ))
+          fi
+          echo "last commit on the repo: ${last_commit:-none} (${commit_age}s ago)"
+          blocking=0
+          while read -r id started; do
+            [ -z "${id:-}" ] && continue
+            [ "$id" = "${{ github.run_id }}" ] && continue
+            age=$(( now - $(date -d "$started" +%s) ))
+            if [ "$age" -lt "${STALE_AFTER}" ] && { [ "$age" -lt 900 ] || [ "$commit_age" -lt 600 ]; }; then
+              echo "run $id is $age s old and still committing -> this run stands down"
+              blocking=1
+            elif [ "$age" -lt "${STALE_AFTER}" ]; then
+              echo "run $id is $age s old but the repo has had no commit for ${commit_age}s -> treating it as wedged, not healthy"
+            else
+              echo "run $id is $age s old (past its window, finishing up) -> ignoring"
+            fi
+          done <<< "$others"
+          # A run older than the loop window is already exiting, so its
+          # successor is allowed to start and the handoff has no real gap.
+          if [ "$blocking" = "1" ]; then echo "go=no" >> "$GITHUB_OUTPUT"; else echo "go=yes" >> "$GITHUB_OUTPUT"; fi
+
+  # --- the bots ------------------------------------------------------------
+  loop:
+    needs: guard
+    if: needs.guard.outputs.go == 'yes'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350          # 5h50m; the script exits on its own at 5h25m
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Belt and braces: if the commit-back ever fails, the record still
+      # survives the run through the cache.
+      - name: Restore track record from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: record
+          key: kalshi-record-${{ github.run_id }}
+          restore-keys: kalshi-record-
+
+      - name: Run the bots
+        env:
+          RUN_SECONDS: ${{ env.RUN_SECONDS }}
+          PUBLISH_EVERY: ${{ env.PUBLISH_EVERY }}
+          GIT_PUSH: '1'
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python bot/gha_runner.py
+
+      - name: Save track record to cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: record
+          key: kalshi-record-${{ github.run_id }}
+
+  # --- start the next one --------------------------------------------------
+  relay:
+    needs: loop
+    if: always() && needs.loop.result != 'skipped'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hand off to a fresh run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 20
+          gh workflow run bots.yml --ref ${{ github.ref_name }}
+          echo "next run requested"

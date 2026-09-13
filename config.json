@@ -1,0 +1,36 @@
+{
+  "_README": "Webhooks come from the GitHub repo Secret DISCORD_WEBHOOK_URL (Settings > Secrets and variables > Actions). Leave the fields below empty. Never paste a webhook into this file in a PUBLIC repo.",
+  "shared_webhook_url": "",
+  "per_asset_webhook_urls": {
+    "btc": "",
+    "gold": "",
+    "silver": "",
+    "oil": "",
+    "sol": "",
+    "eth": "",
+    "xrp": ""
+  },
+  "settings": {
+    "call_minute": 7,
+    "open_post_minute": 1,
+    "noise_k": 0.85,
+    "_noise_k_note": "Call only if |gap| >= noise_k * sigma_per_min * sqrt(minutes_left). Lowered 1.0 -> 0.85 on Sep 13 2026.",
+    "min_open_interest": 500,
+    "hard_min_open_interest": 100,
+    "max_spread_dollars": 0.1,
+    "max_quote_age_seconds": 180,
+    "small_sample_threshold": 30,
+    "kalshi_fee_multiplier": 1.0,
+    "poll_seconds": 25,
+    "dry_run": true,
+    "_dry_run_note": "true = don't post to Discord. The workflow sets this to false automatically when the DISCORD_WEBHOOK_URL secret exists.",
+    "call_marks": [
+      7
+    ],
+    "_call_marks_note": "ONE call per round, at minute 7 (~8 min left). Before that the page shows an EXPECTED lean only, which is never recorded.",
+    "conviction_gate_k": 1.15,
+    "_conviction_gate_note": "Multiple of the noise band the gap must clear before a directional call. Lowered 1.5 -> 1.15 on Sep 13 2026.",
+    "max_call_price": 0.85,
+    "_max_call_price_note": "No headline call when the side we'd buy already costs more than this (Sep 13 2026, Anthony: 'Stop making calls at high %'). Shown as NO EDGE, never recorded as a call."
+  }
+}
