@@ -723,33 +723,37 @@ def flow_reversal(call, wt, wo, mom_multi, sigma, gap, gap_dir, tech=None):
     against = "NO" if call == "UP" else "YES"
     why, trigger = [], None
 
+    # Thresholds are deliberately high: on these books a 3x-median 50-lot print
+    # happens constantly, and a flag that fires on 95% of rounds is not a flag.
+    MIN_TRADE, MIN_X = 250.0, 6.0
+    MIN_ORDER = 500.0
+
     if wt and wt.get("available"):
+        med = wt.get("median") or 1
         for b in (wt.get("big") or []):
-            if b.get("side") == against:
-                med = wt.get("median") or 1
-                why.append(f"{b['size']:,.0f}-lot {against} print ({b['size']/med:.0f}x median) "
-                           f"against the call")
+            if (b.get("side") == against and b.get("size", 0) >= MIN_TRADE
+                    and b["size"] / med >= MIN_X):
+                why.append(f"{b['size']:,.0f}-lot {against} print ({b['size']/med:.0f}x median)")
                 trigger = "whale_trade"
                 break
         yv, nv = wt.get("yes_vol") or 0, wt.get("no_vol") or 0
         mine, theirs = (yv, nv) if call == "UP" else (nv, yv)
-        if trigger is None and (wt.get("n") or 0) >= 10 and theirs >= 3 * max(mine, 1):
-            why.append(f"taker volume {theirs:,.0f} vs {mine:,.0f} against the call")
+        if (trigger is None and (wt.get("n") or 0) >= 20 and theirs >= 500
+                and theirs >= 5 * max(mine, 1)):
+            why.append(f"{against} takers {theirs:,.0f} vs {mine:,.0f}")
             trigger = "flow_imbalance"
 
     if trigger is None and wo and wo.get("available"):
+        import re as _re
         for note in (wo.get("changes") or []):
-            if f"{against} order appeared" in note:
-                why.append(note.replace(" order appeared at", " order stacked at"))
+            if f"{against} order appeared" not in note:
+                continue
+            m = _re.match(r"a ([\d,]+)-lot", note)
+            size = float(m.group(1).replace(",", "")) if m else 0.0
+            if size >= MIN_ORDER:
+                why.append(f"{size:,.0f}-lot {against} order just stacked")
                 trigger = "whale_order"
                 break
-        if trigger is None:
-            for b in (wo.get("big") or []):
-                if b.get("side") == against and (b.get("x_median") or 0) >= 4:
-                    why.append(f"{b['size']:,.0f}-lot {against} order at {b['price']*100:.0f}\u00a2 "
-                               f"({b['x_median']:.0f}x the book)")
-                    trigger = "whale_order"
-                    break
 
     if trigger is None:
         return dict(flag=False, text="", why=[], trigger=None)
