@@ -344,7 +344,7 @@ def build_call(asset, market, quote, ticker, cfg):
     if call != "NO CALL" and rev["flag"]:
         reasons.append(rev["text"])
 
-    # ---- the pre-minute-7 LEAN (never recorded, never settled) and the live
+    # ---- the pre-minute-6 LEAN (never recorded, never settled) and the live
     # win probability of the headline call once it has actually fired.
     lean = expected_lean(gap_dir, sig_lean, mom_multi, skew, dist_vol,
                          rsi_v=rsi_v, rsi_st=rsi_st, fvg_dist=fvg_dist, hist=hist,
@@ -493,10 +493,10 @@ def confidence_state(p):
 def expected_lean(gap_dir, sig_lean, mom_multi, skew, dist_vol, rsi_v=None,
                   rsi_st=None, fvg_dist=None, hist=None, fng=None, sigma=None,
                   dec=2, band=None, gap=None):
-    """The pre-minute-7 EXPECTED lean. Firm, signal-driven, named — and still a
+    """The pre-minute-6 EXPECTED lean. Firm, signal-driven, named — and still a
     lean: never recorded, never settled, never in the tally.
 
-    Weighted vote across the same evidence the minute-7 call uses: where spot
+    Weighted vote across the same evidence the minute-6 call uses: where spot
     sits against the target line (in vol units), the price-action read, 3/5/15
     minute momentum, RSI, the nearest unfilled FVG (a gap is a magnet), the
     book's own skew, this asset's settled history for this setup, and the
@@ -586,7 +586,7 @@ def expected_lean(gap_dir, sig_lean, mom_multi, skew, dist_vol, rsi_v=None,
 
 def headline_entry(asset, ticker):
     """The ONE settled-into-record headline call for this contract, if the
-    minute-7 call has already fired. Leans are never in here."""
+    minute-6 call has already fired. Leans are never in here."""
     try:
         rec = load_record(asset)
     except Exception:
@@ -598,12 +598,12 @@ def headline_entry(asset, ticker):
 
 
 # ---------------------------------------------------------------- marks
-DEFAULT_MARKS = [7]
+DEFAULT_MARKS = [6]
 
 
 def call_marks(st):
-    """ONE call per round, at roughly the 7-minute mark (~8 min left). The noise
-    band is scaled to the time still to run, so at minute 7 it is tighter than it
+    """ONE call per round, at roughly the 6-minute mark (~9 min left). The noise
+    band is scaled to the time still to run, so at minute 6 it is tighter than it
     was at minute 1 and more rounds clear it. A round with no signal is still
     allowed to say NO CALL."""
     ms = st.get("call_marks") or DEFAULT_MARKS
@@ -629,6 +629,13 @@ ENTRY_KEYS = ("ticker", "call", "weak", "conviction", "gap", "gap_pct", "sigma",
 
 def make_entry(c, mark, final):
     entry = {k: c.get(k) for k in ENTRY_KEYS}
+    # Anthony, Sep 13 2026: "Stop calling so high. I told u this." A direction
+    # priced above the ceiling (or with no edge) is NOT recorded as a call; the
+    # card still shows which way it leaned and what it would have cost.
+    if c.get("no_edge") and entry.get("call") in ("UP", "DOWN"):
+        entry["skipped_call"] = entry["call"]
+        entry["skipped_price"] = c.get("no_edge_price")
+        entry["call"] = "NO CALL"
     entry["signals"] = c["signals"]
     entry["reversal"] = c.get("reversal")
     entry["close_time"] = c["close_time"]
@@ -738,26 +745,28 @@ def flow_reversal(call, wt, wo, mom_multi, sigma, gap, gap_dir, tech=None):
 
     # Thresholds are deliberately high: on these books a 3x-median 50-lot print
     # happens constantly, and a flag that fires on 95% of rounds is not a flag.
-    MIN_TRADE, MIN_X, FRESH = 500.0, 8.0, 150.0
+    # Calibrated on the live books (median trade 5-10 lots, 200-800 lot prints
+    # are routine): SIZE ALONE IS NOT RARE. The flag needs flow that is both big
+    # and one-sided against the call, right now.
+    MIN_TRADE, FRESH, DOMINANCE = 250.0, 120.0, 2.5
     MIN_ORDER = 1000.0
 
     if wt and wt.get("available"):
-        med = wt.get("median") or 1
-        for b in (wt.get("big") or []):
-            if (b.get("side") == against and b.get("size", 0) >= MIN_TRADE
-                    and b["size"] / med >= MIN_X
-                    and (b.get("ts") is None or time.time() - b["ts"] <= FRESH)
-                    and (wt.get("no_vol") or 0 if call == "UP" else wt.get("yes_vol") or 0)
-                    >= (wt.get("yes_vol") or 0 if call == "UP" else wt.get("no_vol") or 0)):
-                why.append(f"{b['size']:,.0f}-lot {against} print ({b['size']/med:.0f}x median)")
-                trigger = "whale_trade"
-                break
         yv, nv = wt.get("yes_vol") or 0, wt.get("no_vol") or 0
         mine, theirs = (yv, nv) if call == "UP" else (nv, yv)
-        if (trigger is None and (wt.get("n") or 0) >= 20 and theirs >= 500
-                and theirs >= 5 * max(mine, 1)):
-            why.append(f"{against} takers {theirs:,.0f} vs {mine:,.0f}")
-            trigger = "flow_imbalance"
+        one_sided = theirs >= DOMINANCE * max(mine, 1) and theirs >= 300
+        if one_sided:
+            med = wt.get("median") or 1
+            for b in (wt.get("big") or []):
+                if (b.get("side") == against and b.get("size", 0) >= MIN_TRADE
+                        and (b.get("ts") is None or time.time() - b["ts"] <= FRESH)):
+                    why.append(f"{b['size']:,.0f}-lot {against} print ({b['size']/med:.0f}x median), "
+                               f"{against} takers {theirs:,.0f} vs {mine:,.0f}")
+                    trigger = "whale_trade"
+                    break
+            if trigger is None and (wt.get("n") or 0) >= 20 and theirs >= 5 * max(mine, 1):
+                why.append(f"{against} takers {theirs:,.0f} vs {mine:,.0f}")
+                trigger = "flow_imbalance"
 
     if trigger is None and wo and wo.get("available"):
         import re as _re
