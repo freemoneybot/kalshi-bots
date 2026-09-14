@@ -75,11 +75,6 @@ class AssetRunner:
             if not c.get("is_scalp"):
                 self.seen_call.add(f"{base}@{int(c.get('mark') or 12)}m")
         self.row = {"label": ASSETS[asset]["label"], "dec": ASSETS[asset]["dec"]}
-        # Open positions awaiting their minute-10 exit, rebuilt across runs.
-        self.positions = {c["ticker"].split(":")[0]: c for c in rec["calls"]
-                          if c.get("result") is None and not c.get("exit_recorded")
-                          and c.get("call") in ("UP", "DOWN") and c.get("entry_price")}
-        self.last_verdict = {}
 
     def step(self, cfg):
         st = cfg["settings"]
@@ -131,42 +126,11 @@ class AssetRunner:
                     self.pending[entry["ticker"]] = entry
                     log(f"{a}: CALL {mk}m {c['call']} ({entry['conviction']}) "
                         f"{c['price_label']} for {tk}")
-                    if entry.get("call") in ("UP", "DOWN") and entry.get("entry_price"):
-                        self.positions[tk] = entry
-                        log(f"{a}: POSITION OPEN {entry['call']} at "
-                            f"{entry['entry_price']*100:.0f}c - default sell at minute "
-                            f"{E.exit_minute(st):.0f}")
                     if final and c.get("scalp"):
                         sc = E.scalp_entry(c, entry, mk)
                         E.append_call(a, sc)
                         self.pending[sc["ticker"]] = sc
                         log(f"{a}: SCALP {sc['call']} at {sc['entry_price']*100:.0f}c")
-
-                # ---- THE EXIT CALL: live verdict, and the minute-10 exit
-                pos = self.positions.get(tk)
-                if pos is not None and not pos.get("exit_recorded"):
-                    mm, mm_err = None, None
-                    try:
-                        mm = E.market_by_ticker(tk)       # real orderbook read
-                    except Exception as ex:
-                        mm_err = f"{type(ex).__name__}: {ex}"
-                    v = E.exit_verdict(pos, mm, minute, c) if mm else None
-                    if v:
-                        row["exit_call"] = v
-                        if self.last_verdict.get(tk) != v["verdict"]:
-                            self.last_verdict[tk] = v["verdict"]
-                            log(f"{a}: EXIT CALL {v['label']} @min {minute:.1f} - {v['line']}")
-                    fire = None
-                    if v and v["verdict"] == "SELL_NOW":
-                        fire = "sell_now"
-                    elif minute >= E.exit_minute(st):
-                        fire = None if (v and v["verdict"] == "HOLD_PAST_10") else "minute_10"
-                    if fire:
-                        E.record_exit(a, pos, minute, fire, market=mm, error=mm_err)
-                        pos["exit_verdict"] = (v or {}).get("verdict") or "HOLD_10"
-                        E.append_call(a, pos)
-                        log(f"{a}: EXIT {fire} @min {minute:.1f} {pos['call']} {tk} | "
-                            f"{E.exit_label(pos)} [verdict {pos['exit_verdict']}]")
         except Exception as ex:
             row["error"] = f"{type(ex).__name__}: {ex}"
             log(f"{a}: cycle error {row['error']}")
@@ -193,22 +157,6 @@ class AssetRunner:
                            (entry["call"] == "DOWN" and res == "no"))
                 entry["result"] = res
                 entry["correct"] = bool(correct) if entry["call"] != "NO CALL" else None
-                base_tk = tk.split(":")[0]
-                held = self.positions.get(base_tk)
-                if held is entry and not entry.get("exit_recorded"):
-                    ep = entry.get("entry_price") or 0
-                    entry["exit_recorded"] = True
-                    entry["exit_status"] = "settled"
-                    entry["exit_reason"] = "held_past_10_to_settle"
-                    entry["exit_verdict"] = "HOLD_PAST_10"
-                    entry["exit_minute"] = 15.0
-                    entry["entry_cents"] = round(ep * 100, 1) if ep else None
-                    entry["exit_cents"] = 100.0 if correct else 0.0
-                    entry["pnl_cents"] = (round(entry["exit_cents"] - ep * 100, 1)
-                                          if ep else None)
-                    entry["exit_win"] = (entry["pnl_cents"] > 0
-                                         if entry["pnl_cents"] is not None else None)
-                self.positions.pop(base_tk, None)
                 rec = E.append_call(a, entry)
                 t = E.tally(rec["calls"], st["small_sample_threshold"])
                 c = dict(label=ASSETS[a]["label"], ticker=tk, call=entry["call"])
@@ -240,9 +188,7 @@ def build_snapshot(runners, cfg):
                 and c.get("call") in ("UP", "DOWN") and c.get("correct") is not None]
         out.setdefault("recent", {})[a] = [
             {"call": c["call"], "correct": bool(c["correct"]), "ts": c.get("ts"),
-             "ticker": c.get("ticker"), "entry_price": c.get("entry_price"),
-             "entry_cents": c.get("entry_cents"), "exit_cents": c.get("exit_cents"),
-             "pnl_cents": c.get("pnl_cents"), "exit_status": c.get("exit_status")}
+             "ticker": c.get("ticker"), "entry_price": c.get("entry_price")}
             for c in head[-14:]]
         streak = 0
         if head:
@@ -261,9 +207,7 @@ def build_snapshot(runners, cfg):
     rows = sorted(allc, key=lambda c: c.get("ts", 0), reverse=True)
     keys = ("ticker", "call", "conviction", "gap", "band", "mark", "price_label",
             "price_yes", "price_no", "result", "correct", "ts", "entry_price",
-            "is_scalp", "is_early", "reversal_flag", "reversal_text", "rsi",
-            "entry_cents", "exit_cents", "pnl_cents", "exit_minute", "exit_status",
-            "exit_reason", "exit_verdict")
+            "is_scalp", "is_early", "reversal_flag", "reversal_text", "rsi")
     out["log"] = [{k: c.get(k) for k in keys} for c in rows[:60]]
     return out
 
