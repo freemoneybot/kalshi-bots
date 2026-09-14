@@ -692,21 +692,8 @@ def save_record(asset, rec):
     os.replace(tmp, record_path(asset))
 
 
-EXIT_FIELDS = ("exit_recorded", "exit_status", "exit_cents", "exit_price",
-               "pnl_cents", "exit_minute", "exit_reason", "exit_verdict",
-               "exit_error", "exit_quote", "exit_ts", "exit_win", "entry_cents")
-
-
 def append_call(asset, entry):
     rec = load_record(asset)
-    # A row that already carries a recorded exit never loses it to a later
-    # rewrite of the same ticker (a mid-round restart used to wipe it).
-    prev = next((c for c in rec["calls"] if c.get("ticker") == entry.get("ticker")), None)
-    if prev and prev.get("exit_recorded") and not entry.get("exit_recorded"):
-        for k in EXIT_FIELDS:
-            if k in prev:
-                entry.setdefault(k, prev[k])
-                entry[k] = prev[k]
     rec["calls"] = [c for c in rec["calls"] if c.get("ticker") != entry.get("ticker")]
     rec["calls"].append(entry)
     rec["calls"] = rec["calls"][-2000:]
