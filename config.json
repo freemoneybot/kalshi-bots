@@ -11,10 +11,10 @@
     "xrp": ""
   },
   "settings": {
-    "call_minute": 7,
+    "call_minute": 1,
     "open_post_minute": 1,
-    "noise_k": 0.85,
-    "_noise_k_note": "Call only if |gap| >= noise_k * sigma_per_min * sqrt(minutes_left). Lowered 1.0 -> 0.85 on Sep 13 2026.",
+    "noise_k": 1.0,
+    "_noise_k_note": "Call only if |gap| >= noise_k * sigma_per_min * sqrt(minutes_left). Raise to be pickier.",
     "min_open_interest": 500,
     "hard_min_open_interest": 100,
     "max_spread_dollars": 0.1,
@@ -25,12 +25,10 @@
     "dry_run": true,
     "_dry_run_note": "true = don't post to Discord. The workflow sets this to false automatically when the DISCORD_WEBHOOK_URL secret exists.",
     "call_marks": [
-      7
+      1
     ],
-    "_call_marks_note": "ONE call per round, at minute 7 (~8 min left). Before that the page shows an EXPECTED lean only, which is never recorded.",
-    "conviction_gate_k": 1.15,
-    "_conviction_gate_note": "Multiple of the noise band the gap must clear before a directional call. Lowered 1.5 -> 1.15 on Sep 13 2026.",
-    "max_call_price": 0.85,
-    "_max_call_price_note": "No headline call when the side we'd buy already costs more than this (Sep 13 2026, Anthony: 'Stop making calls at high %'). Shown as NO EDGE, never recorded as a call."
+    "_call_marks_note": "ONE call per round, at minute 1. The band is scaled to the ~14 min still to run, and a directional call is only emitted when the gap clears conviction_gate_k x that band AND the technicals agree AND the asset's own history does not argue against it. Expect many NO CALLs.",
+    "conviction_gate_k": 1.5,
+    "_conviction_gate_note": "Multiple of the noise band the gap must clear before a directional call is allowed."
   }
 }
