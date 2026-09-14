@@ -8636,44 +8636,55 @@
   },
   {
    "ticker": "KXETH15M-26SEP131645-45",
-   "call": "NO CALL",
+   "call": "DOWN",
    "weak": false,
-   "conviction": "none",
-   "gap": 0.375,
-   "gap_pct": 0.014944615255861778,
-   "sigma": 0.4031371423666174,
-   "band": 1.504214752485823,
-   "spot": 2509.265,
+   "conviction": "coin_flip",
+   "gap": -0.36999999999989086,
+   "gap_pct": -0.014749732910237543,
+   "sigma": 0.7794031904818371,
+   "band": 1.8156557614410225,
+   "spot": 2508.52,
    "target": 2508.89,
-   "yes_bid": 0.51,
-   "yes_ask": 0.54,
-   "no_bid": 0.46,
-   "no_ask": 0.49,
-   "no_bid_eff": 0.46,
-   "no_ask_eff": 0.49,
-   "price_label": "NO CALL \u2014 YES 51\u00a2 / 54\u00a2, NO 46\u00a2 / 49\u00a2",
-   "price_yes": "YES 51\u00a2 / 54\u00a2",
-   "price_no": "NO 46\u00a2 / 49\u00a2",
-   "open_interest": 2479.08,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $0.38 is inside the noise (ETH moving ~$0.40/min, band $1.50 over the 13.9 min still to run).",
+   "yes_bid": 0.47,
+   "yes_ask": 0.48,
+   "no_bid": 0.52,
+   "no_ask": 0.53,
+   "no_bid_eff": 0.52,
+   "no_ask_eff": 0.53,
+   "price_label": "DOWN \u2014 NO costs 53\u00a2",
+   "price_yes": "YES 47\u00a2 / 48\u00a2",
+   "price_no": "NO 52\u00a2 / 53\u00a2",
+   "open_interest": 11239.41,
+   "entry_price": 0.53,
+   "breakeven": 0.55,
+   "fee": 0.02,
+   "reason": "CALL DOWN \u2014 COIN FLIP \u2014 driven by gap $0.37 = 0.5x per-minute vol and 20% of the 8-min noise band; price action 0\u20133 DOWN (agrees with the gap); RSI 56 (neutral). COIN FLIP \u2014 the gap is INSIDE the noise band ($0.37 vs a $1.82 band over the 8 min still to run). This is a direction because a call is made every round, not because the read is good. Near 50/50 \u2014 size it that way or skip it. PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bullish FVG 2,508.67\u20132,508.78 above price, 0.15 away (0.2x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.37 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,508.73 (~0 min at the current rate).",
    "signal_lean": "down",
-   "gap_dir": "up",
-   "mins_left": 13.92239853143692,
-   "ts": 1789331465.0298145,
-   "rsi": 79.60454296661815,
-   "rsi_state": "overbought",
-   "dist_vol": 0.9302045398212672,
+   "gap_dir": "down",
+   "mins_left": 7.511121968428294,
+   "ts": 1789331849.5701826,
+   "rsi": 56.074350764853286,
+   "rsi_state": "neutral",
+   "dist_vol": 0.4747222034992596,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: RSI 80 \u2014 overbought against an UP move; momentum decelerating hard (-0.18 over 3m vs +1.14 the 3m before); unfilled bullish FVG 2,508.80\u20132,509.18 below price, 0.08 away (0.2x/min vol) \u2014 acts as a magnet back the other way; 2 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,508.99 (~4 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bullish FVG 2,508.67\u20132,508.78 above price, 0.15 away (0.2x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.37 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,508.73 (~0 min at the current rate).",
+   "drivers": [
+    "gap $0.37 = 0.5x per-minute vol and 20% of the 8-min noise band",
+    "price action 0\u20133 DOWN (agrees with the gap)",
+    "RSI 56 (neutral)",
+    "momentum -1.88/3m, +1.23/15m",
+    "this asset's DOWN setups: 9W-0L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 4.3759040208445015,
    "signals": [
     {
      "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,509.14\u20132,509.26, unfilled, price inside it \u2014 leans UP if it holds"
+     "lean": "down",
+     "text": "bearish, 2,508.52\u20132,510.32, unfilled, price inside it \u2014 leans DOWN if it holds"
     },
     {
      "name": "Sweep",
@@ -8683,79 +8694,88 @@
     {
      "name": "Exhaustion",
      "lean": "down",
-     "text": "2 bars up, ranges contracting \u2014 exhaustion leans DOWN"
+     "text": "5 bars up, ranges contracting \u2014 exhaustion leans DOWN"
     },
     {
      "name": "Momentum",
      "lean": "down",
-     "text": "-0.18 over 3m, +0.46 over 5m, decelerating"
+     "text": "-1.88 over 3m, -0.40 over 5m, accelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,509.54 (+0.28 away), low 2,505.92 (-3.34 away), target line +0.38 away (the line is a magnet)"
+     "text": "round high 2,511.26 (+2.74 away), low 2,506.63 (-1.89 away), target line -0.37 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "RSI 80 \u2014 overbought against an UP move",
-     "momentum decelerating hard (-0.18 over 3m vs +1.14 the 3m before)",
-     "unfilled bullish FVG 2,508.80\u20132,509.18 below price, 0.08 away (0.2x/min vol) \u2014 acts as a magnet back the other way",
-     "2 bars up with ranges contracting \u2014 the move is stalling"
+     "unfilled bullish FVG 2,508.67\u20132,508.78 above price, 0.15 away (0.2x/min vol) \u2014 acts as a magnet back the other way",
+     "price is sitting on the target line ($0.37 away, under half a minute's vol) \u2014 it can flip either side on one print"
     ],
     "level": "high",
-    "direction": "down",
-    "flip_price": 2508.995,
-    "eta_min": 4.3783783783793755,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: RSI 80 \u2014 overbought against an UP move; momentum decelerating hard (-0.18 over 3m vs +1.14 the 3m before); unfilled bullish FVG 2,508.80\u20132,509.18 below price, 0.08 away (0.2x/min vol) \u2014 acts as a magnet back the other way; 2 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,508.99 (~4 min at the current rate)."
+    "direction": "up",
+    "flip_price": 2508.7250000000004,
+    "eta_min": 0.3271276595750587,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bullish FVG 2,508.67\u20132,508.78 above price, 0.15 away (0.2x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.37 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,508.73 (~0 min at the current rate)."
    },
    "close_time": "2026-09-13T20:45:00Z",
    "result": "yes",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
-   "correct": null
+   "correct": false
   },
   {
    "ticker": "KXETH15M-26SEP131645-45:scalp",
    "call": "DOWN",
    "weak": false,
    "conviction": "scalp",
-   "gap": 0.375,
-   "gap_pct": 0.014944615255861778,
-   "sigma": 0.4031371423666174,
-   "band": 1.504214752485823,
-   "spot": 2509.265,
+   "gap": -0.36999999999989086,
+   "gap_pct": -0.014749732910237543,
+   "sigma": 0.7794031904818371,
+   "band": 1.8156557614410225,
+   "spot": 2508.52,
    "target": 2508.89,
-   "yes_bid": 0.51,
-   "yes_ask": 0.54,
-   "no_bid": 0.46,
-   "no_ask": 0.49,
-   "no_bid_eff": 0.46,
-   "no_ask_eff": 0.49,
-   "price_label": "SCALP NO \u2014 costs 49\u00a2, target 54\u00a2 (pays 2.0x if it settles)",
-   "price_yes": "YES 51\u00a2 / 54\u00a2",
-   "price_no": "NO 46\u00a2 / 49\u00a2",
-   "open_interest": 2479.08,
-   "entry_price": 0.49,
-   "breakeven": 0.51,
+   "yes_bid": 0.47,
+   "yes_ask": 0.48,
+   "no_bid": 0.52,
+   "no_ask": 0.53,
+   "no_bid_eff": 0.52,
+   "no_ask_eff": 0.53,
+   "price_label": "SCALP NO \u2014 costs 53\u00a2, target 58\u00a2 (pays 1.9x if it settles)",
+   "price_yes": "YES 47\u00a2 / 48\u00a2",
+   "price_no": "NO 52\u00a2 / 53\u00a2",
+   "open_interest": 11239.41,
+   "entry_price": 0.53,
+   "breakeven": 0.55,
    "fee": 0.02,
-   "reason": "Scalp bucket: NO at 49\u00a2 \u2192 target 54\u00a2 (5\u00a2 move), pays 2.0x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "reason": "Scalp bucket: NO at 53\u00a2 \u2192 target 58\u00a2 (5\u00a2 move), pays 1.9x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
    "signal_lean": "down",
-   "gap_dir": "up",
-   "mins_left": 13.92239853143692,
-   "ts": 1789331465.0298145,
-   "rsi": 79.60454296661815,
-   "rsi_state": "overbought",
-   "dist_vol": 0.9302045398212672,
+   "gap_dir": "down",
+   "mins_left": 7.511121968428294,
+   "ts": 1789331849.5701826,
+   "rsi": 56.074350764853286,
+   "rsi_state": "neutral",
+   "dist_vol": 0.4747222034992596,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: RSI 80 \u2014 overbought against an UP move; momentum decelerating hard (-0.18 over 3m vs +1.14 the 3m before); unfilled bullish FVG 2,508.80\u20132,509.18 below price, 0.08 away (0.2x/min vol) \u2014 acts as a magnet back the other way; 2 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,508.99 (~4 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bullish FVG 2,508.67\u20132,508.78 above price, 0.15 away (0.2x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.37 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,508.73 (~0 min at the current rate).",
+   "drivers": [
+    "gap $0.37 = 0.5x per-minute vol and 20% of the 8-min noise band",
+    "price action 0\u20133 DOWN (agrees with the gap)",
+    "RSI 56 (neutral)",
+    "momentum -1.88/3m, +1.23/15m",
+    "this asset's DOWN setups: 9W-0L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 4.3759040208445015,
    "signals": [
     {
      "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,509.14\u20132,509.26, unfilled, price inside it \u2014 leans UP if it holds"
+     "lean": "down",
+     "text": "bearish, 2,508.52\u20132,510.32, unfilled, price inside it \u2014 leans DOWN if it holds"
     },
     {
      "name": "Sweep",
@@ -8765,1044 +8785,274 @@
     {
      "name": "Exhaustion",
      "lean": "down",
-     "text": "2 bars up, ranges contracting \u2014 exhaustion leans DOWN"
+     "text": "5 bars up, ranges contracting \u2014 exhaustion leans DOWN"
     },
     {
      "name": "Momentum",
      "lean": "down",
-     "text": "-0.18 over 3m, +0.46 over 5m, decelerating"
+     "text": "-1.88 over 3m, -0.40 over 5m, accelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,509.54 (+0.28 away), low 2,505.92 (-3.34 away), target line +0.38 away (the line is a magnet)"
+     "text": "round high 2,511.26 (+2.74 away), low 2,506.63 (-1.89 away), target line -0.37 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "RSI 80 \u2014 overbought against an UP move",
-     "momentum decelerating hard (-0.18 over 3m vs +1.14 the 3m before)",
-     "unfilled bullish FVG 2,508.80\u20132,509.18 below price, 0.08 away (0.2x/min vol) \u2014 acts as a magnet back the other way",
-     "2 bars up with ranges contracting \u2014 the move is stalling"
+     "unfilled bullish FVG 2,508.67\u20132,508.78 above price, 0.15 away (0.2x/min vol) \u2014 acts as a magnet back the other way",
+     "price is sitting on the target line ($0.37 away, under half a minute's vol) \u2014 it can flip either side on one print"
     ],
     "level": "high",
-    "direction": "down",
-    "flip_price": 2508.995,
-    "eta_min": 4.3783783783793755,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: RSI 80 \u2014 overbought against an UP move; momentum decelerating hard (-0.18 over 3m vs +1.14 the 3m before); unfilled bullish FVG 2,508.80\u20132,509.18 below price, 0.08 away (0.2x/min vol) \u2014 acts as a magnet back the other way; 2 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,508.99 (~4 min at the current rate)."
+    "direction": "up",
+    "flip_price": 2508.7250000000004,
+    "eta_min": 0.3271276595750587,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bullish FVG 2,508.67\u20132,508.78 above price, 0.15 away (0.2x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.37 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,508.73 (~0 min at the current rate)."
    },
    "close_time": "2026-09-13T20:45:00Z",
    "result": "yes",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
    "is_scalp": true,
    "correct": false
   },
   {
    "ticker": "KXETH15M-26SEP131700-00",
-   "call": "NO CALL",
+   "call": "UP",
    "weak": false,
-   "conviction": "none",
-   "gap": 0.6849999999999454,
-   "gap_pct": 0.027281869505040995,
-   "sigma": 0.614803491640513,
-   "band": 2.293080080759209,
-   "spot": 2510.825,
+   "conviction": "medium",
+   "gap": 2.6350000000002183,
+   "gap_pct": 0.10486414422302905,
+   "sigma": 0.5838715612187533,
+   "band": 1.3983585805877197,
+   "spot": 2512.775,
    "target": 2510.14,
-   "yes_bid": 0.55,
-   "yes_ask": 0.56,
-   "no_bid": 0.44,
-   "no_ask": 0.45,
-   "no_bid_eff": 0.44,
-   "no_ask_eff": 0.45,
-   "price_label": "NO CALL \u2014 YES 55\u00a2 / 56\u00a2, NO 44\u00a2 / 45\u00a2",
-   "price_yes": "YES 55\u00a2 / 56\u00a2",
-   "price_no": "NO 44\u00a2 / 45\u00a2",
-   "open_interest": 2140.73,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $0.68 is inside the noise (ETH moving ~$0.61/min, band $2.29 over the 13.9 min still to run).",
-   "signal_lean": "up",
+   "yes_bid": 0.84,
+   "yes_ask": 0.85,
+   "no_bid": 0.15,
+   "no_ask": 0.16,
+   "no_bid_eff": 0.15,
+   "no_ask_eff": 0.16,
+   "price_label": "UP \u2014 YES costs 85\u00a2",
+   "price_yes": "YES 84\u00a2 / 85\u00a2",
+   "price_no": "NO 15\u00a2 / 16\u00a2",
+   "open_interest": 16066.78,
+   "entry_price": 0.85,
+   "breakeven": 0.86,
+   "fee": 0.01,
+   "reason": "CALL UP \u2014 MEDIUM \u2014 driven by gap $2.64 = 4.5x per-minute vol and 188% of the 8-min noise band; price action 2\u20132 MIXED (does not confirm the gap); RSI 77 (overbought). Reads against this call: the price action does not agree with the gap; RSI 77 is overbought against the move; an unfilled bullish AND bearish gap are both open (chop). PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: RSI 77 \u2014 overbought against an UP move; unfilled bullish FVG 2,512.11\u20132,512.24 below price, 0.54 away (0.9x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,512.18 (~3 min at the current rate).",
+   "signal_lean": "mixed",
    "gap_dir": "up",
-   "mins_left": 13.91123838822047,
-   "ts": 1789332365.6574395,
-   "rsi": 54.80471508501051,
-   "rsi_state": "neutral",
-   "dist_vol": 1.114177146541773,
+   "mins_left": 7.9389781554539995,
+   "ts": 1789332723.890707,
+   "rsi": 76.59206510681274,
+   "rsi_state": "overbought",
+   "dist_vol": 4.512978838188334,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,509.74\u20132,510.64 below price, 0.18 away (0.3x/min vol) \u2014 acts as a magnet back the other way; 5 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,510.19 (~2 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: RSI 77 \u2014 overbought against an UP move; unfilled bullish FVG 2,512.11\u20132,512.24 below price, 0.54 away (0.9x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,512.18 (~3 min at the current rate).",
+   "drivers": [
+    "gap $2.64 = 4.5x per-minute vol and 188% of the 8-min noise band",
+    "price action 2\u20132 MIXED (does not confirm the gap)",
+    "RSI 77 (overbought)",
+    "momentum +0.54/3m, +4.02/15m",
+    "this asset's UP setups: 5W-0L"
+   ],
+   "tier": "medium",
+   "tier_label": "MEDIUM",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 10.038894316841807,
    "signals": [
     {
      "name": "FVG",
      "lean": "up",
-     "text": "bullish, 2,510.53\u20132,510.82, unfilled, price inside it \u2014 leans UP if it holds"
+     "text": "bullish, 2,512.74\u20132,512.78, unfilled, price inside it \u2014 leans UP if it holds"
     },
     {
      "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
+     "lean": "down",
+     "text": "swept the high, closed back below at 2,513.41, 3 bar(s) ago \u2014 bearish"
     },
     {
      "name": "Exhaustion",
      "lean": "down",
-     "text": "5 bars up, ranges contracting \u2014 exhaustion leans DOWN"
+     "text": "1 bars up, ranges contracting \u2014 exhaustion leans DOWN"
     },
     {
      "name": "Momentum",
      "lean": "up",
-     "text": "+1.08 over 3m, +1.99 over 5m, accelerating"
+     "text": "+0.54 over 3m, +0.66 over 5m, accelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,511.14 (+0.32 away), low 2,508.09 (-2.73 away), target line +0.68 away (the line is a magnet)"
+     "text": "round high 2,514.01 (+1.24 away), low 2,508.01 (-4.77 away), target line +2.64 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "unfilled bullish FVG 2,509.74\u20132,510.64 below price, 0.18 away (0.3x/min vol) \u2014 acts as a magnet back the other way",
-     "5 bars up with ranges contracting \u2014 the move is stalling"
+     "RSI 77 \u2014 overbought against an UP move",
+     "unfilled bullish FVG 2,512.11\u20132,512.24 below price, 0.54 away (0.9x/min vol) \u2014 acts as a magnet back the other way",
+     "1 bars up with ranges contracting \u2014 the move is stalling"
     ],
     "level": "high",
     "direction": "down",
-    "flip_price": 2510.1949999999997,
-    "eta_min": 1.7500000000004212,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,509.74\u20132,510.64 below price, 0.18 away (0.3x/min vol) \u2014 acts as a magnet back the other way; 5 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,510.19 (~2 min at the current rate)."
+    "flip_price": 2512.1775,
+    "eta_min": 3.3504672897194236,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: RSI 77 \u2014 overbought against an UP move; unfilled bullish FVG 2,512.11\u20132,512.24 below price, 0.54 away (0.9x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,512.18 (~3 min at the current rate)."
    },
    "close_time": "2026-09-13T21:00:00Z",
    "result": "yes",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
-   "correct": null
+   "correct": true
   },
   {
    "ticker": "KXETH15M-26SEP131700-00:scalp",
-   "call": "UP",
+   "call": "DOWN",
    "weak": false,
    "conviction": "scalp",
-   "gap": 0.6849999999999454,
-   "gap_pct": 0.027281869505040995,
-   "sigma": 0.614803491640513,
-   "band": 2.293080080759209,
-   "spot": 2510.825,
+   "gap": 2.6350000000002183,
+   "gap_pct": 0.10486414422302905,
+   "sigma": 0.5838715612187533,
+   "band": 1.3983585805877197,
+   "spot": 2512.775,
    "target": 2510.14,
-   "yes_bid": 0.55,
-   "yes_ask": 0.56,
-   "no_bid": 0.44,
-   "no_ask": 0.45,
-   "no_bid_eff": 0.44,
-   "no_ask_eff": 0.45,
-   "price_label": "SCALP YES \u2014 costs 56\u00a2, target 61\u00a2 (pays 1.8x if it settles)",
-   "price_yes": "YES 55\u00a2 / 56\u00a2",
-   "price_no": "NO 44\u00a2 / 45\u00a2",
-   "open_interest": 2140.73,
-   "entry_price": 0.56,
-   "breakeven": 0.5800000000000001,
-   "fee": 0.02,
-   "reason": "Scalp bucket: YES at 56\u00a2 \u2192 target 61\u00a2 (5\u00a2 move), pays 1.8x if held to settle \u2014 price action leans UP. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "up",
+   "yes_bid": 0.84,
+   "yes_ask": 0.85,
+   "no_bid": 0.15,
+   "no_ask": 0.16,
+   "no_bid_eff": 0.15,
+   "no_ask_eff": 0.16,
+   "price_label": "SCALP NO \u2014 costs 16\u00a2, target 21\u00a2 (pays 6.2x if it settles)",
+   "price_yes": "YES 84\u00a2 / 85\u00a2",
+   "price_no": "NO 15\u00a2 / 16\u00a2",
+   "open_interest": 16066.78,
+   "entry_price": 0.16,
+   "breakeven": 0.17,
+   "fee": 0.01,
+   "reason": "Scalp bucket: NO at 16\u00a2 \u2192 target 21\u00a2 (5\u00a2 move), pays 6.2x if held to settle \u2014 signals mixed; 5-min aggressor flow is 76% NO. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "signal_lean": "mixed",
    "gap_dir": "up",
-   "mins_left": 13.91123838822047,
-   "ts": 1789332365.6574395,
-   "rsi": 54.80471508501051,
-   "rsi_state": "neutral",
-   "dist_vol": 1.114177146541773,
+   "mins_left": 7.9389781554539995,
+   "ts": 1789332723.890707,
+   "rsi": 76.59206510681274,
+   "rsi_state": "overbought",
+   "dist_vol": 4.512978838188334,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,509.74\u20132,510.64 below price, 0.18 away (0.3x/min vol) \u2014 acts as a magnet back the other way; 5 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,510.19 (~2 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: RSI 77 \u2014 overbought against an UP move; unfilled bullish FVG 2,512.11\u20132,512.24 below price, 0.54 away (0.9x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,512.18 (~3 min at the current rate).",
+   "drivers": [
+    "gap $2.64 = 4.5x per-minute vol and 188% of the 8-min noise band",
+    "price action 2\u20132 MIXED (does not confirm the gap)",
+    "RSI 77 (overbought)",
+    "momentum +0.54/3m, +4.02/15m",
+    "this asset's UP setups: 5W-0L"
+   ],
+   "tier": "medium",
+   "tier_label": "MEDIUM",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 10.038894316841807,
    "signals": [
     {
      "name": "FVG",
      "lean": "up",
-     "text": "bullish, 2,510.53\u20132,510.82, unfilled, price inside it \u2014 leans UP if it holds"
+     "text": "bullish, 2,512.74\u20132,512.78, unfilled, price inside it \u2014 leans UP if it holds"
     },
     {
      "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
+     "lean": "down",
+     "text": "swept the high, closed back below at 2,513.41, 3 bar(s) ago \u2014 bearish"
     },
     {
      "name": "Exhaustion",
      "lean": "down",
-     "text": "5 bars up, ranges contracting \u2014 exhaustion leans DOWN"
+     "text": "1 bars up, ranges contracting \u2014 exhaustion leans DOWN"
     },
     {
      "name": "Momentum",
      "lean": "up",
-     "text": "+1.08 over 3m, +1.99 over 5m, accelerating"
+     "text": "+0.54 over 3m, +0.66 over 5m, accelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,511.14 (+0.32 away), low 2,508.09 (-2.73 away), target line +0.68 away (the line is a magnet)"
+     "text": "round high 2,514.01 (+1.24 away), low 2,508.01 (-4.77 away), target line +2.64 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "unfilled bullish FVG 2,509.74\u20132,510.64 below price, 0.18 away (0.3x/min vol) \u2014 acts as a magnet back the other way",
-     "5 bars up with ranges contracting \u2014 the move is stalling"
+     "RSI 77 \u2014 overbought against an UP move",
+     "unfilled bullish FVG 2,512.11\u20132,512.24 below price, 0.54 away (0.9x/min vol) \u2014 acts as a magnet back the other way",
+     "1 bars up with ranges contracting \u2014 the move is stalling"
     ],
     "level": "high",
     "direction": "down",
-    "flip_price": 2510.1949999999997,
-    "eta_min": 1.7500000000004212,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,509.74\u20132,510.64 below price, 0.18 away (0.3x/min vol) \u2014 acts as a magnet back the other way; 5 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,510.19 (~2 min at the current rate)."
+    "flip_price": 2512.1775,
+    "eta_min": 3.3504672897194236,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: RSI 77 \u2014 overbought against an UP move; unfilled bullish FVG 2,512.11\u20132,512.24 below price, 0.54 away (0.9x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,512.18 (~3 min at the current rate)."
    },
    "close_time": "2026-09-13T21:00:00Z",
    "result": "yes",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
    "is_scalp": true,
-   "correct": true
+   "correct": false
   },
   {
    "ticker": "KXETH15M-26SEP131715-15",
-   "call": "NO CALL",
+   "call": "DOWN",
    "weak": false,
-   "conviction": "none",
-   "gap": -0.1550000000002001,
-   "gap_pct": -0.00617135258132549,
-   "sigma": 0.7907601125217385,
-   "band": 2.949111238733985,
-   "spot": 2511.605,
+   "conviction": "coin_flip",
+   "gap": -0.8150000000000546,
+   "gap_pct": -0.032457899316793264,
+   "sigma": 0.5226307385609497,
+   "band": 1.2516891730394892,
+   "spot": 2510.945,
    "target": 2511.76,
-   "yes_bid": 0.42,
-   "yes_ask": 0.44,
-   "no_bid": 0.56,
-   "no_ask": 0.58,
-   "no_bid_eff": 0.56,
-   "no_ask_eff": 0.58,
-   "price_label": "NO CALL \u2014 YES 42\u00a2 / 44\u00a2, NO 56\u00a2 / 58\u00a2",
-   "price_yes": "YES 42\u00a2 / 44\u00a2",
-   "price_no": "NO 56\u00a2 / 58\u00a2",
-   "open_interest": 2315.77,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $0.16 is inside the noise (ETH moving ~$0.79/min, band $2.95 over the 13.9 min still to run).",
-   "signal_lean": "down",
-   "gap_dir": "down",
-   "mins_left": 13.908900467554728,
-   "ts": 1789333265.8203378,
-   "rsi": 50.015684517140265,
-   "rsi_state": "neutral",
-   "dist_vol": 0.19601393336078143,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.16 over 3m vs -1.55 the 3m before); unfilled bullish FVG 2,511.66\u20132,511.95 above price, 0.05 away (0.1x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.16 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,511.81 (~4 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "down",
-     "text": "bearish, 2,511.61\u20132,511.95, unfilled, price inside it \u2014 leans DOWN if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Trend",
-     "lean": "up",
-     "text": "1 bars up, still extending"
-    },
-    {
-     "name": "Momentum",
-     "lean": "down",
-     "text": "-0.16 over 3m, -2.32 over 5m, decelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,513.99 (+2.39 away), low 2,511.51 (-0.10 away), target line -0.16 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "momentum decelerating hard (-0.16 over 3m vs -1.55 the 3m before)",
-     "unfilled bullish FVG 2,511.66\u20132,511.95 above price, 0.05 away (0.1x/min vol) \u2014 acts as a magnet back the other way",
-     "price is sitting on the target line ($0.16 away, under half a minute's vol) \u2014 it can flip either side on one print"
-    ],
-    "level": "high",
-    "direction": "up",
-    "flip_price": 2511.8050000000003,
-    "eta_min": 3.8709677419357678,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.16 over 3m vs -1.55 the 3m before); unfilled bullish FVG 2,511.66\u20132,511.95 above price, 0.05 away (0.1x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.16 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,511.81 (~4 min at the current rate)."
-   },
-   "close_time": "2026-09-13T21:15:00Z",
-   "result": "yes",
-   "mark": 1,
-   "is_early": false,
-   "correct": null
-  },
-  {
-   "ticker": "KXETH15M-26SEP131715-15:scalp",
-   "call": "DOWN",
-   "weak": false,
-   "conviction": "scalp",
-   "gap": -0.1550000000002001,
-   "gap_pct": -0.00617135258132549,
-   "sigma": 0.7907601125217385,
-   "band": 2.949111238733985,
-   "spot": 2511.605,
-   "target": 2511.76,
-   "yes_bid": 0.42,
-   "yes_ask": 0.44,
-   "no_bid": 0.56,
-   "no_ask": 0.58,
-   "no_bid_eff": 0.56,
-   "no_ask_eff": 0.58,
-   "price_label": "SCALP NO \u2014 costs 58\u00a2, target 63\u00a2 (pays 1.7x if it settles)",
-   "price_yes": "YES 42\u00a2 / 44\u00a2",
-   "price_no": "NO 56\u00a2 / 58\u00a2",
-   "open_interest": 2315.77,
-   "entry_price": 0.58,
-   "breakeven": 0.6,
-   "fee": 0.02,
-   "reason": "Scalp bucket: NO at 58\u00a2 \u2192 target 63\u00a2 (5\u00a2 move), pays 1.7x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "down",
-   "gap_dir": "down",
-   "mins_left": 13.908900467554728,
-   "ts": 1789333265.8203378,
-   "rsi": 50.015684517140265,
-   "rsi_state": "neutral",
-   "dist_vol": 0.19601393336078143,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.16 over 3m vs -1.55 the 3m before); unfilled bullish FVG 2,511.66\u20132,511.95 above price, 0.05 away (0.1x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.16 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,511.81 (~4 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "down",
-     "text": "bearish, 2,511.61\u20132,511.95, unfilled, price inside it \u2014 leans DOWN if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Trend",
-     "lean": "up",
-     "text": "1 bars up, still extending"
-    },
-    {
-     "name": "Momentum",
-     "lean": "down",
-     "text": "-0.16 over 3m, -2.32 over 5m, decelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,513.99 (+2.39 away), low 2,511.51 (-0.10 away), target line -0.16 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "momentum decelerating hard (-0.16 over 3m vs -1.55 the 3m before)",
-     "unfilled bullish FVG 2,511.66\u20132,511.95 above price, 0.05 away (0.1x/min vol) \u2014 acts as a magnet back the other way",
-     "price is sitting on the target line ($0.16 away, under half a minute's vol) \u2014 it can flip either side on one print"
-    ],
-    "level": "high",
-    "direction": "up",
-    "flip_price": 2511.8050000000003,
-    "eta_min": 3.8709677419357678,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.16 over 3m vs -1.55 the 3m before); unfilled bullish FVG 2,511.66\u20132,511.95 above price, 0.05 away (0.1x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.16 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,511.81 (~4 min at the current rate)."
-   },
-   "close_time": "2026-09-13T21:15:00Z",
-   "result": "yes",
-   "mark": 1,
-   "is_early": false,
-   "is_scalp": true,
-   "correct": false
-  },
-  {
-   "ticker": "KXETH15M-26SEP131730-30",
-   "call": "NO CALL",
-   "weak": false,
-   "conviction": "none",
-   "gap": 0.2300000000000182,
-   "gap_pct": 0.00914985877391965,
-   "sigma": 0.6691641552465275,
-   "band": 2.4959763578663257,
-   "spot": 2513.7,
-   "target": 2513.47,
-   "yes_bid": 0.51,
-   "yes_ask": 0.52,
-   "no_bid": 0.48,
-   "no_ask": 0.49,
-   "no_bid_eff": 0.48,
-   "no_ask_eff": 0.49,
-   "price_label": "NO CALL \u2014 YES 51\u00a2 / 52\u00a2, NO 48\u00a2 / 49\u00a2",
-   "price_yes": "YES 51\u00a2 / 52\u00a2",
-   "price_no": "NO 48\u00a2 / 49\u00a2",
-   "open_interest": 3709.87,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $0.23 is inside the noise (ETH moving ~$0.67/min, band $2.50 over the 13.9 min still to run).",
-   "signal_lean": "up",
-   "gap_dir": "up",
-   "mins_left": 13.912833766142528,
-   "ts": 1789334165.757784,
-   "rsi": 56.59677714704029,
-   "rsi_state": "neutral",
-   "dist_vol": 0.3437123734090085,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,512.98\u20132,513.68 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way; 3 bars up with ranges contracting \u2014 the move is stalling; price is sitting on the target line ($0.23 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,513.33 (~2 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,513.56\u20132,513.70, unfilled, price inside it \u2014 leans UP if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Exhaustion",
-     "lean": "down",
-     "text": "3 bars up, ranges contracting \u2014 exhaustion leans DOWN"
-    },
-    {
-     "name": "Momentum",
-     "lean": "up",
-     "text": "+0.61 over 3m, -0.17 over 5m, decelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,514.66 (+0.96 away), low 2,510.78 (-2.92 away), target line +0.23 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "unfilled bullish FVG 2,512.98\u20132,513.68 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way",
-     "3 bars up with ranges contracting \u2014 the move is stalling",
-     "price is sitting on the target line ($0.23 away, under half a minute's vol) \u2014 it can flip either side on one print"
-    ],
-    "level": "high",
-    "direction": "down",
-    "flip_price": 2513.3325,
-    "eta_min": 1.8223140495859103,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,512.98\u20132,513.68 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way; 3 bars up with ranges contracting \u2014 the move is stalling; price is sitting on the target line ($0.23 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,513.33 (~2 min at the current rate)."
-   },
-   "close_time": "2026-09-13T21:30:00Z",
-   "result": "no",
-   "mark": 1,
-   "is_early": false,
-   "correct": null
-  },
-  {
-   "ticker": "KXETH15M-26SEP131730-30:scalp",
-   "call": "UP",
-   "weak": false,
-   "conviction": "scalp",
-   "gap": 0.2300000000000182,
-   "gap_pct": 0.00914985877391965,
-   "sigma": 0.6691641552465275,
-   "band": 2.4959763578663257,
-   "spot": 2513.7,
-   "target": 2513.47,
-   "yes_bid": 0.51,
-   "yes_ask": 0.52,
-   "no_bid": 0.48,
-   "no_ask": 0.49,
-   "no_bid_eff": 0.48,
-   "no_ask_eff": 0.49,
-   "price_label": "SCALP YES \u2014 costs 52\u00a2, target 57\u00a2 (pays 1.9x if it settles)",
-   "price_yes": "YES 51\u00a2 / 52\u00a2",
-   "price_no": "NO 48\u00a2 / 49\u00a2",
-   "open_interest": 3709.87,
-   "entry_price": 0.52,
-   "breakeven": 0.54,
-   "fee": 0.02,
-   "reason": "Scalp bucket: YES at 52\u00a2 \u2192 target 57\u00a2 (5\u00a2 move), pays 1.9x if held to settle \u2014 price action leans UP. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "up",
-   "gap_dir": "up",
-   "mins_left": 13.912833766142528,
-   "ts": 1789334165.757784,
-   "rsi": 56.59677714704029,
-   "rsi_state": "neutral",
-   "dist_vol": 0.3437123734090085,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,512.98\u20132,513.68 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way; 3 bars up with ranges contracting \u2014 the move is stalling; price is sitting on the target line ($0.23 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,513.33 (~2 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,513.56\u20132,513.70, unfilled, price inside it \u2014 leans UP if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Exhaustion",
-     "lean": "down",
-     "text": "3 bars up, ranges contracting \u2014 exhaustion leans DOWN"
-    },
-    {
-     "name": "Momentum",
-     "lean": "up",
-     "text": "+0.61 over 3m, -0.17 over 5m, decelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,514.66 (+0.96 away), low 2,510.78 (-2.92 away), target line +0.23 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "unfilled bullish FVG 2,512.98\u20132,513.68 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way",
-     "3 bars up with ranges contracting \u2014 the move is stalling",
-     "price is sitting on the target line ($0.23 away, under half a minute's vol) \u2014 it can flip either side on one print"
-    ],
-    "level": "high",
-    "direction": "down",
-    "flip_price": 2513.3325,
-    "eta_min": 1.8223140495859103,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,512.98\u20132,513.68 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way; 3 bars up with ranges contracting \u2014 the move is stalling; price is sitting on the target line ($0.23 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,513.33 (~2 min at the current rate)."
-   },
-   "close_time": "2026-09-13T21:30:00Z",
-   "result": "no",
-   "mark": 1,
-   "is_early": false,
-   "is_scalp": true,
-   "correct": false
-  },
-  {
-   "ticker": "KXETH15M-26SEP131745-45",
-   "call": "NO CALL",
-   "weak": false,
-   "conviction": "none",
-   "gap": -0.6150000000002365,
-   "gap_pct": -0.0244819480465291,
-   "sigma": 0.4770005823429477,
-   "band": 1.7797347383000799,
-   "spot": 2512.055,
-   "target": 2512.67,
-   "yes_bid": 0.39,
-   "yes_ask": 0.41,
-   "no_bid": 0.59,
-   "no_ask": 0.61,
-   "no_bid_eff": 0.59,
-   "no_ask_eff": 0.61,
-   "price_label": "NO CALL \u2014 YES 39\u00a2 / 41\u00a2, NO 59\u00a2 / 61\u00a2",
-   "price_yes": "YES 39\u00a2 / 41\u00a2",
-   "price_no": "NO 59\u00a2 / 61\u00a2",
-   "open_interest": 2147.06,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $0.62 is inside the noise (ETH moving ~$0.48/min, band $1.78 over the 13.9 min still to run).",
-   "signal_lean": "down",
-   "gap_dir": "down",
-   "mins_left": 13.921073818206787,
-   "ts": 1789335065.1106853,
-   "rsi": 33.8567598621174,
-   "rsi_state": "cold",
-   "dist_vol": 1.2893066020579231,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,512.51\u20132,512.70 above price, 0.46 away (1.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,512.61 (~3 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "down",
-     "text": "bearish, 2,512.05\u20132,512.55, unfilled, price inside it \u2014 leans DOWN if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Trend",
-     "lean": "up",
-     "text": "2 bars up, still extending"
-    },
-    {
-     "name": "Momentum",
-     "lean": "down",
-     "text": "-0.65 over 3m, -0.98 over 5m, accelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,515.33 (+3.28 away), low 2,512.05 (-0.00 away), target line -0.62 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "unfilled bearish FVG 2,512.51\u20132,512.70 above price, 0.46 away (1.0x/min vol) \u2014 acts as a magnet back the other way"
-    ],
-    "level": "watch",
-    "direction": "up",
-    "flip_price": 2512.6099999999997,
-    "eta_min": 2.5615384615373475,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,512.51\u20132,512.70 above price, 0.46 away (1.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,512.61 (~3 min at the current rate)."
-   },
-   "close_time": "2026-09-13T21:45:00Z",
-   "result": "no",
-   "mark": 1,
-   "is_early": false,
-   "correct": null
-  },
-  {
-   "ticker": "KXETH15M-26SEP131745-45:scalp",
-   "call": "DOWN",
-   "weak": false,
-   "conviction": "scalp",
-   "gap": -0.6150000000002365,
-   "gap_pct": -0.0244819480465291,
-   "sigma": 0.4770005823429477,
-   "band": 1.7797347383000799,
-   "spot": 2512.055,
-   "target": 2512.67,
-   "yes_bid": 0.39,
-   "yes_ask": 0.41,
-   "no_bid": 0.59,
-   "no_ask": 0.61,
-   "no_bid_eff": 0.59,
-   "no_ask_eff": 0.61,
-   "price_label": "SCALP NO \u2014 costs 61\u00a2, target 66\u00a2 (pays 1.6x if it settles)",
-   "price_yes": "YES 39\u00a2 / 41\u00a2",
-   "price_no": "NO 59\u00a2 / 61\u00a2",
-   "open_interest": 2147.06,
-   "entry_price": 0.61,
-   "breakeven": 0.63,
-   "fee": 0.02,
-   "reason": "Scalp bucket: NO at 61\u00a2 \u2192 target 66\u00a2 (5\u00a2 move), pays 1.6x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "down",
-   "gap_dir": "down",
-   "mins_left": 13.921073818206787,
-   "ts": 1789335065.1106853,
-   "rsi": 33.8567598621174,
-   "rsi_state": "cold",
-   "dist_vol": 1.2893066020579231,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,512.51\u20132,512.70 above price, 0.46 away (1.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,512.61 (~3 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "down",
-     "text": "bearish, 2,512.05\u20132,512.55, unfilled, price inside it \u2014 leans DOWN if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Trend",
-     "lean": "up",
-     "text": "2 bars up, still extending"
-    },
-    {
-     "name": "Momentum",
-     "lean": "down",
-     "text": "-0.65 over 3m, -0.98 over 5m, accelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,515.33 (+3.28 away), low 2,512.05 (-0.00 away), target line -0.62 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "unfilled bearish FVG 2,512.51\u20132,512.70 above price, 0.46 away (1.0x/min vol) \u2014 acts as a magnet back the other way"
-    ],
-    "level": "watch",
-    "direction": "up",
-    "flip_price": 2512.6099999999997,
-    "eta_min": 2.5615384615373475,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,512.51\u20132,512.70 above price, 0.46 away (1.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,512.61 (~3 min at the current rate)."
-   },
-   "close_time": "2026-09-13T21:45:00Z",
-   "result": "no",
-   "mark": 1,
-   "is_early": false,
-   "is_scalp": true,
-   "correct": true
-  },
-  {
-   "ticker": "KXETH15M-26SEP131800-00",
-   "call": "NO CALL",
-   "weak": false,
-   "conviction": "none",
-   "gap": 0.18500000000040018,
-   "gap_pct": 0.007367069200688927,
-   "sigma": 0.6345362260913009,
-   "band": 2.3665949239756023,
-   "spot": 2511.175,
-   "target": 2510.99,
-   "yes_bid": 0.52,
-   "yes_ask": 0.53,
-   "no_bid": 0.47,
-   "no_ask": 0.48,
-   "no_bid_eff": 0.47,
-   "no_ask_eff": 0.48,
-   "price_label": "NO CALL \u2014 YES 52\u00a2 / 53\u00a2, NO 47\u00a2 / 48\u00a2",
-   "price_yes": "YES 52\u00a2 / 53\u00a2",
-   "price_no": "NO 47\u00a2 / 48\u00a2",
-   "open_interest": 3167.75,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $0.19 is inside the noise (ETH moving ~$0.63/min, band $2.37 over the 13.9 min still to run).",
-   "signal_lean": "up",
-   "gap_dir": "up",
-   "mins_left": 13.910252543290456,
-   "ts": 1789335965.7351747,
-   "rsi": 43.35895919574389,
-   "rsi_state": "neutral",
-   "dist_vol": 0.2915515180906019,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: price is sitting on the target line ($0.19 away, under half a minute's vol) \u2014 it can flip either side on one print.",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,509.95\u20132,511.18, unfilled, price inside it \u2014 leans UP if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Exhaustion",
-     "lean": "down",
-     "text": "6 bars up \u2014 exhaustion leans DOWN"
-    },
-    {
-     "name": "Momentum",
-     "lean": "up",
-     "text": "+1.22 over 3m, +1.22 over 5m, accelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,512.72 (+1.55 away), low 2,509.95 (-1.22 away), target line +0.19 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "price is sitting on the target line ($0.19 away, under half a minute's vol) \u2014 it can flip either side on one print"
-    ],
-    "level": "watch",
-    "direction": "down",
-    "flip_price": null,
-    "eta_min": null,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: price is sitting on the target line ($0.19 away, under half a minute's vol) \u2014 it can flip either side on one print."
-   },
-   "close_time": "2026-09-13T22:00:00Z",
-   "result": "no",
-   "mark": 1,
-   "is_early": false,
-   "correct": null
-  },
-  {
-   "ticker": "KXETH15M-26SEP131800-00:scalp",
-   "call": "UP",
-   "weak": false,
-   "conviction": "scalp",
-   "gap": 0.18500000000040018,
-   "gap_pct": 0.007367069200688927,
-   "sigma": 0.6345362260913009,
-   "band": 2.3665949239756023,
-   "spot": 2511.175,
-   "target": 2510.99,
-   "yes_bid": 0.52,
-   "yes_ask": 0.53,
-   "no_bid": 0.47,
-   "no_ask": 0.48,
-   "no_bid_eff": 0.47,
-   "no_ask_eff": 0.48,
-   "price_label": "SCALP YES \u2014 costs 53\u00a2, target 58\u00a2 (pays 1.9x if it settles)",
-   "price_yes": "YES 52\u00a2 / 53\u00a2",
-   "price_no": "NO 47\u00a2 / 48\u00a2",
-   "open_interest": 3167.75,
-   "entry_price": 0.53,
-   "breakeven": 0.55,
-   "fee": 0.02,
-   "reason": "Scalp bucket: YES at 53\u00a2 \u2192 target 58\u00a2 (5\u00a2 move), pays 1.9x if held to settle \u2014 price action leans UP. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "up",
-   "gap_dir": "up",
-   "mins_left": 13.910252543290456,
-   "ts": 1789335965.7351747,
-   "rsi": 43.35895919574389,
-   "rsi_state": "neutral",
-   "dist_vol": 0.2915515180906019,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: price is sitting on the target line ($0.19 away, under half a minute's vol) \u2014 it can flip either side on one print.",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,509.95\u20132,511.18, unfilled, price inside it \u2014 leans UP if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Exhaustion",
-     "lean": "down",
-     "text": "6 bars up \u2014 exhaustion leans DOWN"
-    },
-    {
-     "name": "Momentum",
-     "lean": "up",
-     "text": "+1.22 over 3m, +1.22 over 5m, accelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,512.72 (+1.55 away), low 2,509.95 (-1.22 away), target line +0.19 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "price is sitting on the target line ($0.19 away, under half a minute's vol) \u2014 it can flip either side on one print"
-    ],
-    "level": "watch",
-    "direction": "down",
-    "flip_price": null,
-    "eta_min": null,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: price is sitting on the target line ($0.19 away, under half a minute's vol) \u2014 it can flip either side on one print."
-   },
-   "close_time": "2026-09-13T22:00:00Z",
-   "result": "no",
-   "mark": 1,
-   "is_early": false,
-   "is_scalp": true,
-   "correct": false
-  },
-  {
-   "ticker": "KXETH15M-26SEP131815-15",
-   "call": "NO CALL",
-   "weak": false,
-   "conviction": "none",
-   "gap": -4.5349999999998545,
-   "gap_pct": -0.1811402448888236,
-   "sigma": 0.7286514179557296,
-   "band": 2.7160630941373674,
-   "spot": 2503.585,
-   "target": 2508.12,
-   "yes_bid": 0.24,
-   "yes_ask": 0.25,
-   "no_bid": 0.75,
-   "no_ask": 0.76,
-   "no_bid_eff": 0.75,
-   "no_ask_eff": 0.76,
-   "price_label": "NO CALL \u2014 YES 24\u00a2 / 25\u00a2, NO 75\u00a2 / 76\u00a2",
-   "price_yes": "YES 24\u00a2 / 25\u00a2",
-   "price_no": "NO 75\u00a2 / 76\u00a2",
-   "open_interest": 4131.03,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 not a confident read at minute 1: RSI 4 is oversold against the move. Standing down rather than manufacturing a call.",
-   "signal_lean": "down",
-   "gap_dir": "down",
-   "mins_left": 13.894409040609995,
-   "ts": 1789336866.697816,
-   "rsi": 4.410416284612708,
-   "rsi_state": "oversold",
-   "dist_vol": 6.223826494049842,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 4 \u2014 oversold against a DOWN move. It would show around 2,508.31 (~3 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "down",
-     "text": "bearish, 2,503.59\u20132,507.81, unfilled, price inside it \u2014 leans DOWN if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Trend",
-     "lean": "up",
-     "text": "1 bars up, still extending"
-    },
-    {
-     "name": "Momentum",
-     "lean": "down",
-     "text": "-4.45 over 3m, -5.00 over 5m, accelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,511.08 (+7.49 away), low 2,503.59 (-0.00 away), target line -4.53 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "RSI 4 \u2014 oversold against a DOWN move"
-    ],
-    "level": "watch",
-    "direction": "up",
-    "flip_price": 2508.31,
-    "eta_min": 3.1853932584270352,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 4 \u2014 oversold against a DOWN move. It would show around 2,508.31 (~3 min at the current rate)."
-   },
-   "close_time": "2026-09-13T22:15:00Z",
-   "result": "no",
-   "mark": 1,
-   "is_early": false,
-   "correct": null
-  },
-  {
-   "ticker": "KXETH15M-26SEP131815-15:scalp",
-   "call": "DOWN",
-   "weak": false,
-   "conviction": "scalp",
-   "gap": -4.5349999999998545,
-   "gap_pct": -0.1811402448888236,
-   "sigma": 0.7286514179557296,
-   "band": 2.7160630941373674,
-   "spot": 2503.585,
-   "target": 2508.12,
-   "yes_bid": 0.24,
-   "yes_ask": 0.25,
-   "no_bid": 0.75,
-   "no_ask": 0.76,
-   "no_bid_eff": 0.75,
-   "no_ask_eff": 0.76,
-   "price_label": "SCALP NO \u2014 costs 76\u00a2, target 81\u00a2 (pays 1.3x if it settles)",
-   "price_yes": "YES 24\u00a2 / 25\u00a2",
-   "price_no": "NO 75\u00a2 / 76\u00a2",
-   "open_interest": 4131.03,
-   "entry_price": 0.76,
-   "breakeven": 0.78,
-   "fee": 0.02,
-   "reason": "Scalp bucket: NO at 76\u00a2 \u2192 target 81\u00a2 (5\u00a2 move), pays 1.3x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "down",
-   "gap_dir": "down",
-   "mins_left": 13.894409040609995,
-   "ts": 1789336866.697816,
-   "rsi": 4.410416284612708,
-   "rsi_state": "oversold",
-   "dist_vol": 6.223826494049842,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 4 \u2014 oversold against a DOWN move. It would show around 2,508.31 (~3 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "down",
-     "text": "bearish, 2,503.59\u20132,507.81, unfilled, price inside it \u2014 leans DOWN if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Trend",
-     "lean": "up",
-     "text": "1 bars up, still extending"
-    },
-    {
-     "name": "Momentum",
-     "lean": "down",
-     "text": "-4.45 over 3m, -5.00 over 5m, accelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,511.08 (+7.49 away), low 2,503.59 (-0.00 away), target line -4.53 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "RSI 4 \u2014 oversold against a DOWN move"
-    ],
-    "level": "watch",
-    "direction": "up",
-    "flip_price": 2508.31,
-    "eta_min": 3.1853932584270352,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 4 \u2014 oversold against a DOWN move. It would show around 2,508.31 (~3 min at the current rate)."
-   },
-   "close_time": "2026-09-13T22:15:00Z",
-   "result": "no",
-   "mark": 1,
-   "is_early": false,
-   "is_scalp": true,
-   "correct": true
-  },
-  {
-   "ticker": "KXETH15M-26SEP131830-30",
-   "call": "NO CALL",
-   "weak": false,
-   "conviction": "none",
-   "gap": -6.9050000000002,
-   "gap_pct": -0.27829893053409616,
-   "sigma": 2.3424124790955223,
-   "band": 8.731323135895005,
-   "spot": 2481.145,
-   "target": 2488.05,
    "yes_bid": 0.28,
    "yes_ask": 0.29,
    "no_bid": 0.71,
    "no_ask": 0.72,
    "no_bid_eff": 0.71,
    "no_ask_eff": 0.72,
-   "price_label": "NO CALL \u2014 YES 28\u00a2 / 29\u00a2, NO 71\u00a2 / 72\u00a2",
+   "price_label": "DOWN \u2014 NO costs 72\u00a2",
    "price_yes": "YES 28\u00a2 / 29\u00a2",
    "price_no": "NO 71\u00a2 / 72\u00a2",
-   "open_interest": 4631.34,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $6.91 is inside the noise (ETH moving ~$2.34/min, band $8.73 over the 13.9 min still to run).",
+   "open_interest": 13162.84,
+   "entry_price": 0.72,
+   "breakeven": 0.74,
+   "fee": 0.02,
+   "reason": "CALL DOWN \u2014 COIN FLIP \u2014 driven by gap $0.82 = 1.6x per-minute vol and 65% of the 8-min noise band; price action 1\u20132 DOWN (agrees with the gap); RSI 33 (cold). COIN FLIP \u2014 the gap is INSIDE the noise band ($0.82 vs a $1.25 band over the 8 min still to run). This is a direction because a call is made every round, not because the read is good. Near 50/50 \u2014 size it that way or skip it. PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,511.23\u20132,512.17 above price, 0.28 away (0.5x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,511.70 (~2 min at the current rate).",
    "signal_lean": "down",
    "gap_dir": "down",
-   "mins_left": 13.894194571177165,
-   "ts": 1789337766.9666946,
-   "rsi": 22.94946733289386,
-   "rsi_state": "oversold",
-   "dist_vol": 2.9478155797165293,
+   "mins_left": 7.938989754517873,
+   "ts": 1789333623.8741298,
+   "rsi": 32.892507787309555,
+   "rsi_state": "cold",
+   "dist_vol": 1.5594184189091826,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 23 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,486.70\u20132,489.55 above price, 5.56 away (2.4x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,488.13 (~2 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,511.23\u20132,512.17 above price, 0.28 away (0.5x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,511.70 (~2 min at the current rate).",
+   "drivers": [
+    "gap $0.82 = 1.6x per-minute vol and 65% of the 8-min noise band",
+    "price action 1\u20132 DOWN (agrees with the gap)",
+    "RSI 33 (cold)",
+    "momentum -1.09/3m, -2.39/15m",
+    "this asset's DOWN setups: 9W-1L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -0.4976936203536231,
    "signals": [
     {
      "name": "FVG",
-     "lean": "down",
-     "text": "bearish, 2,481.14\u20132,487.38, unfilled, price inside it \u2014 leans DOWN if it holds"
+     "lean": "up",
+     "text": "bearish, 2,511.24\u20132,512.01, unfilled, price below it \u2014 magnet pulls UP"
     },
     {
      "name": "Sweep",
@@ -9817,43 +9067,42 @@
     {
      "name": "Momentum",
      "lean": "down",
-     "text": "-11.01 over 3m, -9.64 over 5m, accelerating"
+     "text": "-1.09 over 3m, -1.93 over 5m, accelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,499.27 (+18.12 away), low 2,481.14 (-0.00 away), target line -6.91 away (the line is a magnet)"
+     "text": "round high 2,513.93 (+2.98 away), low 2,510.78 (-0.16 away), target line -0.82 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "RSI 23 \u2014 oversold against a DOWN move",
-     "unfilled bearish FVG 2,486.70\u20132,489.55 above price, 5.56 away (2.4x/min vol) \u2014 acts as a magnet back the other way"
+     "unfilled bearish FVG 2,511.23\u20132,512.17 above price, 0.28 away (0.5x/min vol) \u2014 acts as a magnet back the other way"
     ],
-    "level": "high",
+    "level": "watch",
     "direction": "up",
-    "flip_price": 2488.13,
-    "eta_min": 1.9024058102587948,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 23 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,486.70\u20132,489.55 above price, 5.56 away (2.4x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,488.13 (~2 min at the current rate)."
+    "flip_price": 2511.7,
+    "eta_min": 2.077981651375785,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,511.23\u20132,512.17 above price, 0.28 away (0.5x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,511.70 (~2 min at the current rate)."
    },
-   "close_time": "2026-09-13T22:30:00Z",
-   "result": "no",
-   "mark": 1,
+   "close_time": "2026-09-13T21:15:00Z",
+   "result": "yes",
+   "mark": 7,
    "is_early": false,
-   "correct": null
+   "correct": false
   },
   {
-   "ticker": "KXETH15M-26SEP131830-30:scalp",
+   "ticker": "KXETH15M-26SEP131715-15:scalp",
    "call": "DOWN",
    "weak": false,
    "conviction": "scalp",
-   "gap": -6.9050000000002,
-   "gap_pct": -0.27829893053409616,
-   "sigma": 2.3424124790955223,
-   "band": 8.731323135895005,
-   "spot": 2481.145,
-   "target": 2488.05,
+   "gap": -0.8150000000000546,
+   "gap_pct": -0.032457899316793264,
+   "sigma": 0.5226307385609497,
+   "band": 1.2516891730394892,
+   "spot": 2510.945,
+   "target": 2511.76,
    "yes_bid": 0.28,
    "yes_ask": 0.29,
    "no_bid": 0.71,
@@ -9863,26 +9112,37 @@
    "price_label": "SCALP NO \u2014 costs 72\u00a2, target 77\u00a2 (pays 1.4x if it settles)",
    "price_yes": "YES 28\u00a2 / 29\u00a2",
    "price_no": "NO 71\u00a2 / 72\u00a2",
-   "open_interest": 4631.34,
+   "open_interest": 13162.84,
    "entry_price": 0.72,
    "breakeven": 0.74,
    "fee": 0.02,
    "reason": "Scalp bucket: NO at 72\u00a2 \u2192 target 77\u00a2 (5\u00a2 move), pays 1.4x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
    "signal_lean": "down",
    "gap_dir": "down",
-   "mins_left": 13.894194571177165,
-   "ts": 1789337766.9666946,
-   "rsi": 22.94946733289386,
-   "rsi_state": "oversold",
-   "dist_vol": 2.9478155797165293,
+   "mins_left": 7.938989754517873,
+   "ts": 1789333623.8741298,
+   "rsi": 32.892507787309555,
+   "rsi_state": "cold",
+   "dist_vol": 1.5594184189091826,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 23 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,486.70\u20132,489.55 above price, 5.56 away (2.4x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,488.13 (~2 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,511.23\u20132,512.17 above price, 0.28 away (0.5x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,511.70 (~2 min at the current rate).",
+   "drivers": [
+    "gap $0.82 = 1.6x per-minute vol and 65% of the 8-min noise band",
+    "price action 1\u20132 DOWN (agrees with the gap)",
+    "RSI 33 (cold)",
+    "momentum -1.09/3m, -2.39/15m",
+    "this asset's DOWN setups: 9W-1L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -0.4976936203536231,
    "signals": [
     {
      "name": "FVG",
-     "lean": "down",
-     "text": "bearish, 2,481.14\u20132,487.38, unfilled, price inside it \u2014 leans DOWN if it holds"
+     "lean": "up",
+     "text": "bearish, 2,511.24\u20132,512.01, unfilled, price below it \u2014 magnet pulls UP"
     },
     {
      "name": "Sweep",
@@ -9897,73 +9157,996 @@
     {
      "name": "Momentum",
      "lean": "down",
-     "text": "-11.01 over 3m, -9.64 over 5m, accelerating"
+     "text": "-1.09 over 3m, -1.93 over 5m, accelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,499.27 (+18.12 away), low 2,481.14 (-0.00 away), target line -6.91 away (the line is a magnet)"
+     "text": "round high 2,513.93 (+2.98 away), low 2,510.78 (-0.16 away), target line -0.82 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "RSI 23 \u2014 oversold against a DOWN move",
-     "unfilled bearish FVG 2,486.70\u20132,489.55 above price, 5.56 away (2.4x/min vol) \u2014 acts as a magnet back the other way"
+     "unfilled bearish FVG 2,511.23\u20132,512.17 above price, 0.28 away (0.5x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "watch",
+    "direction": "up",
+    "flip_price": 2511.7,
+    "eta_min": 2.077981651375785,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,511.23\u20132,512.17 above price, 0.28 away (0.5x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,511.70 (~2 min at the current rate)."
+   },
+   "close_time": "2026-09-13T21:15:00Z",
+   "result": "yes",
+   "mark": 7,
+   "is_early": false,
+   "is_scalp": true,
+   "correct": false
+  },
+  {
+   "ticker": "KXETH15M-26SEP131730-30",
+   "call": "UP",
+   "weak": false,
+   "conviction": "coin_flip",
+   "gap": 0.7250000000003638,
+   "gap_pct": 0.02883626767217196,
+   "sigma": 0.7677813635549419,
+   "band": 1.8384151016881707,
+   "spot": 2514.195,
+   "target": 2513.47,
+   "yes_bid": 0.63,
+   "yes_ask": 0.66,
+   "no_bid": 0.34,
+   "no_ask": 0.37,
+   "no_bid_eff": 0.34,
+   "no_ask_eff": 0.37,
+   "price_label": "UP \u2014 YES costs 66\u00a2",
+   "price_yes": "YES 63\u00a2 / 66\u00a2",
+   "price_no": "NO 34\u00a2 / 37\u00a2",
+   "open_interest": 13185.41,
+   "entry_price": 0.66,
+   "breakeven": 0.68,
+   "fee": 0.02,
+   "reason": "CALL UP \u2014 COIN FLIP \u2014 driven by gap $0.73 = 0.9x per-minute vol and 39% of the 8-min noise band; price action 0\u20133 DOWN (does not confirm the gap); RSI 65 (hot). COIN FLIP \u2014 the gap is INSIDE the noise band ($0.73 vs a $1.84 band over the 8 min still to run). This is a direction because a call is made every round, not because the read is good. Near 50/50 \u2014 size it that way or skip it. PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.36 over 3m vs +0.80 the 3m before); unfilled bullish FVG 2,512.98\u20132,513.60 below price, 0.60 away (0.8x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,513.29 (~8 min at the current rate).",
+   "signal_lean": "down",
+   "gap_dir": "up",
+   "mins_left": 7.9354977687199915,
+   "ts": 1789334524.11442,
+   "rsi": 65.06490912722283,
+   "rsi_state": "hot",
+   "dist_vol": 0.9442792367914559,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.36 over 3m vs +0.80 the 3m before); unfilled bullish FVG 2,512.98\u20132,513.60 below price, 0.60 away (0.8x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,513.29 (~8 min at the current rate).",
+   "drivers": [
+    "gap $0.73 = 0.9x per-minute vol and 39% of the 8-min noise band",
+    "price action 0\u20133 DOWN (does not confirm the gap)",
+    "RSI 65 (hot)",
+    "momentum -0.36/3m, +2.92/15m",
+    "this asset's UP setups: 6W-0L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -1.373439117934483,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,514.20\u20132,514.26, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Exhaustion",
+     "lean": "down",
+     "text": "6 bars up \u2014 exhaustion leans DOWN"
+    },
+    {
+     "name": "Momentum",
+     "lean": "down",
+     "text": "-0.36 over 3m, +0.01 over 5m, decelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,515.76 (+1.57 away), low 2,511.70 (-2.50 away), target line +0.73 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "momentum decelerating hard (-0.36 over 3m vs +0.80 the 3m before)",
+     "unfilled bullish FVG 2,512.98\u20132,513.60 below price, 0.60 away (0.8x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "high",
+    "direction": "down",
+    "flip_price": 2513.29,
+    "eta_min": 7.5416666666751935,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.36 over 3m vs +0.80 the 3m before); unfilled bullish FVG 2,512.98\u20132,513.60 below price, 0.60 away (0.8x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,513.29 (~8 min at the current rate)."
+   },
+   "close_time": "2026-09-13T21:30:00Z",
+   "result": "no",
+   "mark": 7,
+   "is_early": false,
+   "correct": false
+  },
+  {
+   "ticker": "KXETH15M-26SEP131730-30:scalp",
+   "call": "DOWN",
+   "weak": false,
+   "conviction": "scalp",
+   "gap": 0.7250000000003638,
+   "gap_pct": 0.02883626767217196,
+   "sigma": 0.7677813635549419,
+   "band": 1.8384151016881707,
+   "spot": 2514.195,
+   "target": 2513.47,
+   "yes_bid": 0.63,
+   "yes_ask": 0.66,
+   "no_bid": 0.34,
+   "no_ask": 0.37,
+   "no_bid_eff": 0.34,
+   "no_ask_eff": 0.37,
+   "price_label": "SCALP NO \u2014 costs 37\u00a2, target 42\u00a2 (pays 2.7x if it settles)",
+   "price_yes": "YES 63\u00a2 / 66\u00a2",
+   "price_no": "NO 34\u00a2 / 37\u00a2",
+   "open_interest": 13185.41,
+   "entry_price": 0.37,
+   "breakeven": 0.39,
+   "fee": 0.02,
+   "reason": "Scalp bucket: NO at 37\u00a2 \u2192 target 42\u00a2 (5\u00a2 move), pays 2.7x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "signal_lean": "down",
+   "gap_dir": "up",
+   "mins_left": 7.9354977687199915,
+   "ts": 1789334524.11442,
+   "rsi": 65.06490912722283,
+   "rsi_state": "hot",
+   "dist_vol": 0.9442792367914559,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.36 over 3m vs +0.80 the 3m before); unfilled bullish FVG 2,512.98\u20132,513.60 below price, 0.60 away (0.8x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,513.29 (~8 min at the current rate).",
+   "drivers": [
+    "gap $0.73 = 0.9x per-minute vol and 39% of the 8-min noise band",
+    "price action 0\u20133 DOWN (does not confirm the gap)",
+    "RSI 65 (hot)",
+    "momentum -0.36/3m, +2.92/15m",
+    "this asset's UP setups: 6W-0L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -1.373439117934483,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,514.20\u20132,514.26, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Exhaustion",
+     "lean": "down",
+     "text": "6 bars up \u2014 exhaustion leans DOWN"
+    },
+    {
+     "name": "Momentum",
+     "lean": "down",
+     "text": "-0.36 over 3m, +0.01 over 5m, decelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,515.76 (+1.57 away), low 2,511.70 (-2.50 away), target line +0.73 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "momentum decelerating hard (-0.36 over 3m vs +0.80 the 3m before)",
+     "unfilled bullish FVG 2,512.98\u20132,513.60 below price, 0.60 away (0.8x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "high",
+    "direction": "down",
+    "flip_price": 2513.29,
+    "eta_min": 7.5416666666751935,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.36 over 3m vs +0.80 the 3m before); unfilled bullish FVG 2,512.98\u20132,513.60 below price, 0.60 away (0.8x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,513.29 (~8 min at the current rate)."
+   },
+   "close_time": "2026-09-13T21:30:00Z",
+   "result": "no",
+   "mark": 7,
+   "is_early": false,
+   "is_scalp": true,
+   "correct": true
+  },
+  {
+   "ticker": "KXETH15M-26SEP131745-45",
+   "call": "DOWN",
+   "weak": false,
+   "conviction": "medium",
+   "gap": -1.9800000000000182,
+   "gap_pct": -0.07886278274100021,
+   "sigma": 0.4245384421803024,
+   "band": 1.0164705036132615,
+   "spot": 2510.69,
+   "target": 2512.67,
+   "yes_bid": 0.23,
+   "yes_ask": 0.24,
+   "no_bid": 0.76,
+   "no_ask": 0.77,
+   "no_bid_eff": 0.76,
+   "no_ask_eff": 0.77,
+   "price_label": "DOWN \u2014 NO costs 77\u00a2",
+   "price_yes": "YES 23\u00a2 / 24\u00a2",
+   "price_no": "NO 76\u00a2 / 77\u00a2",
+   "open_interest": 12398.69,
+   "entry_price": 0.77,
+   "breakeven": 0.79,
+   "fee": 0.02,
+   "reason": "CALL DOWN \u2014 MEDIUM \u2014 driven by gap $1.98 = 4.7x per-minute vol and 195% of the 8-min noise band; price action 1\u20132 DOWN (agrees with the gap); RSI 16 (oversold). Reads against this call: RSI 16 is oversold against the move; an unfilled bullish AND bearish gap are both open (chop). PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 16 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,511.11\u20132,512.28 above price, 0.41 away (1.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,511.69 (~5 min at the current rate).",
+   "signal_lean": "down",
+   "gap_dir": "down",
+   "mins_left": 7.934465312957764,
+   "ts": 1789335424.1531763,
+   "rsi": 16.124807395998516,
+   "rsi_state": "oversold",
+   "dist_vol": 4.66388859824173,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 16 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,511.11\u20132,512.28 above price, 0.41 away (1.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,511.69 (~5 min at the current rate).",
+   "drivers": [
+    "gap $1.98 = 4.7x per-minute vol and 195% of the 8-min noise band",
+    "price action 1\u20132 DOWN (agrees with the gap)",
+    "RSI 16 (oversold)",
+    "momentum -0.64/3m, -3.36/15m",
+    "this asset's DOWN setups: 9W-2L"
+   ],
+   "tier": "medium",
+   "tier_label": "MEDIUM",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 18.611167499079983,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,510.69\u20132,510.88, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Trend",
+     "lean": "up",
+     "text": "1 bars up, still extending"
+    },
+    {
+     "name": "Momentum",
+     "lean": "down",
+     "text": "-0.64 over 3m, -1.65 over 5m, decelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,514.84 (+4.14 away), low 2,510.69 (-0.00 away), target line -1.98 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "RSI 16 \u2014 oversold against a DOWN move",
+     "unfilled bearish FVG 2,511.11\u20132,512.28 above price, 0.41 away (1.0x/min vol) \u2014 acts as a magnet back the other way"
     ],
     "level": "high",
     "direction": "up",
-    "flip_price": 2488.13,
-    "eta_min": 1.9024058102587948,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 23 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,486.70\u20132,489.55 above price, 5.56 away (2.4x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,488.13 (~2 min at the current rate)."
+    "flip_price": 2511.6949999999997,
+    "eta_min": 4.710937499999317,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 16 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,511.11\u20132,512.28 above price, 0.41 away (1.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,511.69 (~5 min at the current rate)."
+   },
+   "close_time": "2026-09-13T21:45:00Z",
+   "result": "no",
+   "mark": 7,
+   "is_early": false,
+   "correct": true
+  },
+  {
+   "ticker": "KXETH15M-26SEP131745-45:scalp",
+   "call": "DOWN",
+   "weak": false,
+   "conviction": "scalp",
+   "gap": -1.9800000000000182,
+   "gap_pct": -0.07886278274100021,
+   "sigma": 0.4245384421803024,
+   "band": 1.0164705036132615,
+   "spot": 2510.69,
+   "target": 2512.67,
+   "yes_bid": 0.23,
+   "yes_ask": 0.24,
+   "no_bid": 0.76,
+   "no_ask": 0.77,
+   "no_bid_eff": 0.76,
+   "no_ask_eff": 0.77,
+   "price_label": "SCALP NO \u2014 costs 77\u00a2, target 82\u00a2 (pays 1.3x if it settles)",
+   "price_yes": "YES 23\u00a2 / 24\u00a2",
+   "price_no": "NO 76\u00a2 / 77\u00a2",
+   "open_interest": 12398.69,
+   "entry_price": 0.77,
+   "breakeven": 0.79,
+   "fee": 0.02,
+   "reason": "Scalp bucket: NO at 77\u00a2 \u2192 target 82\u00a2 (5\u00a2 move), pays 1.3x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "signal_lean": "down",
+   "gap_dir": "down",
+   "mins_left": 7.934465312957764,
+   "ts": 1789335424.1531763,
+   "rsi": 16.124807395998516,
+   "rsi_state": "oversold",
+   "dist_vol": 4.66388859824173,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 16 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,511.11\u20132,512.28 above price, 0.41 away (1.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,511.69 (~5 min at the current rate).",
+   "drivers": [
+    "gap $1.98 = 4.7x per-minute vol and 195% of the 8-min noise band",
+    "price action 1\u20132 DOWN (agrees with the gap)",
+    "RSI 16 (oversold)",
+    "momentum -0.64/3m, -3.36/15m",
+    "this asset's DOWN setups: 9W-2L"
+   ],
+   "tier": "medium",
+   "tier_label": "MEDIUM",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 18.611167499079983,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,510.69\u20132,510.88, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Trend",
+     "lean": "up",
+     "text": "1 bars up, still extending"
+    },
+    {
+     "name": "Momentum",
+     "lean": "down",
+     "text": "-0.64 over 3m, -1.65 over 5m, decelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,514.84 (+4.14 away), low 2,510.69 (-0.00 away), target line -1.98 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "RSI 16 \u2014 oversold against a DOWN move",
+     "unfilled bearish FVG 2,511.11\u20132,512.28 above price, 0.41 away (1.0x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "high",
+    "direction": "up",
+    "flip_price": 2511.6949999999997,
+    "eta_min": 4.710937499999317,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 16 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,511.11\u20132,512.28 above price, 0.41 away (1.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,511.69 (~5 min at the current rate)."
+   },
+   "close_time": "2026-09-13T21:45:00Z",
+   "result": "no",
+   "mark": 7,
+   "is_early": false,
+   "is_scalp": true,
+   "correct": true
+  },
+  {
+   "ticker": "KXETH15M-26SEP131800-00",
+   "call": "DOWN",
+   "weak": false,
+   "conviction": "medium",
+   "gap": -1.6349999999997635,
+   "gap_pct": -0.06515618555364878,
+   "sigma": 0.4807293070602918,
+   "band": 1.151065068363705,
+   "spot": 2509.355,
+   "target": 2510.99,
+   "yes_bid": 0.22,
+   "yes_ask": 0.24,
+   "no_bid": 0.76,
+   "no_ask": 0.78,
+   "no_bid_eff": 0.76,
+   "no_ask_eff": 0.78,
+   "price_label": "DOWN \u2014 NO costs 78\u00a2",
+   "price_yes": "YES 22\u00a2 / 24\u00a2",
+   "price_no": "NO 76\u00a2 / 78\u00a2",
+   "open_interest": 14485.02,
+   "entry_price": 0.78,
+   "breakeven": 0.8,
+   "fee": 0.02,
+   "reason": "CALL DOWN \u2014 MEDIUM \u2014 driven by gap $1.63 = 3.4x per-minute vol and 142% of the 8-min noise band; price action 1\u20131 MIXED (does not confirm the gap); RSI 32 (cold). Reads against this call: the price action does not agree with the gap; an unfilled bullish AND bearish gap are both open (chop). PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (+0.00 over 3m vs -1.99 the 3m before); unfilled bearish FVG 2,509.86\u20132,510.30 above price, 0.51 away (1.1x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,510.08.",
+   "signal_lean": "mixed",
+   "gap_dir": "down",
+   "mins_left": 7.935251561800639,
+   "ts": 1789336324.1443052,
+   "rsi": 32.0276497695846,
+   "rsi_state": "cold",
+   "dist_vol": 3.4010824303555642,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (+0.00 over 3m vs -1.99 the 3m before); unfilled bearish FVG 2,509.86\u20132,510.30 above price, 0.51 away (1.1x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,510.08.",
+   "drivers": [
+    "gap $1.63 = 3.4x per-minute vol and 142% of the 8-min noise band",
+    "price action 1\u20131 MIXED (does not confirm the gap)",
+    "RSI 32 (cold)",
+    "momentum +0.00/3m, -1.56/15m",
+    "this asset's DOWN setups: 10W-2L"
+   ],
+   "tier": "medium",
+   "tier_label": "MEDIUM",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 11.635324669609126,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,509.36\u20132,509.97, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Trend",
+     "lean": "up",
+     "text": "3 bars up, still extending"
+    },
+    {
+     "name": "Momentum",
+     "lean": null,
+     "text": "+0.00 over 3m, -1.34 over 5m, decelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,511.34 (+1.99 away), low 2,508.80 (-0.56 away), target line -1.63 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "momentum decelerating hard (+0.00 over 3m vs -1.99 the 3m before)",
+     "unfilled bearish FVG 2,509.86\u20132,510.30 above price, 0.51 away (1.1x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "high",
+    "direction": "up",
+    "flip_price": 2510.0775000000003,
+    "eta_min": null,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (+0.00 over 3m vs -1.99 the 3m before); unfilled bearish FVG 2,509.86\u20132,510.30 above price, 0.51 away (1.1x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,510.08."
+   },
+   "close_time": "2026-09-13T22:00:00Z",
+   "result": "no",
+   "mark": 7,
+   "is_early": false,
+   "correct": true
+  },
+  {
+   "ticker": "KXETH15M-26SEP131800-00:scalp",
+   "call": "UP",
+   "weak": false,
+   "conviction": "scalp",
+   "gap": -1.6349999999997635,
+   "gap_pct": -0.06515618555364878,
+   "sigma": 0.4807293070602918,
+   "band": 1.151065068363705,
+   "spot": 2509.355,
+   "target": 2510.99,
+   "yes_bid": 0.22,
+   "yes_ask": 0.24,
+   "no_bid": 0.76,
+   "no_ask": 0.78,
+   "no_bid_eff": 0.76,
+   "no_ask_eff": 0.78,
+   "price_label": "SCALP YES \u2014 costs 24\u00a2, target 29\u00a2 (pays 4.2x if it settles)",
+   "price_yes": "YES 22\u00a2 / 24\u00a2",
+   "price_no": "NO 76\u00a2 / 78\u00a2",
+   "open_interest": 14485.02,
+   "entry_price": 0.24,
+   "breakeven": 0.26,
+   "fee": 0.02,
+   "reason": "Scalp bucket: YES at 24\u00a2 \u2192 target 29\u00a2 (5\u00a2 move), pays 4.2x if held to settle \u2014 signals mixed; 5-min aggressor flow is 63% YES. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "signal_lean": "mixed",
+   "gap_dir": "down",
+   "mins_left": 7.935251561800639,
+   "ts": 1789336324.1443052,
+   "rsi": 32.0276497695846,
+   "rsi_state": "cold",
+   "dist_vol": 3.4010824303555642,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (+0.00 over 3m vs -1.99 the 3m before); unfilled bearish FVG 2,509.86\u20132,510.30 above price, 0.51 away (1.1x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,510.08.",
+   "drivers": [
+    "gap $1.63 = 3.4x per-minute vol and 142% of the 8-min noise band",
+    "price action 1\u20131 MIXED (does not confirm the gap)",
+    "RSI 32 (cold)",
+    "momentum +0.00/3m, -1.56/15m",
+    "this asset's DOWN setups: 10W-2L"
+   ],
+   "tier": "medium",
+   "tier_label": "MEDIUM",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 11.635324669609126,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,509.36\u20132,509.97, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Trend",
+     "lean": "up",
+     "text": "3 bars up, still extending"
+    },
+    {
+     "name": "Momentum",
+     "lean": null,
+     "text": "+0.00 over 3m, -1.34 over 5m, decelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,511.34 (+1.99 away), low 2,508.80 (-0.56 away), target line -1.63 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "momentum decelerating hard (+0.00 over 3m vs -1.99 the 3m before)",
+     "unfilled bearish FVG 2,509.86\u20132,510.30 above price, 0.51 away (1.1x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "high",
+    "direction": "up",
+    "flip_price": 2510.0775000000003,
+    "eta_min": null,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (+0.00 over 3m vs -1.99 the 3m before); unfilled bearish FVG 2,509.86\u20132,510.30 above price, 0.51 away (1.1x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,510.08."
+   },
+   "close_time": "2026-09-13T22:00:00Z",
+   "result": "no",
+   "mark": 7,
+   "is_early": false,
+   "is_scalp": true,
+   "correct": false
+  },
+  {
+   "ticker": "KXETH15M-26SEP131815-15",
+   "call": "DOWN",
+   "weak": false,
+   "conviction": "medium",
+   "gap": -17.065000000000055,
+   "gap_pct": -0.6850511128818937,
+   "sigma": 1.9873441238666374,
+   "band": 4.757177367793134,
+   "spot": 2491.055,
+   "target": 2508.12,
+   "yes_bid": 0.096,
+   "yes_ask": 0.098,
+   "no_bid": 0.902,
+   "no_ask": 0.904,
+   "no_bid_eff": 0.902,
+   "no_ask_eff": 0.904,
+   "price_label": "DOWN \u2014 NO costs 90\u00a2",
+   "price_yes": "YES 10\u00a2 / 10\u00a2",
+   "price_no": "NO 90\u00a2 / 90\u00a2",
+   "open_interest": 19676.33,
+   "entry_price": 0.904,
+   "breakeven": 0.914,
+   "fee": 0.01,
+   "reason": "CALL DOWN \u2014 MEDIUM \u2014 driven by gap $17.07 = 8.6x per-minute vol and 359% of the 8-min noise band; price action 2\u20132 MIXED (does not confirm the gap); RSI 8 (oversold). Downgraded from a clean read by: the price action does not agree with the gap; RSI 8 is oversold against the move. NO EDGE \u2014 the signal is DOWN and it still reads that way, but that side already costs 90\u00a2. Risking 90\u00a2 to win 10\u00a2 is not a trade \u2014 one loss erases 9 wins. The call stands \u2014 don't buy it at this price. PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 8 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,496.59\u20132,498.26 above price, 5.54 away (2.8x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,497.43 (~4 min at the current rate).",
+   "signal_lean": "mixed",
+   "gap_dir": "down",
+   "mins_left": 7.930757792790731,
+   "ts": 1789337224.3867478,
+   "rsi": 8.425613031802598,
+   "rsi_state": "oversold",
+   "dist_vol": 8.58683697255102,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 8 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,496.59\u20132,498.26 above price, 5.54 away (2.8x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,497.43 (~4 min at the current rate).",
+   "drivers": [
+    "gap $17.07 = 8.6x per-minute vol and 359% of the 8-min noise band",
+    "price action 2\u20132 MIXED (does not confirm the gap)",
+    "RSI 8 (oversold)",
+    "momentum -4.91/3m, -18.30/15m",
+    "this asset's DOWN setups: 11W-2L"
+   ],
+   "tier": "medium",
+   "tier_label": "MEDIUM",
+   "no_edge": true,
+   "no_edge_price": 0.904,
+   "edge_points": 9.585247248638506,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,491.05\u20132,495.48, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": "up",
+     "text": "swept the low, closed back above at 2,495.53, 2 bar(s) ago \u2014 bullish"
+    },
+    {
+     "name": "Trend",
+     "lean": "up",
+     "text": "1 bars up, still extending"
+    },
+    {
+     "name": "Momentum",
+     "lean": "down",
+     "text": "-4.91 over 3m, -8.24 over 5m, accelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,509.36 (+18.30 away), low 2,491.05 (-0.00 away), target line -17.07 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "RSI 8 \u2014 oversold against a DOWN move",
+     "unfilled bearish FVG 2,496.59\u20132,498.26 above price, 5.54 away (2.8x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "high",
+    "direction": "up",
+    "flip_price": 2497.425,
+    "eta_min": 3.8920570264765444,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 8 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,496.59\u20132,498.26 above price, 5.54 away (2.8x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,497.43 (~4 min at the current rate)."
+   },
+   "close_time": "2026-09-13T22:15:00Z",
+   "result": "no",
+   "mark": 7,
+   "is_early": false,
+   "correct": true
+  },
+  {
+   "ticker": "KXETH15M-26SEP131815-15:scalp",
+   "call": "UP",
+   "weak": false,
+   "conviction": "scalp",
+   "gap": -17.065000000000055,
+   "gap_pct": -0.6850511128818937,
+   "sigma": 1.9873441238666374,
+   "band": 4.757177367793134,
+   "spot": 2491.055,
+   "target": 2508.12,
+   "yes_bid": 0.096,
+   "yes_ask": 0.098,
+   "no_bid": 0.902,
+   "no_ask": 0.904,
+   "no_bid_eff": 0.902,
+   "no_ask_eff": 0.904,
+   "price_label": "SCALP YES \u2014 costs 10\u00a2, target 15\u00a2 (pays 10.2x if it settles)",
+   "price_yes": "YES 10\u00a2 / 10\u00a2",
+   "price_no": "NO 90\u00a2 / 90\u00a2",
+   "open_interest": 19676.33,
+   "entry_price": 0.098,
+   "breakeven": 0.108,
+   "fee": 0.01,
+   "reason": "Scalp bucket: YES at 10\u00a2 \u2192 target 15\u00a2 (5\u00a2 move), pays 10.2x if held to settle \u2014 signals mixed and flow is balanced; taking the cheaper side. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "signal_lean": "mixed",
+   "gap_dir": "down",
+   "mins_left": 7.930757792790731,
+   "ts": 1789337224.3867478,
+   "rsi": 8.425613031802598,
+   "rsi_state": "oversold",
+   "dist_vol": 8.58683697255102,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 8 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,496.59\u20132,498.26 above price, 5.54 away (2.8x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,497.43 (~4 min at the current rate).",
+   "drivers": [
+    "gap $17.07 = 8.6x per-minute vol and 359% of the 8-min noise band",
+    "price action 2\u20132 MIXED (does not confirm the gap)",
+    "RSI 8 (oversold)",
+    "momentum -4.91/3m, -18.30/15m",
+    "this asset's DOWN setups: 11W-2L"
+   ],
+   "tier": "medium",
+   "tier_label": "MEDIUM",
+   "no_edge": true,
+   "no_edge_price": 0.904,
+   "edge_points": 9.585247248638506,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,491.05\u20132,495.48, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": "up",
+     "text": "swept the low, closed back above at 2,495.53, 2 bar(s) ago \u2014 bullish"
+    },
+    {
+     "name": "Trend",
+     "lean": "up",
+     "text": "1 bars up, still extending"
+    },
+    {
+     "name": "Momentum",
+     "lean": "down",
+     "text": "-4.91 over 3m, -8.24 over 5m, accelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,509.36 (+18.30 away), low 2,491.05 (-0.00 away), target line -17.07 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "RSI 8 \u2014 oversold against a DOWN move",
+     "unfilled bearish FVG 2,496.59\u20132,498.26 above price, 5.54 away (2.8x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "high",
+    "direction": "up",
+    "flip_price": 2497.425,
+    "eta_min": 3.8920570264765444,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: RSI 8 \u2014 oversold against a DOWN move; unfilled bearish FVG 2,496.59\u20132,498.26 above price, 5.54 away (2.8x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,497.43 (~4 min at the current rate)."
+   },
+   "close_time": "2026-09-13T22:15:00Z",
+   "result": "no",
+   "mark": 7,
+   "is_early": false,
+   "is_scalp": true,
+   "correct": false
+  },
+  {
+   "ticker": "KXETH15M-26SEP131830-30",
+   "call": "DOWN",
+   "weak": false,
+   "conviction": "medium",
+   "gap": -9.115000000000236,
+   "gap_pct": -0.3676982252459317,
+   "sigma": 3.0298695241434515,
+   "band": 7.253168211516704,
+   "spot": 2478.935,
+   "target": 2488.05,
+   "yes_bid": 0.061,
+   "yes_ask": 0.062,
+   "no_bid": 0.938,
+   "no_ask": 0.939,
+   "no_bid_eff": 0.938,
+   "no_ask_eff": 0.939,
+   "price_label": "DOWN \u2014 NO costs 94\u00a2",
+   "price_yes": "YES 6\u00a2 / 6\u00a2",
+   "price_no": "NO 94\u00a2 / 94\u00a2",
+   "open_interest": 14046.25,
+   "entry_price": 0.939,
+   "breakeven": 0.949,
+   "fee": 0.01,
+   "reason": "CALL DOWN \u2014 MEDIUM \u2014 driven by gap $9.12 = 3.0x per-minute vol and 126% of the 8-min noise band; price action 1\u20132 DOWN (agrees with the gap); RSI 31 (cold). Reads against this call: an unfilled bullish AND bearish gap are both open (chop). NO EDGE \u2014 the signal is DOWN and it still reads that way, but that side already costs 94\u00a2. Risking 94\u00a2 to win 6\u00a2 is not a trade \u2014 one loss erases 15 wins. The call stands \u2014 don't buy it at this price. PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,479.05\u20132,479.72 above price, 0.12 away (0.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,479.39 (~1 min at the current rate).",
+   "signal_lean": "down",
+   "gap_dir": "down",
+   "mins_left": 7.931764185428619,
+   "ts": 1789338124.329467,
+   "rsi": 30.594207982537796,
+   "rsi_state": "cold",
+   "dist_vol": 3.0083803699689216,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,479.05\u20132,479.72 above price, 0.12 away (0.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,479.39 (~1 min at the current rate).",
+   "drivers": [
+    "gap $9.12 = 3.0x per-minute vol and 126% of the 8-min noise band",
+    "price action 1\u20132 DOWN (agrees with the gap)",
+    "RSI 31 (cold)",
+    "momentum -2.23/3m, -15.41/15m",
+    "this asset's DOWN setups: 12W-2L"
+   ],
+   "tier": "medium",
+   "tier_label": "MEDIUM",
+   "no_edge": true,
+   "no_edge_price": 0.939,
+   "edge_points": -8.121777269373565,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,478.93\u20132,480.94, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Trend",
+     "lean": "up",
+     "text": "1 bars up, still extending"
+    },
+    {
+     "name": "Momentum",
+     "lean": "down",
+     "text": "-2.23 over 3m, -1.36 over 5m, accelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,492.16 (+13.22 away), low 2,476.55 (-2.38 away), target line -9.12 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "unfilled bearish FVG 2,479.05\u20132,479.72 above price, 0.12 away (0.0x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "watch",
+    "direction": "up",
+    "flip_price": 2479.3875,
+    "eta_min": 0.6087443946186578,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,479.05\u20132,479.72 above price, 0.12 away (0.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,479.39 (~1 min at the current rate)."
    },
    "close_time": "2026-09-13T22:30:00Z",
    "result": "no",
-   "mark": 1,
+   "mark": 7,
+   "is_early": false,
+   "correct": true
+  },
+  {
+   "ticker": "KXETH15M-26SEP131830-30:scalp",
+   "call": "DOWN",
+   "weak": false,
+   "conviction": "scalp",
+   "gap": -9.115000000000236,
+   "gap_pct": -0.3676982252459317,
+   "sigma": 3.0298695241434515,
+   "band": 7.253168211516704,
+   "spot": 2478.935,
+   "target": 2488.05,
+   "yes_bid": 0.061,
+   "yes_ask": 0.062,
+   "no_bid": 0.938,
+   "no_ask": 0.939,
+   "no_bid_eff": 0.938,
+   "no_ask_eff": 0.939,
+   "price_label": "SCALP NO \u2014 costs 94\u00a2, target 95\u00a2 (pays 1.1x if it settles)",
+   "price_yes": "YES 6\u00a2 / 6\u00a2",
+   "price_no": "NO 94\u00a2 / 94\u00a2",
+   "open_interest": 14046.25,
+   "entry_price": 0.939,
+   "breakeven": 0.949,
+   "fee": 0.01,
+   "reason": "Scalp bucket: NO at 94\u00a2 \u2192 target 95\u00a2 (1\u00a2 move), pays 1.1x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "signal_lean": "down",
+   "gap_dir": "down",
+   "mins_left": 7.931764185428619,
+   "ts": 1789338124.329467,
+   "rsi": 30.594207982537796,
+   "rsi_state": "cold",
+   "dist_vol": 3.0083803699689216,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,479.05\u20132,479.72 above price, 0.12 away (0.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,479.39 (~1 min at the current rate).",
+   "drivers": [
+    "gap $9.12 = 3.0x per-minute vol and 126% of the 8-min noise band",
+    "price action 1\u20132 DOWN (agrees with the gap)",
+    "RSI 31 (cold)",
+    "momentum -2.23/3m, -15.41/15m",
+    "this asset's DOWN setups: 12W-2L"
+   ],
+   "tier": "medium",
+   "tier_label": "MEDIUM",
+   "no_edge": true,
+   "no_edge_price": 0.939,
+   "edge_points": -8.121777269373565,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,478.93\u20132,480.94, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Trend",
+     "lean": "up",
+     "text": "1 bars up, still extending"
+    },
+    {
+     "name": "Momentum",
+     "lean": "down",
+     "text": "-2.23 over 3m, -1.36 over 5m, accelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,492.16 (+13.22 away), low 2,476.55 (-2.38 away), target line -9.12 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "unfilled bearish FVG 2,479.05\u20132,479.72 above price, 0.12 away (0.0x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "watch",
+    "direction": "up",
+    "flip_price": 2479.3875,
+    "eta_min": 0.6087443946186578,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,479.05\u20132,479.72 above price, 0.12 away (0.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,479.39 (~1 min at the current rate)."
+   },
+   "close_time": "2026-09-13T22:30:00Z",
+   "result": "no",
+   "mark": 7,
    "is_early": false,
    "is_scalp": true,
    "correct": true
   },
   {
    "ticker": "KXETH15M-26SEP131845-45",
-   "call": "NO CALL",
+   "call": "DOWN",
    "weak": false,
-   "conviction": "none",
-   "gap": -0.75,
-   "gap_pct": -0.030260604324442098,
-   "sigma": 2.2294571835612986,
-   "band": 8.315196524351043,
-   "spot": 2478.47,
+   "conviction": "coin_flip",
+   "gap": -0.17499999999972715,
+   "gap_pct": -0.007059169962615731,
+   "sigma": 1.9955642476920905,
+   "band": 4.775383504099809,
+   "spot": 2479.045,
    "target": 2479.22,
-   "yes_bid": 0.52,
-   "yes_ask": 0.53,
-   "no_bid": 0.47,
-   "no_ask": 0.48,
-   "no_bid_eff": 0.47,
-   "no_ask_eff": 0.48,
-   "price_label": "NO CALL \u2014 YES 52\u00a2 / 53\u00a2, NO 47\u00a2 / 48\u00a2",
-   "price_yes": "YES 52\u00a2 / 53\u00a2",
-   "price_no": "NO 47\u00a2 / 48\u00a2",
-   "open_interest": 2512.33,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $0.75 is inside the noise (ETH moving ~$2.23/min, band $8.32 over the 13.9 min still to run).",
-   "signal_lean": "up",
+   "yes_bid": 0.46,
+   "yes_ask": 0.47,
+   "no_bid": 0.53,
+   "no_ask": 0.54,
+   "no_bid_eff": 0.53,
+   "no_ask_eff": 0.54,
+   "price_label": "DOWN \u2014 NO costs 54\u00a2",
+   "price_yes": "YES 46\u00a2 / 47\u00a2",
+   "price_no": "NO 53\u00a2 / 54\u00a2",
+   "open_interest": 13793.89,
+   "entry_price": 0.54,
+   "breakeven": 0.56,
+   "fee": 0.02,
+   "reason": "CALL DOWN \u2014 COIN FLIP \u2014 driven by gap $0.17 = 0.1x per-minute vol and 4% of the 8-min noise band; price action 0\u20133 DOWN (agrees with the gap); RSI 49 (neutral). COIN FLIP \u2014 the gap is INSIDE the noise band ($0.17 vs a $4.78 band over the 8 min still to run). This is a direction because a call is made every round, not because the read is good. Near 50/50 \u2014 size it that way or skip it. PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: price is sitting on the target line ($0.17 away, under half a minute's vol) \u2014 it can flip either side on one print.",
+   "signal_lean": "down",
    "gap_dir": "down",
-   "mins_left": 13.910628855228424,
-   "ts": 1789338665.8190722,
-   "rsi": 49.65373593716819,
+   "mins_left": 7.925875190893809,
+   "ts": 1789339024.6776533,
+   "rsi": 49.1149398159075,
    "rsi_state": "neutral",
-   "dist_vol": 0.33640475606800496,
+   "dist_vol": 0.0876944955303334,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,478.84\u20132,481.20 above price, 0.37 away (0.2x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.75 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,480.02 (~2 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: price is sitting on the target line ($0.17 away, under half a minute's vol) \u2014 it can flip either side on one print.",
+   "drivers": [
+    "gap $0.17 = 0.1x per-minute vol and 4% of the 8-min noise band",
+    "price action 0\u20133 DOWN (agrees with the gap)",
+    "RSI 49 (neutral)",
+    "momentum -2.79/3m, -0.38/15m",
+    "this asset's DOWN setups: 13W-2L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -2.2575224262672555,
    "signals": [
     {
      "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,476.43\u20132,480.39, unfilled, price inside it \u2014 leans UP if it holds"
+     "lean": "down",
+     "text": "bearish, 2,479.05\u20132,479.86, unfilled, price inside it \u2014 leans DOWN if it holds"
     },
     {
      "name": "Sweep",
@@ -9973,77 +10156,87 @@
     {
      "name": "Exhaustion",
      "lean": "down",
-     "text": "2 bars up, ranges contracting \u2014 exhaustion leans DOWN"
+     "text": "1 bars up, ranges contracting \u2014 exhaustion leans DOWN"
     },
     {
      "name": "Momentum",
-     "lean": "up",
-     "text": "+2.03 over 3m, -0.11 over 5m, decelerating"
+     "lean": "down",
+     "text": "-2.79 over 3m, +2.97 over 5m, decelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,481.61 (+3.14 away), low 2,475.30 (-3.17 away), target line -0.75 away (the line is a magnet)"
+     "text": "round high 2,481.84 (+2.79 away), low 2,474.53 (-4.52 away), target line -0.17 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "unfilled bearish FVG 2,478.84\u20132,481.20 above price, 0.37 away (0.2x/min vol) \u2014 acts as a magnet back the other way",
-     "price is sitting on the target line ($0.75 away, under half a minute's vol) \u2014 it can flip either side on one print"
+     "price is sitting on the target line ($0.17 away, under half a minute's vol) \u2014 it can flip either side on one print"
     ],
-    "level": "high",
+    "level": "watch",
     "direction": "up",
-    "flip_price": 2480.0150000000003,
-    "eta_min": 2.277641277642218,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,478.84\u20132,481.20 above price, 0.37 away (0.2x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.75 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,480.02 (~2 min at the current rate)."
+    "flip_price": null,
+    "eta_min": null,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: price is sitting on the target line ($0.17 away, under half a minute's vol) \u2014 it can flip either side on one print."
    },
    "close_time": "2026-09-13T22:45:00Z",
    "result": "no",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
-   "correct": null
+   "correct": true
   },
   {
    "ticker": "KXETH15M-26SEP131845-45:scalp",
-   "call": "UP",
+   "call": "DOWN",
    "weak": false,
    "conviction": "scalp",
-   "gap": -0.75,
-   "gap_pct": -0.030260604324442098,
-   "sigma": 2.2294571835612986,
-   "band": 8.315196524351043,
-   "spot": 2478.47,
+   "gap": -0.17499999999972715,
+   "gap_pct": -0.007059169962615731,
+   "sigma": 1.9955642476920905,
+   "band": 4.775383504099809,
+   "spot": 2479.045,
    "target": 2479.22,
-   "yes_bid": 0.52,
-   "yes_ask": 0.53,
-   "no_bid": 0.47,
-   "no_ask": 0.48,
-   "no_bid_eff": 0.47,
-   "no_ask_eff": 0.48,
-   "price_label": "SCALP YES \u2014 costs 53\u00a2, target 58\u00a2 (pays 1.9x if it settles)",
-   "price_yes": "YES 52\u00a2 / 53\u00a2",
-   "price_no": "NO 47\u00a2 / 48\u00a2",
-   "open_interest": 2512.33,
-   "entry_price": 0.53,
-   "breakeven": 0.55,
+   "yes_bid": 0.46,
+   "yes_ask": 0.47,
+   "no_bid": 0.53,
+   "no_ask": 0.54,
+   "no_bid_eff": 0.53,
+   "no_ask_eff": 0.54,
+   "price_label": "SCALP NO \u2014 costs 54\u00a2, target 59\u00a2 (pays 1.9x if it settles)",
+   "price_yes": "YES 46\u00a2 / 47\u00a2",
+   "price_no": "NO 53\u00a2 / 54\u00a2",
+   "open_interest": 13793.89,
+   "entry_price": 0.54,
+   "breakeven": 0.56,
    "fee": 0.02,
-   "reason": "Scalp bucket: YES at 53\u00a2 \u2192 target 58\u00a2 (5\u00a2 move), pays 1.9x if held to settle \u2014 price action leans UP. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "up",
+   "reason": "Scalp bucket: NO at 54\u00a2 \u2192 target 59\u00a2 (5\u00a2 move), pays 1.9x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "signal_lean": "down",
    "gap_dir": "down",
-   "mins_left": 13.910628855228424,
-   "ts": 1789338665.8190722,
-   "rsi": 49.65373593716819,
+   "mins_left": 7.925875190893809,
+   "ts": 1789339024.6776533,
+   "rsi": 49.1149398159075,
    "rsi_state": "neutral",
-   "dist_vol": 0.33640475606800496,
+   "dist_vol": 0.0876944955303334,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,478.84\u20132,481.20 above price, 0.37 away (0.2x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.75 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,480.02 (~2 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: price is sitting on the target line ($0.17 away, under half a minute's vol) \u2014 it can flip either side on one print.",
+   "drivers": [
+    "gap $0.17 = 0.1x per-minute vol and 4% of the 8-min noise band",
+    "price action 0\u20133 DOWN (agrees with the gap)",
+    "RSI 49 (neutral)",
+    "momentum -2.79/3m, -0.38/15m",
+    "this asset's DOWN setups: 13W-2L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -2.2575224262672555,
    "signals": [
     {
      "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,476.43\u20132,480.39, unfilled, price inside it \u2014 leans UP if it holds"
+     "lean": "down",
+     "text": "bearish, 2,479.05\u20132,479.86, unfilled, price inside it \u2014 leans DOWN if it holds"
     },
     {
      "name": "Sweep",
@@ -10053,237 +10246,271 @@
     {
      "name": "Exhaustion",
      "lean": "down",
-     "text": "2 bars up, ranges contracting \u2014 exhaustion leans DOWN"
+     "text": "1 bars up, ranges contracting \u2014 exhaustion leans DOWN"
     },
     {
      "name": "Momentum",
-     "lean": "up",
-     "text": "+2.03 over 3m, -0.11 over 5m, decelerating"
+     "lean": "down",
+     "text": "-2.79 over 3m, +2.97 over 5m, decelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,481.61 (+3.14 away), low 2,475.30 (-3.17 away), target line -0.75 away (the line is a magnet)"
+     "text": "round high 2,481.84 (+2.79 away), low 2,474.53 (-4.52 away), target line -0.17 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "unfilled bearish FVG 2,478.84\u20132,481.20 above price, 0.37 away (0.2x/min vol) \u2014 acts as a magnet back the other way",
-     "price is sitting on the target line ($0.75 away, under half a minute's vol) \u2014 it can flip either side on one print"
+     "price is sitting on the target line ($0.17 away, under half a minute's vol) \u2014 it can flip either side on one print"
     ],
-    "level": "high",
+    "level": "watch",
     "direction": "up",
-    "flip_price": 2480.0150000000003,
-    "eta_min": 2.277641277642218,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,478.84\u20132,481.20 above price, 0.37 away (0.2x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.75 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,480.02 (~2 min at the current rate)."
+    "flip_price": null,
+    "eta_min": null,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: price is sitting on the target line ($0.17 away, under half a minute's vol) \u2014 it can flip either side on one print."
    },
    "close_time": "2026-09-13T22:45:00Z",
    "result": "no",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
    "is_scalp": true,
-   "correct": false
+   "correct": true
   },
   {
    "ticker": "KXETH15M-26SEP131900-00",
-   "call": "NO CALL",
+   "call": "UP",
    "weak": false,
-   "conviction": "none",
-   "gap": 3.474999999999909,
-   "gap_pct": 0.14026830602305684,
-   "sigma": 2.2247506726722546,
-   "band": 8.293708426077101,
-   "spot": 2477.395,
+   "conviction": "coin_flip",
+   "gap": 3.019999999999982,
+   "gap_pct": 0.121924632813067,
+   "sigma": 1.853461806098726,
+   "band": 4.436733034677026,
+   "spot": 2476.94,
    "target": 2473.92,
-   "yes_bid": 0.65,
-   "yes_ask": 0.67,
-   "no_bid": 0.33,
-   "no_ask": 0.35,
-   "no_bid_eff": 0.33,
-   "no_ask_eff": 0.35,
-   "price_label": "NO CALL \u2014 YES 65\u00a2 / 67\u00a2, NO 33\u00a2 / 35\u00a2",
-   "price_yes": "YES 65\u00a2 / 67\u00a2",
-   "price_no": "NO 33\u00a2 / 35\u00a2",
-   "open_interest": 5893.66,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $3.47 is inside the noise (ETH moving ~$2.22/min, band $8.29 over the 13.9 min still to run).",
+   "yes_bid": 0.73,
+   "yes_ask": 0.74,
+   "no_bid": 0.26,
+   "no_ask": 0.27,
+   "no_bid_eff": 0.26,
+   "no_ask_eff": 0.27,
+   "price_label": "UP \u2014 YES costs 74\u00a2",
+   "price_yes": "YES 73\u00a2 / 74\u00a2",
+   "price_no": "NO 26\u00a2 / 27\u00a2",
+   "open_interest": 15930.36,
+   "entry_price": 0.74,
+   "breakeven": 0.76,
+   "fee": 0.02,
+   "reason": "CALL UP \u2014 COIN FLIP \u2014 driven by gap $3.02 = 1.6x per-minute vol and 68% of the 8-min noise band; price action 2\u20131 UP (agrees with the gap); RSI 44 (neutral). COIN FLIP \u2014 the gap is INSIDE the noise band ($3.02 vs a $4.44 band over the 8 min still to run). This is a direction because a call is made every round, not because the read is good. Near 50/50 \u2014 size it that way or skip it. PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.05 over 3m vs -1.32 the 3m before); unfilled bullish FVG 2,474.11\u20132,474.32 below price, 2.62 away (1.4x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,474.21.",
    "signal_lean": "up",
    "gap_dir": "up",
-   "mins_left": 13.897440807024639,
-   "ts": 1789339566.4984727,
-   "rsi": 50.3774653203735,
+   "mins_left": 7.930881504217783,
+   "ts": 1789339924.409386,
+   "rsi": 43.861747980137785,
    "rsi_state": "neutral",
-   "dist_vol": 1.5619727831460413,
+   "dist_vol": 1.6293834542815064,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,475.82\u20132,477.39 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,476.61 (~1 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.05 over 3m vs -1.32 the 3m before); unfilled bullish FVG 2,474.11\u20132,474.32 below price, 2.62 away (1.4x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,474.21.",
+   "drivers": [
+    "gap $3.02 = 1.6x per-minute vol and 68% of the 8-min noise band",
+    "price action 2\u20131 UP (agrees with the gap)",
+    "RSI 44 (neutral)",
+    "momentum +0.05/3m, -2.91/15m",
+    "this asset's UP setups: 6W-1L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -1.6436681718901336,
    "signals": [
     {
      "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,474.34\u20132,477.39, unfilled, price inside it \u2014 leans UP if it holds"
+     "lean": "down",
+     "text": "bearish, 2,476.94\u20132,477.49, unfilled, price inside it \u2014 leans DOWN if it holds"
     },
     {
      "name": "Sweep",
-     "lean": "up",
-     "text": "swept the low, closed back above at 2,473.95, 2 bar(s) ago \u2014 bullish"
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
     },
     {
      "name": "Trend",
      "lean": "up",
-     "text": "3 bars up, still extending"
+     "text": "1 bars up, still extending"
     },
     {
      "name": "Momentum",
      "lean": "up",
-     "text": "+3.32 over 3m, +2.97 over 5m, accelerating"
+     "text": "+0.05 over 3m, +2.07 over 5m, decelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,481.57 (+4.17 away), low 2,472.91 (-4.48 away), target line +3.47 away (the line is a magnet)"
+     "text": "round high 2,480.62 (+3.68 away), low 2,473.36 (-3.59 away), target line +3.02 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "unfilled bullish FVG 2,475.82\u20132,477.39 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way"
+     "momentum decelerating hard (+0.05 over 3m vs -1.32 the 3m before)",
+     "unfilled bullish FVG 2,474.11\u20132,474.32 below price, 2.62 away (1.4x/min vol) \u2014 acts as a magnet back the other way"
     ],
-    "level": "watch",
+    "level": "high",
     "direction": "down",
-    "flip_price": 2476.605,
-    "eta_min": 0.7127819548872242,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,475.82\u20132,477.39 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,476.61 (~1 min at the current rate)."
+    "flip_price": 2474.21,
+    "eta_min": 181.99999999970694,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.05 over 3m vs -1.32 the 3m before); unfilled bullish FVG 2,474.11\u20132,474.32 below price, 2.62 away (1.4x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,474.21."
    },
    "close_time": "2026-09-13T23:00:00Z",
    "result": "yes",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
-   "correct": null
+   "correct": true
   },
   {
    "ticker": "KXETH15M-26SEP131900-00:scalp",
    "call": "UP",
    "weak": false,
    "conviction": "scalp",
-   "gap": 3.474999999999909,
-   "gap_pct": 0.14026830602305684,
-   "sigma": 2.2247506726722546,
-   "band": 8.293708426077101,
-   "spot": 2477.395,
+   "gap": 3.019999999999982,
+   "gap_pct": 0.121924632813067,
+   "sigma": 1.853461806098726,
+   "band": 4.436733034677026,
+   "spot": 2476.94,
    "target": 2473.92,
-   "yes_bid": 0.65,
-   "yes_ask": 0.67,
-   "no_bid": 0.33,
-   "no_ask": 0.35,
-   "no_bid_eff": 0.33,
-   "no_ask_eff": 0.35,
-   "price_label": "SCALP YES \u2014 costs 67\u00a2, target 72\u00a2 (pays 1.5x if it settles)",
-   "price_yes": "YES 65\u00a2 / 67\u00a2",
-   "price_no": "NO 33\u00a2 / 35\u00a2",
-   "open_interest": 5893.66,
-   "entry_price": 0.67,
-   "breakeven": 0.6900000000000001,
+   "yes_bid": 0.73,
+   "yes_ask": 0.74,
+   "no_bid": 0.26,
+   "no_ask": 0.27,
+   "no_bid_eff": 0.26,
+   "no_ask_eff": 0.27,
+   "price_label": "SCALP YES \u2014 costs 74\u00a2, target 79\u00a2 (pays 1.4x if it settles)",
+   "price_yes": "YES 73\u00a2 / 74\u00a2",
+   "price_no": "NO 26\u00a2 / 27\u00a2",
+   "open_interest": 15930.36,
+   "entry_price": 0.74,
+   "breakeven": 0.76,
    "fee": 0.02,
-   "reason": "Scalp bucket: YES at 67\u00a2 \u2192 target 72\u00a2 (5\u00a2 move), pays 1.5x if held to settle \u2014 price action leans UP. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "reason": "Scalp bucket: YES at 74\u00a2 \u2192 target 79\u00a2 (5\u00a2 move), pays 1.4x if held to settle \u2014 price action leans UP. Most of these lose \u2014 separate bucket, never in the headline record.",
    "signal_lean": "up",
    "gap_dir": "up",
-   "mins_left": 13.897440807024639,
-   "ts": 1789339566.4984727,
-   "rsi": 50.3774653203735,
+   "mins_left": 7.930881504217783,
+   "ts": 1789339924.409386,
+   "rsi": 43.861747980137785,
    "rsi_state": "neutral",
-   "dist_vol": 1.5619727831460413,
+   "dist_vol": 1.6293834542815064,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,475.82\u20132,477.39 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,476.61 (~1 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.05 over 3m vs -1.32 the 3m before); unfilled bullish FVG 2,474.11\u20132,474.32 below price, 2.62 away (1.4x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,474.21.",
+   "drivers": [
+    "gap $3.02 = 1.6x per-minute vol and 68% of the 8-min noise band",
+    "price action 2\u20131 UP (agrees with the gap)",
+    "RSI 44 (neutral)",
+    "momentum +0.05/3m, -2.91/15m",
+    "this asset's UP setups: 6W-1L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -1.6436681718901336,
    "signals": [
     {
      "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,474.34\u20132,477.39, unfilled, price inside it \u2014 leans UP if it holds"
+     "lean": "down",
+     "text": "bearish, 2,476.94\u20132,477.49, unfilled, price inside it \u2014 leans DOWN if it holds"
     },
     {
      "name": "Sweep",
-     "lean": "up",
-     "text": "swept the low, closed back above at 2,473.95, 2 bar(s) ago \u2014 bullish"
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
     },
     {
      "name": "Trend",
      "lean": "up",
-     "text": "3 bars up, still extending"
+     "text": "1 bars up, still extending"
     },
     {
      "name": "Momentum",
      "lean": "up",
-     "text": "+3.32 over 3m, +2.97 over 5m, accelerating"
+     "text": "+0.05 over 3m, +2.07 over 5m, decelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,481.57 (+4.17 away), low 2,472.91 (-4.48 away), target line +3.47 away (the line is a magnet)"
+     "text": "round high 2,480.62 (+3.68 away), low 2,473.36 (-3.59 away), target line +3.02 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "unfilled bullish FVG 2,475.82\u20132,477.39 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way"
+     "momentum decelerating hard (+0.05 over 3m vs -1.32 the 3m before)",
+     "unfilled bullish FVG 2,474.11\u20132,474.32 below price, 2.62 away (1.4x/min vol) \u2014 acts as a magnet back the other way"
     ],
-    "level": "watch",
+    "level": "high",
     "direction": "down",
-    "flip_price": 2476.605,
-    "eta_min": 0.7127819548872242,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,475.82\u20132,477.39 below price, 0.01 away (0.0x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,476.61 (~1 min at the current rate)."
+    "flip_price": 2474.21,
+    "eta_min": 181.99999999970694,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.05 over 3m vs -1.32 the 3m before); unfilled bullish FVG 2,474.11\u20132,474.32 below price, 2.62 away (1.4x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,474.21."
    },
    "close_time": "2026-09-13T23:00:00Z",
    "result": "yes",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
    "is_scalp": true,
    "correct": true
   },
   {
    "ticker": "KXETH15M-26SEP131915-15",
-   "call": "NO CALL",
+   "call": "UP",
    "weak": false,
-   "conviction": "none",
-   "gap": 0.24499999999989086,
-   "gap_pct": 0.009899969896005497,
-   "sigma": 1.8731531348682862,
-   "band": 6.983272227333594,
-   "spot": 2474.755,
+   "conviction": "coin_flip",
+   "gap": 1.7849999999998545,
+   "gap_pct": 0.07208349570628113,
+   "sigma": 1.6486134241302202,
+   "band": 3.9451368112430676,
+   "spot": 2476.295,
    "target": 2474.51,
-   "yes_bid": 0.53,
-   "yes_ask": 0.55,
-   "no_bid": 0.45,
-   "no_ask": 0.47,
-   "no_bid_eff": 0.45,
-   "no_ask_eff": 0.47,
-   "price_label": "NO CALL \u2014 YES 53\u00a2 / 55\u00a2, NO 45\u00a2 / 47\u00a2",
-   "price_yes": "YES 53\u00a2 / 55\u00a2",
-   "price_no": "NO 45\u00a2 / 47\u00a2",
-   "open_interest": 2894.61,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $0.24 is inside the noise (ETH moving ~$1.87/min, band $6.98 over the 13.9 min still to run).",
+   "yes_bid": 0.66,
+   "yes_ask": 0.67,
+   "no_bid": 0.33,
+   "no_ask": 0.34,
+   "no_bid_eff": 0.33,
+   "no_ask_eff": 0.34,
+   "price_label": "UP \u2014 YES costs 67\u00a2",
+   "price_yes": "YES 66\u00a2 / 67\u00a2",
+   "price_no": "NO 33\u00a2 / 34\u00a2",
+   "open_interest": 13158.07,
+   "entry_price": 0.67,
+   "breakeven": 0.6900000000000001,
+   "fee": 0.02,
+   "reason": "CALL UP \u2014 COIN FLIP \u2014 driven by gap $1.78 = 1.1x per-minute vol and 45% of the 8-min noise band; price action 0\u20133 DOWN (does not confirm the gap); RSI 50 (neutral). COIN FLIP \u2014 the gap is INSIDE the noise band ($1.78 vs a $3.95 band over the 8 min still to run). This is a direction because a call is made every round, not because the read is good. Near 50/50 \u2014 size it that way or skip it. PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.45 over 3m vs +2.31 the 3m before); unfilled bullish FVG 2,475.07\u20132,475.59 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way; 3 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,475.32 (~6 min at the current rate).",
    "signal_lean": "down",
    "gap_dir": "up",
-   "mins_left": 13.898610293865204,
-   "ts": 1789340466.4061637,
-   "rsi": 42.46791263229,
+   "mins_left": 7.925900606314341,
+   "ts": 1789340824.6404722,
+   "rsi": 49.881991131455244,
    "rsi_state": "neutral",
-   "dist_vol": 0.1307954995452726,
+   "dist_vol": 1.0827280512662267,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.31 over 3m vs -2.01 the 3m before); unfilled bullish FVG 2,473.52\u20132,474.05 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.24 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,473.78 (~9 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.45 over 3m vs +2.31 the 3m before); unfilled bullish FVG 2,475.07\u20132,475.59 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way; 3 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,475.32 (~6 min at the current rate).",
+   "drivers": [
+    "gap $1.78 = 1.1x per-minute vol and 45% of the 8-min noise band",
+    "price action 0\u20133 DOWN (does not confirm the gap)",
+    "RSI 50 (neutral)",
+    "momentum -0.45/3m, +0.01/15m",
+    "this asset's UP setups: 7W-1L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -1.5271556837914702,
    "signals": [
     {
      "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,474.62\u20132,474.76, unfilled, price inside it \u2014 leans UP if it holds"
+     "lean": "down",
+     "text": "bearish, 2,476.30\u20132,477.32, unfilled, price inside it \u2014 leans DOWN if it holds"
     },
     {
      "name": "Sweep",
@@ -10293,78 +10520,89 @@
     {
      "name": "Exhaustion",
      "lean": "down",
-     "text": "4 bars up \u2014 exhaustion leans DOWN"
+     "text": "3 bars up, ranges contracting \u2014 exhaustion leans DOWN"
     },
     {
      "name": "Momentum",
      "lean": "down",
-     "text": "-0.31 over 3m, +2.69 over 5m, decelerating"
+     "text": "-0.45 over 3m, +1.01 over 5m, decelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,479.21 (+4.45 away), low 2,472.07 (-2.69 away), target line +0.24 away (the line is a magnet)"
+     "text": "round high 2,479.86 (+3.57 away), low 2,472.07 (-4.23 away), target line +1.78 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "momentum decelerating hard (-0.31 over 3m vs -2.01 the 3m before)",
-     "unfilled bullish FVG 2,473.52\u20132,474.05 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way",
-     "price is sitting on the target line ($0.24 away, under half a minute's vol) \u2014 it can flip either side on one print"
+     "momentum decelerating hard (-0.45 over 3m vs +2.31 the 3m before)",
+     "unfilled bullish FVG 2,475.07\u20132,475.59 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way",
+     "3 bars up with ranges contracting \u2014 the move is stalling"
     ],
     "level": "high",
     "direction": "down",
-    "flip_price": 2473.7825000000003,
-    "eta_min": 9.411290322580895,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.31 over 3m vs -2.01 the 3m before); unfilled bullish FVG 2,473.52\u20132,474.05 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.24 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,473.78 (~9 min at the current rate)."
+    "flip_price": 2475.325,
+    "eta_min": 6.395604395607098,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.45 over 3m vs +2.31 the 3m before); unfilled bullish FVG 2,475.07\u20132,475.59 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way; 3 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,475.32 (~6 min at the current rate)."
    },
    "close_time": "2026-09-13T23:15:00Z",
    "result": "no",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
-   "correct": null
+   "correct": false
   },
   {
    "ticker": "KXETH15M-26SEP131915-15:scalp",
    "call": "DOWN",
    "weak": false,
    "conviction": "scalp",
-   "gap": 0.24499999999989086,
-   "gap_pct": 0.009899969896005497,
-   "sigma": 1.8731531348682862,
-   "band": 6.983272227333594,
-   "spot": 2474.755,
+   "gap": 1.7849999999998545,
+   "gap_pct": 0.07208349570628113,
+   "sigma": 1.6486134241302202,
+   "band": 3.9451368112430676,
+   "spot": 2476.295,
    "target": 2474.51,
-   "yes_bid": 0.53,
-   "yes_ask": 0.55,
-   "no_bid": 0.45,
-   "no_ask": 0.47,
-   "no_bid_eff": 0.45,
-   "no_ask_eff": 0.47,
-   "price_label": "SCALP NO \u2014 costs 47\u00a2, target 52\u00a2 (pays 2.1x if it settles)",
-   "price_yes": "YES 53\u00a2 / 55\u00a2",
-   "price_no": "NO 45\u00a2 / 47\u00a2",
-   "open_interest": 2894.61,
-   "entry_price": 0.47,
-   "breakeven": 0.49,
+   "yes_bid": 0.66,
+   "yes_ask": 0.67,
+   "no_bid": 0.33,
+   "no_ask": 0.34,
+   "no_bid_eff": 0.33,
+   "no_ask_eff": 0.34,
+   "price_label": "SCALP NO \u2014 costs 34\u00a2, target 39\u00a2 (pays 2.9x if it settles)",
+   "price_yes": "YES 66\u00a2 / 67\u00a2",
+   "price_no": "NO 33\u00a2 / 34\u00a2",
+   "open_interest": 13158.07,
+   "entry_price": 0.34,
+   "breakeven": 0.36000000000000004,
    "fee": 0.02,
-   "reason": "Scalp bucket: NO at 47\u00a2 \u2192 target 52\u00a2 (5\u00a2 move), pays 2.1x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "reason": "Scalp bucket: NO at 34\u00a2 \u2192 target 39\u00a2 (5\u00a2 move), pays 2.9x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
    "signal_lean": "down",
    "gap_dir": "up",
-   "mins_left": 13.898610293865204,
-   "ts": 1789340466.4061637,
-   "rsi": 42.46791263229,
+   "mins_left": 7.925900606314341,
+   "ts": 1789340824.6404722,
+   "rsi": 49.881991131455244,
    "rsi_state": "neutral",
-   "dist_vol": 0.1307954995452726,
+   "dist_vol": 1.0827280512662267,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.31 over 3m vs -2.01 the 3m before); unfilled bullish FVG 2,473.52\u20132,474.05 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.24 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,473.78 (~9 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.45 over 3m vs +2.31 the 3m before); unfilled bullish FVG 2,475.07\u20132,475.59 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way; 3 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,475.32 (~6 min at the current rate).",
+   "drivers": [
+    "gap $1.78 = 1.1x per-minute vol and 45% of the 8-min noise band",
+    "price action 0\u20133 DOWN (does not confirm the gap)",
+    "RSI 50 (neutral)",
+    "momentum -0.45/3m, +0.01/15m",
+    "this asset's UP setups: 7W-1L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -1.5271556837914702,
    "signals": [
     {
      "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,474.62\u20132,474.76, unfilled, price inside it \u2014 leans UP if it holds"
+     "lean": "down",
+     "text": "bearish, 2,476.30\u20132,477.32, unfilled, price inside it \u2014 leans DOWN if it holds"
     },
     {
      "name": "Sweep",
@@ -10374,84 +10612,95 @@
     {
      "name": "Exhaustion",
      "lean": "down",
-     "text": "4 bars up \u2014 exhaustion leans DOWN"
+     "text": "3 bars up, ranges contracting \u2014 exhaustion leans DOWN"
     },
     {
      "name": "Momentum",
      "lean": "down",
-     "text": "-0.31 over 3m, +2.69 over 5m, decelerating"
+     "text": "-0.45 over 3m, +1.01 over 5m, decelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,479.21 (+4.45 away), low 2,472.07 (-2.69 away), target line +0.24 away (the line is a magnet)"
+     "text": "round high 2,479.86 (+3.57 away), low 2,472.07 (-4.23 away), target line +1.78 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "momentum decelerating hard (-0.31 over 3m vs -2.01 the 3m before)",
-     "unfilled bullish FVG 2,473.52\u20132,474.05 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way",
-     "price is sitting on the target line ($0.24 away, under half a minute's vol) \u2014 it can flip either side on one print"
+     "momentum decelerating hard (-0.45 over 3m vs +2.31 the 3m before)",
+     "unfilled bullish FVG 2,475.07\u20132,475.59 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way",
+     "3 bars up with ranges contracting \u2014 the move is stalling"
     ],
     "level": "high",
     "direction": "down",
-    "flip_price": 2473.7825000000003,
-    "eta_min": 9.411290322580895,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.31 over 3m vs -2.01 the 3m before); unfilled bullish FVG 2,473.52\u20132,474.05 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.24 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,473.78 (~9 min at the current rate)."
+    "flip_price": 2475.325,
+    "eta_min": 6.395604395607098,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.45 over 3m vs +2.31 the 3m before); unfilled bullish FVG 2,475.07\u20132,475.59 below price, 0.71 away (0.4x/min vol) \u2014 acts as a magnet back the other way; 3 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,475.32 (~6 min at the current rate)."
    },
    "close_time": "2026-09-13T23:15:00Z",
    "result": "no",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
    "is_scalp": true,
    "correct": true
   },
   {
    "ticker": "KXETH15M-26SEP131930-30",
-   "call": "NO CALL",
+   "call": "DOWN",
    "weak": false,
-   "conviction": "none",
-   "gap": 0.944999999999709,
-   "gap_pct": 0.03818636968849657,
-   "sigma": 1.2043458344216562,
-   "band": 4.491169977977594,
-   "spot": 2474.705,
+   "conviction": "coin_flip",
+   "gap": -2.7100000000000364,
+   "gap_pct": -0.10966997834928617,
+   "sigma": 1.4500563207451906,
+   "band": 3.471828409616454,
+   "spot": 2471.05,
    "target": 2473.76,
-   "yes_bid": 0.6,
-   "yes_ask": 0.61,
-   "no_bid": 0.39,
-   "no_ask": 0.4,
-   "no_bid_eff": 0.39,
-   "no_ask_eff": 0.4,
-   "price_label": "NO CALL \u2014 YES 60\u00a2 / 61\u00a2, NO 39\u00a2 / 40\u00a2",
-   "price_yes": "YES 60\u00a2 / 61\u00a2",
-   "price_no": "NO 39\u00a2 / 40\u00a2",
-   "open_interest": 2583.62,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $0.94 is inside the noise (ETH moving ~$1.20/min, band $4.49 over the 13.9 min still to run).",
-   "signal_lean": "down",
-   "gap_dir": "up",
-   "mins_left": 13.90645883878072,
-   "ts": 1789341365.865745,
-   "rsi": 51.11425445034597,
-   "rsi_state": "neutral",
-   "dist_vol": 0.784658337323441,
+   "yes_bid": 0.27,
+   "yes_ask": 0.28,
+   "no_bid": 0.72,
+   "no_ask": 0.73,
+   "no_bid_eff": 0.72,
+   "no_ask_eff": 0.73,
+   "price_label": "DOWN \u2014 NO costs 73\u00a2",
+   "price_yes": "YES 27\u00a2 / 28\u00a2",
+   "price_no": "NO 72\u00a2 / 73\u00a2",
+   "open_interest": 12267.38,
+   "entry_price": 0.73,
+   "breakeven": 0.75,
+   "fee": 0.02,
+   "reason": "CALL DOWN \u2014 COIN FLIP \u2014 driven by gap $2.71 = 1.9x per-minute vol and 78% of the 8-min noise band; price action 2\u20132 MIXED (does not confirm the gap); RSI 35 (cold). COIN FLIP \u2014 the gap is INSIDE the noise band ($2.71 vs a $3.47 band over the 8 min still to run). This is a direction because a call is made every round, not because the read is good. Near 50/50 \u2014 size it that way or skip it. PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.01 over 3m vs -1.78 the 3m before); unfilled bearish FVG 2,472.39\u20132,474.59 above price, 1.34 away (0.9x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,473.49.",
+   "signal_lean": "mixed",
+   "gap_dir": "down",
+   "mins_left": 7.934305389722188,
+   "ts": 1789341724.1762838,
+   "rsi": 34.62242830423895,
+   "rsi_state": "cold",
+   "dist_vol": 1.868892925901909,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.24 over 3m vs -2.05 the 3m before); unfilled bearish FVG 2,473.57\u20132,474.36 below price, 0.34 away (0.3x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,473.97 (~9 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.01 over 3m vs -1.78 the 3m before); unfilled bearish FVG 2,472.39\u20132,474.59 above price, 1.34 away (0.9x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,473.49.",
+   "drivers": [
+    "gap $2.71 = 1.9x per-minute vol and 78% of the 8-min noise band",
+    "price action 2\u20132 MIXED (does not confirm the gap)",
+    "RSI 35 (cold)",
+    "momentum -0.01/3m, -5.85/15m",
+    "this asset's DOWN setups: 14W-2L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 2.1489448502747477,
    "signals": [
     {
      "name": "FVG",
      "lean": "up",
-     "text": "bullish, 2,473.57\u20132,474.70, unfilled, price inside it \u2014 leans UP if it holds"
+     "text": "bearish, 2,472.39\u20132,474.59, unfilled, price below it \u2014 magnet pulls UP"
     },
     {
      "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
+     "lean": "up",
+     "text": "swept the low, closed back above at 2,470.14, 3 bar(s) ago \u2014 bullish"
     },
     {
      "name": "Exhaustion",
@@ -10461,77 +10710,88 @@
     {
      "name": "Momentum",
      "lean": "down",
-     "text": "-0.24 over 3m, +0.01 over 5m, decelerating"
+     "text": "-0.01 over 3m, -0.36 over 5m, decelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,478.09 (+3.39 away), low 2,473.22 (-1.49 away), target line +0.94 away (the line is a magnet)"
+     "text": "round high 2,477.32 (+6.27 away), low 2,469.87 (-1.18 away), target line -2.71 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "momentum decelerating hard (-0.24 over 3m vs -2.05 the 3m before)",
-     "unfilled bearish FVG 2,473.57\u20132,474.36 below price, 0.34 away (0.3x/min vol) \u2014 acts as a magnet back the other way"
+     "momentum decelerating hard (-0.01 over 3m vs -1.78 the 3m before)",
+     "unfilled bearish FVG 2,472.39\u20132,474.59 above price, 1.34 away (0.9x/min vol) \u2014 acts as a magnet back the other way"
     ],
     "level": "high",
-    "direction": "down",
-    "flip_price": 2473.9674999999997,
-    "eta_min": 9.21874999999319,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.24 over 3m vs -2.05 the 3m before); unfilled bearish FVG 2,473.57\u20132,474.36 below price, 0.34 away (0.3x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,473.97 (~9 min at the current rate)."
+    "direction": "up",
+    "flip_price": 2473.49,
+    "eta_min": 732.0000000171894,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.01 over 3m vs -1.78 the 3m before); unfilled bearish FVG 2,472.39\u20132,474.59 above price, 1.34 away (0.9x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,473.49."
    },
    "close_time": "2026-09-13T23:30:00Z",
    "result": "yes",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
-   "correct": null
+   "correct": false
   },
   {
    "ticker": "KXETH15M-26SEP131930-30:scalp",
-   "call": "DOWN",
+   "call": "UP",
    "weak": false,
    "conviction": "scalp",
-   "gap": 0.944999999999709,
-   "gap_pct": 0.03818636968849657,
-   "sigma": 1.2043458344216562,
-   "band": 4.491169977977594,
-   "spot": 2474.705,
+   "gap": -2.7100000000000364,
+   "gap_pct": -0.10966997834928617,
+   "sigma": 1.4500563207451906,
+   "band": 3.471828409616454,
+   "spot": 2471.05,
    "target": 2473.76,
-   "yes_bid": 0.6,
-   "yes_ask": 0.61,
-   "no_bid": 0.39,
-   "no_ask": 0.4,
-   "no_bid_eff": 0.39,
-   "no_ask_eff": 0.4,
-   "price_label": "SCALP NO \u2014 costs 40\u00a2, target 45\u00a2 (pays 2.5x if it settles)",
-   "price_yes": "YES 60\u00a2 / 61\u00a2",
-   "price_no": "NO 39\u00a2 / 40\u00a2",
-   "open_interest": 2583.62,
-   "entry_price": 0.4,
-   "breakeven": 0.42000000000000004,
+   "yes_bid": 0.27,
+   "yes_ask": 0.28,
+   "no_bid": 0.72,
+   "no_ask": 0.73,
+   "no_bid_eff": 0.72,
+   "no_ask_eff": 0.73,
+   "price_label": "SCALP YES \u2014 costs 28\u00a2, target 33\u00a2 (pays 3.6x if it settles)",
+   "price_yes": "YES 27\u00a2 / 28\u00a2",
+   "price_no": "NO 72\u00a2 / 73\u00a2",
+   "open_interest": 12267.38,
+   "entry_price": 0.28,
+   "breakeven": 0.30000000000000004,
    "fee": 0.02,
-   "reason": "Scalp bucket: NO at 40\u00a2 \u2192 target 45\u00a2 (5\u00a2 move), pays 2.5x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "down",
-   "gap_dir": "up",
-   "mins_left": 13.90645883878072,
-   "ts": 1789341365.865745,
-   "rsi": 51.11425445034597,
-   "rsi_state": "neutral",
-   "dist_vol": 0.784658337323441,
+   "reason": "Scalp bucket: YES at 28\u00a2 \u2192 target 33\u00a2 (5\u00a2 move), pays 3.6x if held to settle \u2014 signals mixed; 5-min aggressor flow is 63% YES. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "signal_lean": "mixed",
+   "gap_dir": "down",
+   "mins_left": 7.934305389722188,
+   "ts": 1789341724.1762838,
+   "rsi": 34.62242830423895,
+   "rsi_state": "cold",
+   "dist_vol": 1.868892925901909,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.24 over 3m vs -2.05 the 3m before); unfilled bearish FVG 2,473.57\u20132,474.36 below price, 0.34 away (0.3x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,473.97 (~9 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.01 over 3m vs -1.78 the 3m before); unfilled bearish FVG 2,472.39\u20132,474.59 above price, 1.34 away (0.9x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,473.49.",
+   "drivers": [
+    "gap $2.71 = 1.9x per-minute vol and 78% of the 8-min noise band",
+    "price action 2\u20132 MIXED (does not confirm the gap)",
+    "RSI 35 (cold)",
+    "momentum -0.01/3m, -5.85/15m",
+    "this asset's DOWN setups: 14W-2L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 2.1489448502747477,
    "signals": [
     {
      "name": "FVG",
      "lean": "up",
-     "text": "bullish, 2,473.57\u20132,474.70, unfilled, price inside it \u2014 leans UP if it holds"
+     "text": "bearish, 2,472.39\u20132,474.59, unfilled, price below it \u2014 magnet pulls UP"
     },
     {
      "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
+     "lean": "up",
+     "text": "swept the low, closed back above at 2,470.14, 3 bar(s) ago \u2014 bullish"
     },
     {
      "name": "Exhaustion",
@@ -10541,73 +10801,84 @@
     {
      "name": "Momentum",
      "lean": "down",
-     "text": "-0.24 over 3m, +0.01 over 5m, decelerating"
+     "text": "-0.01 over 3m, -0.36 over 5m, decelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,478.09 (+3.39 away), low 2,473.22 (-1.49 away), target line +0.94 away (the line is a magnet)"
+     "text": "round high 2,477.32 (+6.27 away), low 2,469.87 (-1.18 away), target line -2.71 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "momentum decelerating hard (-0.24 over 3m vs -2.05 the 3m before)",
-     "unfilled bearish FVG 2,473.57\u20132,474.36 below price, 0.34 away (0.3x/min vol) \u2014 acts as a magnet back the other way"
+     "momentum decelerating hard (-0.01 over 3m vs -1.78 the 3m before)",
+     "unfilled bearish FVG 2,472.39\u20132,474.59 above price, 1.34 away (0.9x/min vol) \u2014 acts as a magnet back the other way"
     ],
     "level": "high",
-    "direction": "down",
-    "flip_price": 2473.9674999999997,
-    "eta_min": 9.21874999999319,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (-0.24 over 3m vs -2.05 the 3m before); unfilled bearish FVG 2,473.57\u20132,474.36 below price, 0.34 away (0.3x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,473.97 (~9 min at the current rate)."
+    "direction": "up",
+    "flip_price": 2473.49,
+    "eta_min": 732.0000000171894,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.01 over 3m vs -1.78 the 3m before); unfilled bearish FVG 2,472.39\u20132,474.59 above price, 1.34 away (0.9x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,473.49."
    },
    "close_time": "2026-09-13T23:30:00Z",
    "result": "yes",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
    "is_scalp": true,
-   "correct": false
+   "correct": true
   },
   {
    "ticker": "KXETH15M-26SEP131945-45",
-   "call": "NO CALL",
+   "call": "UP",
    "weak": false,
-   "conviction": "none",
-   "gap": 3.3600000000001273,
-   "gap_pct": 0.1355997869146257,
-   "sigma": 1.3949669848740418,
-   "band": 5.20252417553657,
-   "spot": 2477.88,
+   "conviction": "coin_flip",
+   "gap": 2.4549999999999272,
+   "gap_pct": 0.09911282915652873,
+   "sigma": 1.5432557215905727,
+   "band": 3.692911132884694,
+   "spot": 2476.975,
    "target": 2474.52,
-   "yes_bid": 0.67,
-   "yes_ask": 0.68,
-   "no_bid": 0.32,
-   "no_ask": 0.33,
-   "no_bid_eff": 0.32,
-   "no_ask_eff": 0.33,
-   "price_label": "NO CALL \u2014 YES 67\u00a2 / 68\u00a2, NO 32\u00a2 / 33\u00a2",
-   "price_yes": "YES 67\u00a2 / 68\u00a2",
-   "price_no": "NO 32\u00a2 / 33\u00a2",
-   "open_interest": 1985.65,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $3.36 is inside the noise (ETH moving ~$1.39/min, band $5.20 over the 13.9 min still to run).",
-   "signal_lean": "up",
+   "yes_bid": 0.74,
+   "yes_ask": 0.76,
+   "no_bid": 0.24,
+   "no_ask": 0.26,
+   "no_bid_eff": 0.24,
+   "no_ask_eff": 0.26,
+   "price_label": "UP \u2014 YES costs 76\u00a2",
+   "price_yes": "YES 74\u00a2 / 76\u00a2",
+   "price_no": "NO 24\u00a2 / 26\u00a2",
+   "open_interest": 12917.93,
+   "entry_price": 0.76,
+   "breakeven": 0.78,
+   "fee": 0.02,
+   "reason": "CALL UP \u2014 COIN FLIP \u2014 driven by gap $2.45 = 1.6x per-minute vol and 66% of the 8-min noise band; price action 0\u20133 DOWN (does not confirm the gap); RSI 59 (neutral). COIN FLIP \u2014 the gap is INSIDE the noise band ($2.45 vs a $3.69 band over the 8 min still to run). This is a direction because a call is made every round, not because the read is good. Near 50/50 \u2014 size it that way or skip it. PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,473.47\u20132,476.32 below price, 0.65 away (0.4x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,474.89 (~3 min at the current rate).",
+   "signal_lean": "down",
    "gap_dir": "up",
-   "mins_left": 13.909142474333445,
-   "ts": 1789342265.797612,
-   "rsi": 68.83695325793359,
-   "rsi_state": "hot",
-   "dist_vol": 2.4086591556885613,
+   "mins_left": 7.925452558199565,
+   "ts": 1789342624.695042,
+   "rsi": 59.27356537698122,
+   "rsi_state": "neutral",
+   "dist_vol": 1.5907927413803176,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,473.53\u20132,476.30 below price, 1.58 away (1.1x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,474.91 (~3 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,473.47\u20132,476.32 below price, 0.65 away (0.4x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,474.89 (~3 min at the current rate).",
+   "drivers": [
+    "gap $2.45 = 1.6x per-minute vol and 66% of the 8-min noise band",
+    "price action 0\u20133 DOWN (does not confirm the gap)",
+    "RSI 59 (neutral)",
+    "momentum -2.26/3m, +3.32/15m",
+    "this asset's UP setups: 7W-2L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -3.601337973110663,
    "signals": [
     {
      "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,474.29\u20132,477.88, unfilled, price inside it \u2014 leans UP if it holds"
+     "lean": "down",
+     "text": "bearish, 2,476.70\u20132,478.01, unfilled, price inside it \u2014 leans DOWN if it holds"
     },
     {
      "name": "Sweep",
@@ -10621,73 +10892,84 @@
     },
     {
      "name": "Momentum",
-     "lean": "up",
-     "text": "+3.18 over 3m, +3.12 over 5m, accelerating"
+     "lean": "down",
+     "text": "-2.26 over 3m, -1.19 over 5m, accelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,477.88 (+0.00 away), low 2,469.69 (-8.19 away), target line +3.36 away (the line is a magnet)"
+     "text": "round high 2,479.24 (+2.26 away), low 2,472.51 (-4.47 away), target line +2.45 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "unfilled bullish FVG 2,473.53\u20132,476.30 below price, 1.58 away (1.1x/min vol) \u2014 acts as a magnet back the other way",
+     "unfilled bullish FVG 2,473.47\u20132,476.32 below price, 0.65 away (0.4x/min vol) \u2014 acts as a magnet back the other way",
      "1 bars up with ranges contracting \u2014 the move is stalling"
     ],
     "level": "high",
     "direction": "down",
-    "flip_price": 2474.915,
-    "eta_min": 2.797169811320636,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,473.53\u20132,476.30 below price, 1.58 away (1.1x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,474.91 (~3 min at the current rate)."
+    "flip_price": 2474.895,
+    "eta_min": 2.754966887417277,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,473.47\u20132,476.32 below price, 0.65 away (0.4x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,474.89 (~3 min at the current rate)."
    },
    "close_time": "2026-09-13T23:45:00Z",
    "result": "yes",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
-   "correct": null
+   "correct": true
   },
   {
    "ticker": "KXETH15M-26SEP131945-45:scalp",
-   "call": "UP",
+   "call": "DOWN",
    "weak": false,
    "conviction": "scalp",
-   "gap": 3.3600000000001273,
-   "gap_pct": 0.1355997869146257,
-   "sigma": 1.3949669848740418,
-   "band": 5.20252417553657,
-   "spot": 2477.88,
+   "gap": 2.4549999999999272,
+   "gap_pct": 0.09911282915652873,
+   "sigma": 1.5432557215905727,
+   "band": 3.692911132884694,
+   "spot": 2476.975,
    "target": 2474.52,
-   "yes_bid": 0.67,
-   "yes_ask": 0.68,
-   "no_bid": 0.32,
-   "no_ask": 0.33,
-   "no_bid_eff": 0.32,
-   "no_ask_eff": 0.33,
-   "price_label": "SCALP YES \u2014 costs 68\u00a2, target 73\u00a2 (pays 1.5x if it settles)",
-   "price_yes": "YES 67\u00a2 / 68\u00a2",
-   "price_no": "NO 32\u00a2 / 33\u00a2",
-   "open_interest": 1985.65,
-   "entry_price": 0.68,
-   "breakeven": 0.7000000000000001,
+   "yes_bid": 0.74,
+   "yes_ask": 0.76,
+   "no_bid": 0.24,
+   "no_ask": 0.26,
+   "no_bid_eff": 0.24,
+   "no_ask_eff": 0.26,
+   "price_label": "SCALP NO \u2014 costs 26\u00a2, target 31\u00a2 (pays 3.8x if it settles)",
+   "price_yes": "YES 74\u00a2 / 76\u00a2",
+   "price_no": "NO 24\u00a2 / 26\u00a2",
+   "open_interest": 12917.93,
+   "entry_price": 0.26,
+   "breakeven": 0.28,
    "fee": 0.02,
-   "reason": "Scalp bucket: YES at 68\u00a2 \u2192 target 73\u00a2 (5\u00a2 move), pays 1.5x if held to settle \u2014 price action leans UP. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "up",
+   "reason": "Scalp bucket: NO at 26\u00a2 \u2192 target 31\u00a2 (5\u00a2 move), pays 3.8x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "signal_lean": "down",
    "gap_dir": "up",
-   "mins_left": 13.909142474333445,
-   "ts": 1789342265.797612,
-   "rsi": 68.83695325793359,
-   "rsi_state": "hot",
-   "dist_vol": 2.4086591556885613,
+   "mins_left": 7.925452558199565,
+   "ts": 1789342624.695042,
+   "rsi": 59.27356537698122,
+   "rsi_state": "neutral",
+   "dist_vol": 1.5907927413803176,
    "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,473.53\u20132,476.30 below price, 1.58 away (1.1x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,474.91 (~3 min at the current rate).",
-   "drivers": [],
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,473.47\u20132,476.32 below price, 0.65 away (0.4x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,474.89 (~3 min at the current rate).",
+   "drivers": [
+    "gap $2.45 = 1.6x per-minute vol and 66% of the 8-min noise band",
+    "price action 0\u20133 DOWN (does not confirm the gap)",
+    "RSI 59 (neutral)",
+    "momentum -2.26/3m, +3.32/15m",
+    "this asset's UP setups: 7W-2L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -3.601337973110663,
    "signals": [
     {
      "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,474.29\u20132,477.88, unfilled, price inside it \u2014 leans UP if it holds"
+     "lean": "down",
+     "text": "bearish, 2,476.70\u20132,478.01, unfilled, price inside it \u2014 leans DOWN if it holds"
     },
     {
      "name": "Sweep",
@@ -10701,518 +10983,399 @@
     },
     {
      "name": "Momentum",
-     "lean": "up",
-     "text": "+3.18 over 3m, +3.12 over 5m, accelerating"
+     "lean": "down",
+     "text": "-2.26 over 3m, -1.19 over 5m, accelerating"
     },
     {
      "name": "S/R",
      "lean": null,
-     "text": "round high 2,477.88 (+0.00 away), low 2,469.69 (-8.19 away), target line +3.36 away (the line is a magnet)"
+     "text": "round high 2,479.24 (+2.26 away), low 2,472.51 (-4.47 away), target line +2.45 away (the line is a magnet)"
     }
    ],
    "reversal": {
     "flag": true,
     "reasons": [
-     "unfilled bullish FVG 2,473.53\u20132,476.30 below price, 1.58 away (1.1x/min vol) \u2014 acts as a magnet back the other way",
+     "unfilled bullish FVG 2,473.47\u20132,476.32 below price, 0.65 away (0.4x/min vol) \u2014 acts as a magnet back the other way",
      "1 bars up with ranges contracting \u2014 the move is stalling"
     ],
     "level": "high",
     "direction": "down",
-    "flip_price": 2474.915,
-    "eta_min": 2.797169811320636,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,473.53\u20132,476.30 below price, 1.58 away (1.1x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,474.91 (~3 min at the current rate)."
+    "flip_price": 2474.895,
+    "eta_min": 2.754966887417277,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,473.47\u20132,476.32 below price, 0.65 away (0.4x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,474.89 (~3 min at the current rate)."
    },
    "close_time": "2026-09-13T23:45:00Z",
    "result": "yes",
-   "mark": 1,
-   "is_early": false,
-   "is_scalp": true,
-   "correct": true
-  },
-  {
-   "ticker": "KXETH15M-26SEP132000-00",
-   "call": "NO CALL",
-   "weak": false,
-   "conviction": "none",
-   "gap": 0.05500000000029104,
-   "gap_pct": 0.0022215624854958643,
-   "sigma": 1.017216463361257,
-   "band": 3.7923756690996164,
-   "spot": 2475.735,
-   "target": 2475.68,
-   "yes_bid": 0.4,
-   "yes_ask": 0.41,
-   "no_bid": 0.59,
-   "no_ask": 0.6,
-   "no_bid_eff": 0.59,
-   "no_ask_eff": 0.6,
-   "price_label": "NO CALL \u2014 YES 40\u00a2 / 41\u00a2, NO 59\u00a2 / 60\u00a2",
-   "price_yes": "YES 40\u00a2 / 41\u00a2",
-   "price_no": "NO 59\u00a2 / 60\u00a2",
-   "open_interest": 1413.01,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $0.06 is inside the noise (ETH moving ~$1.02/min, band $3.79 over the 13.9 min still to run).",
-   "signal_lean": "up",
-   "gap_dir": "up",
-   "mins_left": 13.899396443367005,
-   "ts": 1789343166.25589,
-   "rsi": 42.6376639164062,
-   "rsi_state": "neutral",
-   "dist_vol": 0.054069120960302613,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.32 over 3m vs +0.89 the 3m before); unfilled bearish FVG 2,475.34\u20132,475.41 below price, 0.32 away (0.3x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.06 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,475.38 (~3 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,475.68\u20132,475.74, unfilled, price inside it \u2014 leans UP if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Trend",
-     "lean": "up",
-     "text": "1 bars up, still extending"
-    },
-    {
-     "name": "Momentum",
-     "lean": "up",
-     "text": "+0.32 over 3m, +0.48 over 5m, accelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,478.72 (+2.99 away), low 2,474.37 (-1.37 away), target line +0.06 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "momentum decelerating hard (+0.32 over 3m vs +0.89 the 3m before)",
-     "unfilled bearish FVG 2,475.34\u20132,475.41 below price, 0.32 away (0.3x/min vol) \u2014 acts as a magnet back the other way",
-     "price is sitting on the target line ($0.06 away, under half a minute's vol) \u2014 it can flip either side on one print"
-    ],
-    "level": "high",
-    "direction": "down",
-    "flip_price": 2475.38,
-    "eta_min": 3.328124999998468,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.32 over 3m vs +0.89 the 3m before); unfilled bearish FVG 2,475.34\u20132,475.41 below price, 0.32 away (0.3x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.06 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,475.38 (~3 min at the current rate)."
-   },
-   "close_time": "2026-09-14T00:00:00Z",
-   "result": "yes",
-   "mark": 1,
-   "is_early": false,
-   "correct": null
-  },
-  {
-   "ticker": "KXETH15M-26SEP132000-00:scalp",
-   "call": "UP",
-   "weak": false,
-   "conviction": "scalp",
-   "gap": 0.05500000000029104,
-   "gap_pct": 0.0022215624854958643,
-   "sigma": 1.017216463361257,
-   "band": 3.7923756690996164,
-   "spot": 2475.735,
-   "target": 2475.68,
-   "yes_bid": 0.4,
-   "yes_ask": 0.41,
-   "no_bid": 0.59,
-   "no_ask": 0.6,
-   "no_bid_eff": 0.59,
-   "no_ask_eff": 0.6,
-   "price_label": "SCALP YES \u2014 costs 41\u00a2, target 46\u00a2 (pays 2.4x if it settles)",
-   "price_yes": "YES 40\u00a2 / 41\u00a2",
-   "price_no": "NO 59\u00a2 / 60\u00a2",
-   "open_interest": 1413.01,
-   "entry_price": 0.41,
-   "breakeven": 0.43,
-   "fee": 0.02,
-   "reason": "Scalp bucket: YES at 41\u00a2 \u2192 target 46\u00a2 (5\u00a2 move), pays 2.4x if held to settle \u2014 price action leans UP. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "up",
-   "gap_dir": "up",
-   "mins_left": 13.899396443367005,
-   "ts": 1789343166.25589,
-   "rsi": 42.6376639164062,
-   "rsi_state": "neutral",
-   "dist_vol": 0.054069120960302613,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.32 over 3m vs +0.89 the 3m before); unfilled bearish FVG 2,475.34\u20132,475.41 below price, 0.32 away (0.3x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.06 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,475.38 (~3 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,475.68\u20132,475.74, unfilled, price inside it \u2014 leans UP if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Trend",
-     "lean": "up",
-     "text": "1 bars up, still extending"
-    },
-    {
-     "name": "Momentum",
-     "lean": "up",
-     "text": "+0.32 over 3m, +0.48 over 5m, accelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,478.72 (+2.99 away), low 2,474.37 (-1.37 away), target line +0.06 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "momentum decelerating hard (+0.32 over 3m vs +0.89 the 3m before)",
-     "unfilled bearish FVG 2,475.34\u20132,475.41 below price, 0.32 away (0.3x/min vol) \u2014 acts as a magnet back the other way",
-     "price is sitting on the target line ($0.06 away, under half a minute's vol) \u2014 it can flip either side on one print"
-    ],
-    "level": "high",
-    "direction": "down",
-    "flip_price": 2475.38,
-    "eta_min": 3.328124999998468,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.32 over 3m vs +0.89 the 3m before); unfilled bearish FVG 2,475.34\u20132,475.41 below price, 0.32 away (0.3x/min vol) \u2014 acts as a magnet back the other way; price is sitting on the target line ($0.06 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,475.38 (~3 min at the current rate)."
-   },
-   "close_time": "2026-09-14T00:00:00Z",
-   "result": "yes",
-   "mark": 1,
-   "is_early": false,
-   "is_scalp": true,
-   "correct": true
-  },
-  {
-   "ticker": "KXETH15M-26SEP132030-30",
-   "call": "NO CALL",
-   "weak": false,
-   "conviction": "none",
-   "gap": 1.0649999999995998,
-   "gap_pct": 0.0428468837441176,
-   "sigma": 2.377962479846092,
-   "band": 8.868305534152096,
-   "spot": 2485.595,
-   "target": 2484.53,
-   "yes_bid": 0.56,
-   "yes_ask": 0.57,
-   "no_bid": 0.43,
-   "no_ask": 0.44,
-   "no_bid_eff": 0.43,
-   "no_ask_eff": 0.44,
-   "price_label": "NO CALL \u2014 YES 56\u00a2 / 57\u00a2, NO 43\u00a2 / 44\u00a2",
-   "price_yes": "YES 56\u00a2 / 57\u00a2",
-   "price_no": "NO 43\u00a2 / 44\u00a2",
-   "open_interest": 2576.44,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $1.06 is inside the noise (ETH moving ~$2.38/min, band $8.87 over the 13.9 min still to run).",
-   "signal_lean": "up",
-   "gap_dir": "up",
-   "mins_left": 13.908211890856425,
-   "ts": 1789344965.8412488,
-   "rsi": 65.65762320951626,
-   "rsi_state": "hot",
-   "dist_vol": 0.44786240700842744,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.44 over 3m vs +2.93 the 3m before); unfilled bullish FVG 2,479.66\u20132,484.80 below price, 0.80 away (0.3x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling; price is sitting on the target line ($1.06 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,482.23 (~23 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,485.28\u20132,485.59, unfilled, price inside it \u2014 leans UP if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Exhaustion",
-     "lean": "down",
-     "text": "1 bars up, ranges contracting \u2014 exhaustion leans DOWN"
-    },
-    {
-     "name": "Momentum",
-     "lean": "up",
-     "text": "+0.44 over 3m, +2.05 over 5m, decelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,488.74 (+3.15 away), low 2,475.74 (-9.86 away), target line +1.06 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "momentum decelerating hard (+0.44 over 3m vs +2.93 the 3m before)",
-     "unfilled bullish FVG 2,479.66\u20132,484.80 below price, 0.80 away (0.3x/min vol) \u2014 acts as a magnet back the other way",
-     "1 bars up with ranges contracting \u2014 the move is stalling",
-     "price is sitting on the target line ($1.06 away, under half a minute's vol) \u2014 it can flip either side on one print"
-    ],
-    "level": "high",
-    "direction": "down",
-    "flip_price": 2482.2275,
-    "eta_min": 22.960227272747037,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.44 over 3m vs +2.93 the 3m before); unfilled bullish FVG 2,479.66\u20132,484.80 below price, 0.80 away (0.3x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling; price is sitting on the target line ($1.06 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,482.23 (~23 min at the current rate)."
-   },
-   "close_time": "2026-09-14T00:30:00Z",
-   "result": null,
-   "mark": 1,
-   "is_early": false
-  },
-  {
-   "ticker": "KXETH15M-26SEP132030-30:scalp",
-   "call": "UP",
-   "weak": false,
-   "conviction": "scalp",
-   "gap": 1.0649999999995998,
-   "gap_pct": 0.0428468837441176,
-   "sigma": 2.377962479846092,
-   "band": 8.868305534152096,
-   "spot": 2485.595,
-   "target": 2484.53,
-   "yes_bid": 0.56,
-   "yes_ask": 0.57,
-   "no_bid": 0.43,
-   "no_ask": 0.44,
-   "no_bid_eff": 0.43,
-   "no_ask_eff": 0.44,
-   "price_label": "SCALP YES \u2014 costs 57\u00a2, target 62\u00a2 (pays 1.8x if it settles)",
-   "price_yes": "YES 56\u00a2 / 57\u00a2",
-   "price_no": "NO 43\u00a2 / 44\u00a2",
-   "open_interest": 2576.44,
-   "entry_price": 0.57,
-   "breakeven": 0.59,
-   "fee": 0.02,
-   "reason": "Scalp bucket: YES at 57\u00a2 \u2192 target 62\u00a2 (5\u00a2 move), pays 1.8x if held to settle \u2014 price action leans UP. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "up",
-   "gap_dir": "up",
-   "mins_left": 13.908211890856425,
-   "ts": 1789344965.8412488,
-   "rsi": 65.65762320951626,
-   "rsi_state": "hot",
-   "dist_vol": 0.44786240700842744,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.44 over 3m vs +2.93 the 3m before); unfilled bullish FVG 2,479.66\u20132,484.80 below price, 0.80 away (0.3x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling; price is sitting on the target line ($1.06 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,482.23 (~23 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "up",
-     "text": "bullish, 2,485.28\u20132,485.59, unfilled, price inside it \u2014 leans UP if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": null,
-     "text": "no liquidity sweep in the last 15 min"
-    },
-    {
-     "name": "Exhaustion",
-     "lean": "down",
-     "text": "1 bars up, ranges contracting \u2014 exhaustion leans DOWN"
-    },
-    {
-     "name": "Momentum",
-     "lean": "up",
-     "text": "+0.44 over 3m, +2.05 over 5m, decelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,488.74 (+3.15 away), low 2,475.74 (-9.86 away), target line +1.06 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "momentum decelerating hard (+0.44 over 3m vs +2.93 the 3m before)",
-     "unfilled bullish FVG 2,479.66\u20132,484.80 below price, 0.80 away (0.3x/min vol) \u2014 acts as a magnet back the other way",
-     "1 bars up with ranges contracting \u2014 the move is stalling",
-     "price is sitting on the target line ($1.06 away, under half a minute's vol) \u2014 it can flip either side on one print"
-    ],
-    "level": "high",
-    "direction": "down",
-    "flip_price": 2482.2275,
-    "eta_min": 22.960227272747037,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: momentum decelerating hard (+0.44 over 3m vs +2.93 the 3m before); unfilled bullish FVG 2,479.66\u20132,484.80 below price, 0.80 away (0.3x/min vol) \u2014 acts as a magnet back the other way; 1 bars up with ranges contracting \u2014 the move is stalling; price is sitting on the target line ($1.06 away, under half a minute's vol) \u2014 it can flip either side on one print. It would show around 2,482.23 (~23 min at the current rate)."
-   },
-   "close_time": "2026-09-14T00:30:00Z",
-   "result": null,
-   "mark": 1,
-   "is_early": false,
-   "is_scalp": true
-  },
-  {
-   "ticker": "KXETH15M-26SEP132015-15",
-   "call": "NO CALL",
-   "weak": false,
-   "conviction": "none",
-   "gap": -1.4650000000001455,
-   "gap_pct": -0.05919012555175684,
-   "sigma": 0.7374516179987638,
-   "band": 2.7502617667195532,
-   "spot": 2475.075,
-   "target": 2476.54,
-   "yes_bid": 0.42,
-   "yes_ask": 0.43,
-   "no_bid": 0.57,
-   "no_ask": 0.58,
-   "no_bid_eff": 0.57,
-   "no_ask_eff": 0.58,
-   "price_label": "NO CALL \u2014 YES 42\u00a2 / 43\u00a2, NO 57\u00a2 / 58\u00a2",
-   "price_yes": "YES 42\u00a2 / 43\u00a2",
-   "price_no": "NO 57\u00a2 / 58\u00a2",
-   "open_interest": 6515.94,
-   "entry_price": null,
-   "breakeven": null,
-   "fee": null,
-   "reason": "NO CALL \u2014 gap $1.47 is inside the noise (ETH moving ~$0.74/min, band $2.75 over the 13.9 min still to run).",
-   "signal_lean": "down",
-   "gap_dir": "down",
-   "mins_left": 13.908522494633992,
-   "ts": 1789344065.800735,
-   "rsi": 43.12039312039352,
-   "rsi_state": "neutral",
-   "dist_vol": 1.9865710024146985,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,475.22\u20132,475.88 above price, 0.14 away (0.2x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,475.55 (~3 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "down",
-     "text": "bearish, 2,475.07\u20132,476.41, unfilled, price inside it \u2014 leans DOWN if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": "down",
-     "text": "swept the high, closed back below at 2,476.99, 2 bar(s) ago \u2014 bearish"
-    },
-    {
-     "name": "Exhaustion",
-     "lean": "down",
-     "text": "1 bars up, ranges contracting \u2014 exhaustion leans DOWN"
-    },
-    {
-     "name": "Momentum",
-     "lean": "down",
-     "text": "-0.47 over 3m, +1.48 over 5m, decelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,477.09 (+2.02 away), low 2,473.59 (-1.48 away), target line -1.47 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "unfilled bearish FVG 2,475.22\u20132,475.88 above price, 0.14 away (0.2x/min vol) \u2014 acts as a magnet back the other way"
-    ],
-    "level": "watch",
-    "direction": "up",
-    "flip_price": 2475.545,
-    "eta_min": 3.0,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,475.22\u20132,475.88 above price, 0.14 away (0.2x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,475.55 (~3 min at the current rate)."
-   },
-   "close_time": "2026-09-14T00:15:00Z",
-   "result": "yes",
-   "mark": 1,
-   "is_early": false,
-   "correct": null
-  },
-  {
-   "ticker": "KXETH15M-26SEP132015-15:scalp",
-   "call": "DOWN",
-   "weak": false,
-   "conviction": "scalp",
-   "gap": -1.4650000000001455,
-   "gap_pct": -0.05919012555175684,
-   "sigma": 0.7374516179987638,
-   "band": 2.7502617667195532,
-   "spot": 2475.075,
-   "target": 2476.54,
-   "yes_bid": 0.42,
-   "yes_ask": 0.43,
-   "no_bid": 0.57,
-   "no_ask": 0.58,
-   "no_bid_eff": 0.57,
-   "no_ask_eff": 0.58,
-   "price_label": "SCALP NO \u2014 costs 58\u00a2, target 63\u00a2 (pays 1.7x if it settles)",
-   "price_yes": "YES 42\u00a2 / 43\u00a2",
-   "price_no": "NO 57\u00a2 / 58\u00a2",
-   "open_interest": 6515.94,
-   "entry_price": 0.58,
-   "breakeven": 0.6,
-   "fee": 0.02,
-   "reason": "Scalp bucket: NO at 58\u00a2 \u2192 target 63\u00a2 (5\u00a2 move), pays 1.7x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
-   "signal_lean": "down",
-   "gap_dir": "down",
-   "mins_left": 13.908522494633992,
-   "ts": 1789344065.800735,
-   "rsi": 43.12039312039352,
-   "rsi_state": "neutral",
-   "dist_vol": 1.9865710024146985,
-   "reversal_flag": true,
-   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,475.22\u20132,475.88 above price, 0.14 away (0.2x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,475.55 (~3 min at the current rate).",
-   "drivers": [],
-   "signals": [
-    {
-     "name": "FVG",
-     "lean": "down",
-     "text": "bearish, 2,475.07\u20132,476.41, unfilled, price inside it \u2014 leans DOWN if it holds"
-    },
-    {
-     "name": "Sweep",
-     "lean": "down",
-     "text": "swept the high, closed back below at 2,476.99, 2 bar(s) ago \u2014 bearish"
-    },
-    {
-     "name": "Exhaustion",
-     "lean": "down",
-     "text": "1 bars up, ranges contracting \u2014 exhaustion leans DOWN"
-    },
-    {
-     "name": "Momentum",
-     "lean": "down",
-     "text": "-0.47 over 3m, +1.48 over 5m, decelerating"
-    },
-    {
-     "name": "S/R",
-     "lean": null,
-     "text": "round high 2,477.09 (+2.02 away), low 2,473.59 (-1.48 away), target line -1.47 away (the line is a magnet)"
-    }
-   ],
-   "reversal": {
-    "flag": true,
-    "reasons": [
-     "unfilled bearish FVG 2,475.22\u20132,475.88 above price, 0.14 away (0.2x/min vol) \u2014 acts as a magnet back the other way"
-    ],
-    "level": "watch",
-    "direction": "up",
-    "flip_price": 2475.545,
-    "eta_min": 3.0,
-    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: unfilled bearish FVG 2,475.22\u20132,475.88 above price, 0.14 away (0.2x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,475.55 (~3 min at the current rate)."
-   },
-   "close_time": "2026-09-14T00:15:00Z",
-   "result": "yes",
-   "mark": 1,
+   "mark": 7,
    "is_early": false,
    "is_scalp": true,
    "correct": false
+  },
+  {
+   "ticker": "KXETH15M-26SEP132000-00",
+   "call": "DOWN",
+   "weak": false,
+   "conviction": "coin_flip",
+   "gap": -0.5949999999997999,
+   "gap_pct": -0.024039578438712204,
+   "sigma": 1.1412846562828056,
+   "band": 2.730028075605462,
+   "spot": 2475.085,
+   "target": 2475.68,
+   "yes_bid": 0.46,
+   "yes_ask": 0.47,
+   "no_bid": 0.53,
+   "no_ask": 0.54,
+   "no_bid_eff": 0.53,
+   "no_ask_eff": 0.54,
+   "price_label": "DOWN \u2014 NO costs 54\u00a2",
+   "price_yes": "YES 46\u00a2 / 47\u00a2",
+   "price_no": "NO 53\u00a2 / 54\u00a2",
+   "open_interest": 8548.13,
+   "entry_price": 0.54,
+   "breakeven": 0.56,
+   "fee": 0.02,
+   "reason": "CALL DOWN \u2014 COIN FLIP \u2014 driven by gap $0.59 = 0.5x per-minute vol and 22% of the 8-min noise band; price action 0\u20133 DOWN (agrees with the gap); RSI 49 (neutral). COIN FLIP \u2014 the gap is INSIDE the noise band ($0.59 vs a $2.73 band over the 8 min still to run). This is a direction because a call is made every round, not because the read is good. Near 50/50 \u2014 size it that way or skip it. PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.57 over 3m vs -1.34 the 3m before); unfilled bearish FVG 2,475.81\u20132,476.20 above price, 0.72 away (0.6x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,476.00 (~5 min at the current rate).",
+   "signal_lean": "down",
+   "gap_dir": "down",
+   "mins_left": 7.919694300492605,
+   "ts": 1789343525.0585954,
+   "rsi": 48.82109672914717,
+   "rsi_state": "neutral",
+   "dist_vol": 0.5213423283352733,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.57 over 3m vs -1.34 the 3m before); unfilled bearish FVG 2,475.81\u20132,476.20 above price, 0.72 away (0.6x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,476.00 (~5 min at the current rate).",
+   "drivers": [
+    "gap $0.59 = 0.5x per-minute vol and 22% of the 8-min noise band",
+    "price action 0\u20133 DOWN (agrees with the gap)",
+    "RSI 49 (neutral)",
+    "momentum -0.57/3m, -0.36/15m",
+    "this asset's DOWN setups: 14W-3L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 3.8485290000689454,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,475.09\u20132,475.14, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Exhaustion",
+     "lean": "down",
+     "text": "2 bars up, ranges contracting \u2014 exhaustion leans DOWN"
+    },
+    {
+     "name": "Momentum",
+     "lean": "down",
+     "text": "-0.57 over 3m, -0.87 over 5m, accelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,478.57 (+3.49 away), low 2,474.32 (-0.76 away), target line -0.59 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "momentum decelerating hard (-0.57 over 3m vs -1.34 the 3m before)",
+     "unfilled bearish FVG 2,475.81\u20132,476.20 above price, 0.72 away (0.6x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "high",
+    "direction": "up",
+    "flip_price": 2476.0025,
+    "eta_min": 4.828947368419762,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.57 over 3m vs -1.34 the 3m before); unfilled bearish FVG 2,475.81\u20132,476.20 above price, 0.72 away (0.6x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,476.00 (~5 min at the current rate)."
+   },
+   "close_time": "2026-09-14T00:00:00Z",
+   "result": "yes",
+   "mark": 7,
+   "is_early": false,
+   "correct": false
+  },
+  {
+   "ticker": "KXETH15M-26SEP132000-00:scalp",
+   "call": "DOWN",
+   "weak": false,
+   "conviction": "scalp",
+   "gap": -0.5949999999997999,
+   "gap_pct": -0.024039578438712204,
+   "sigma": 1.1412846562828056,
+   "band": 2.730028075605462,
+   "spot": 2475.085,
+   "target": 2475.68,
+   "yes_bid": 0.46,
+   "yes_ask": 0.47,
+   "no_bid": 0.53,
+   "no_ask": 0.54,
+   "no_bid_eff": 0.53,
+   "no_ask_eff": 0.54,
+   "price_label": "SCALP NO \u2014 costs 54\u00a2, target 59\u00a2 (pays 1.9x if it settles)",
+   "price_yes": "YES 46\u00a2 / 47\u00a2",
+   "price_no": "NO 53\u00a2 / 54\u00a2",
+   "open_interest": 8548.13,
+   "entry_price": 0.54,
+   "breakeven": 0.56,
+   "fee": 0.02,
+   "reason": "Scalp bucket: NO at 54\u00a2 \u2192 target 59\u00a2 (5\u00a2 move), pays 1.9x if held to settle \u2014 price action leans DOWN. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "signal_lean": "down",
+   "gap_dir": "down",
+   "mins_left": 7.919694300492605,
+   "ts": 1789343525.0585954,
+   "rsi": 48.82109672914717,
+   "rsi_state": "neutral",
+   "dist_vol": 0.5213423283352733,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.57 over 3m vs -1.34 the 3m before); unfilled bearish FVG 2,475.81\u20132,476.20 above price, 0.72 away (0.6x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,476.00 (~5 min at the current rate).",
+   "drivers": [
+    "gap $0.59 = 0.5x per-minute vol and 22% of the 8-min noise band",
+    "price action 0\u20133 DOWN (agrees with the gap)",
+    "RSI 49 (neutral)",
+    "momentum -0.57/3m, -0.36/15m",
+    "this asset's DOWN setups: 14W-3L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": 3.8485290000689454,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "down",
+     "text": "bearish, 2,475.09\u20132,475.14, unfilled, price inside it \u2014 leans DOWN if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Exhaustion",
+     "lean": "down",
+     "text": "2 bars up, ranges contracting \u2014 exhaustion leans DOWN"
+    },
+    {
+     "name": "Momentum",
+     "lean": "down",
+     "text": "-0.57 over 3m, -0.87 over 5m, accelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,478.57 (+3.49 away), low 2,474.32 (-0.76 away), target line -0.59 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "momentum decelerating hard (-0.57 over 3m vs -1.34 the 3m before)",
+     "unfilled bearish FVG 2,475.81\u20132,476.20 above price, 0.72 away (0.6x/min vol) \u2014 acts as a magnet back the other way"
+    ],
+    "level": "high",
+    "direction": "up",
+    "flip_price": 2476.0025,
+    "eta_min": 4.828947368419762,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is DOWN, the signals point to a flip UP: momentum decelerating hard (-0.57 over 3m vs -1.34 the 3m before); unfilled bearish FVG 2,475.81\u20132,476.20 above price, 0.72 away (0.6x/min vol) \u2014 acts as a magnet back the other way. It would show around 2,476.00 (~5 min at the current rate)."
+   },
+   "close_time": "2026-09-14T00:00:00Z",
+   "result": "yes",
+   "mark": 7,
+   "is_early": false,
+   "is_scalp": true,
+   "correct": false
+  },
+  {
+   "ticker": "KXETH15M-26SEP132015-15",
+   "call": "UP",
+   "weak": false,
+   "conviction": "coin_flip",
+   "gap": 1.8049999999998363,
+   "gap_pct": 0.07283086091725875,
+   "sigma": 1.0219103026521887,
+   "band": 2.4453455504543284,
+   "spot": 2478.345,
+   "target": 2476.54,
+   "yes_bid": 0.76,
+   "yes_ask": 0.77,
+   "no_bid": 0.23,
+   "no_ask": 0.24,
+   "no_bid_eff": 0.23,
+   "no_ask_eff": 0.24,
+   "price_label": "UP \u2014 YES costs 77\u00a2",
+   "price_yes": "YES 76\u00a2 / 77\u00a2",
+   "price_no": "NO 23\u00a2 / 24\u00a2",
+   "open_interest": 11212.4,
+   "entry_price": 0.77,
+   "breakeven": 0.79,
+   "fee": 0.02,
+   "reason": "CALL UP \u2014 COIN FLIP \u2014 driven by gap $1.80 = 1.8x per-minute vol and 74% of the 8-min noise band; price action 2\u20131 UP (agrees with the gap); RSI 65 (hot). COIN FLIP \u2014 the gap is INSIDE the noise band ($1.80 vs a $2.45 band over the 8 min still to run). This is a direction because a call is made every round, not because the read is good. Near 50/50 \u2014 size it that way or skip it. PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,476.11\u20132,477.76 below price, 0.59 away (0.6x/min vol) \u2014 acts as a magnet back the other way; 4 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,476.93 (~2 min at the current rate).",
+   "signal_lean": "up",
+   "gap_dir": "up",
+   "mins_left": 7.925324781735738,
+   "ts": 1789344424.709776,
+   "rsi": 65.17037797599951,
+   "rsi_state": "hot",
+   "dist_vol": 1.766299836018167,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,476.11\u20132,477.76 below price, 0.59 away (0.6x/min vol) \u2014 acts as a magnet back the other way; 4 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,476.93 (~2 min at the current rate).",
+   "drivers": [
+    "gap $1.80 = 1.8x per-minute vol and 74% of the 8-min noise band",
+    "price action 2\u20131 UP (agrees with the gap)",
+    "RSI 65 (hot)",
+    "momentum +2.33/3m, +3.61/15m",
+    "this asset's UP setups: 8W-2L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -3.0193147015306288,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "up",
+     "text": "bullish, 2,477.70\u20132,478.34, unfilled, price inside it \u2014 leans UP if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Exhaustion",
+     "lean": "down",
+     "text": "4 bars up, ranges contracting \u2014 exhaustion leans DOWN"
+    },
+    {
+     "name": "Momentum",
+     "lean": "up",
+     "text": "+2.33 over 3m, +1.41 over 5m, accelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,478.34 (+0.00 away), low 2,473.29 (-5.05 away), target line +1.80 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "unfilled bullish FVG 2,476.11\u20132,477.76 below price, 0.59 away (0.6x/min vol) \u2014 acts as a magnet back the other way",
+     "4 bars up with ranges contracting \u2014 the move is stalling"
+    ],
+    "level": "high",
+    "direction": "down",
+    "flip_price": 2476.9325,
+    "eta_min": 1.8186695278969354,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,476.11\u20132,477.76 below price, 0.59 away (0.6x/min vol) \u2014 acts as a magnet back the other way; 4 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,476.93 (~2 min at the current rate)."
+   },
+   "close_time": "2026-09-14T00:15:00Z",
+   "result": "yes",
+   "mark": 7,
+   "is_early": false,
+   "correct": true
+  },
+  {
+   "ticker": "KXETH15M-26SEP132015-15:scalp",
+   "call": "UP",
+   "weak": false,
+   "conviction": "scalp",
+   "gap": 1.8049999999998363,
+   "gap_pct": 0.07283086091725875,
+   "sigma": 1.0219103026521887,
+   "band": 2.4453455504543284,
+   "spot": 2478.345,
+   "target": 2476.54,
+   "yes_bid": 0.76,
+   "yes_ask": 0.77,
+   "no_bid": 0.23,
+   "no_ask": 0.24,
+   "no_bid_eff": 0.23,
+   "no_ask_eff": 0.24,
+   "price_label": "SCALP YES \u2014 costs 77\u00a2, target 82\u00a2 (pays 1.3x if it settles)",
+   "price_yes": "YES 76\u00a2 / 77\u00a2",
+   "price_no": "NO 23\u00a2 / 24\u00a2",
+   "open_interest": 11212.4,
+   "entry_price": 0.77,
+   "breakeven": 0.79,
+   "fee": 0.02,
+   "reason": "Scalp bucket: YES at 77\u00a2 \u2192 target 82\u00a2 (5\u00a2 move), pays 1.3x if held to settle \u2014 price action leans UP. Most of these lose \u2014 separate bucket, never in the headline record.",
+   "signal_lean": "up",
+   "gap_dir": "up",
+   "mins_left": 7.925324781735738,
+   "ts": 1789344424.709776,
+   "rsi": 65.17037797599951,
+   "rsi_state": "hot",
+   "dist_vol": 1.766299836018167,
+   "reversal_flag": true,
+   "reversal_text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,476.11\u20132,477.76 below price, 0.59 away (0.6x/min vol) \u2014 acts as a magnet back the other way; 4 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,476.93 (~2 min at the current rate).",
+   "drivers": [
+    "gap $1.80 = 1.8x per-minute vol and 74% of the 8-min noise band",
+    "price action 2\u20131 UP (agrees with the gap)",
+    "RSI 65 (hot)",
+    "momentum +2.33/3m, +3.61/15m",
+    "this asset's UP setups: 8W-2L"
+   ],
+   "tier": "coin_flip",
+   "tier_label": "COIN FLIP",
+   "no_edge": false,
+   "no_edge_price": null,
+   "edge_points": -3.0193147015306288,
+   "signals": [
+    {
+     "name": "FVG",
+     "lean": "up",
+     "text": "bullish, 2,477.70\u20132,478.34, unfilled, price inside it \u2014 leans UP if it holds"
+    },
+    {
+     "name": "Sweep",
+     "lean": null,
+     "text": "no liquidity sweep in the last 15 min"
+    },
+    {
+     "name": "Exhaustion",
+     "lean": "down",
+     "text": "4 bars up, ranges contracting \u2014 exhaustion leans DOWN"
+    },
+    {
+     "name": "Momentum",
+     "lean": "up",
+     "text": "+2.33 over 3m, +1.41 over 5m, accelerating"
+    },
+    {
+     "name": "S/R",
+     "lean": null,
+     "text": "round high 2,478.34 (+0.00 away), low 2,473.29 (-5.05 away), target line +1.80 away (the line is a magnet)"
+    }
+   ],
+   "reversal": {
+    "flag": true,
+    "reasons": [
+     "unfilled bullish FVG 2,476.11\u20132,477.76 below price, 0.59 away (0.6x/min vol) \u2014 acts as a magnet back the other way",
+     "4 bars up with ranges contracting \u2014 the move is stalling"
+    ],
+    "level": "high",
+    "direction": "down",
+    "flip_price": 2476.9325,
+    "eta_min": 1.8186695278969354,
+    "text": "PROJECTED FLIP INCOMING \u2014 the move is UP, the signals point to a flip DOWN: unfilled bullish FVG 2,476.11\u20132,477.76 below price, 0.59 away (0.6x/min vol) \u2014 acts as a magnet back the other way; 4 bars up with ranges contracting \u2014 the move is stalling. It would show around 2,476.93 (~2 min at the current rate)."
+   },
+   "close_time": "2026-09-14T00:15:00Z",
+   "result": "yes",
+   "mark": 7,
+   "is_early": false,
+   "is_scalp": true,
+   "correct": true
   }
  ]
 }
