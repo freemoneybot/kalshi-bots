@@ -246,6 +246,38 @@ function keyRow(r){
   return `<div class="sigrow num">`+bits.map(esc).join('<span class="sep">·</span>')+`</div>`;
 }
 
+
+/* ---------- THE EXIT CALL (line 2): live verdict + minute-10 exit ---------- */
+var EXITS={};
+function exitTone(v){return v==="SELL_NOW"?"dn":(v==="HOLD_PAST_10"?"up":"neu");}
+function exitHTML(key,r){
+  const X=EXITS[key];if(!X)return "";
+  const live=X.live;
+  const base=String(r.ticker||"").split(":")[0];
+  let h="";
+  if(live&&(!base||String(live.ticker||"").split(":")[0]===base)){
+    const p=num(live.pnl_cents)?(live.pnl_cents>0?"+":"")+live.pnl_cents.toFixed(0)+"¢":"—";
+    const cls=num(live.pnl_cents)?(live.pnl_cents>0?"good":"bad"):"";
+    h+=`<div class="hero"><div class="lbl">the exit call · live</div>
+      <div class="big ${exitTone(live.verdict)}">${esc(live.label||"")}</div>
+      <div class="line2 num">entry ${num(live.entry_cents)?live.entry_cents.toFixed(0)+"¢":"—"} → bid ${num(live.bid_cents)?live.bid_cents.toFixed(0)+"¢":"—"} → sell now <b class="${cls}">${esc(p)}</b></div>
+      <div class="line2">${esc((live.why&&live.why[0])||"")}</div>
+      <div class="line2 sm">holding is betting on: ${esc(live.holding_bet||"")}</div></div>`;
+  }
+  const last=(X.exits||[]).slice(-1)[0];
+  if(last){
+    const un=last.exit_status==="unavailable";
+    const l=un?`exit UNAVAILABLE — no price read${last.exit_error?" ("+esc(last.exit_error)+")":""}`
+      :`entry ${num(last.entry_cents)?last.entry_cents.toFixed(0)+"¢":"—"} → exit ${num(last.exit_cents)?last.exit_cents.toFixed(0)+"¢":"—"} → P&L ${num(last.pnl_cents)?((last.pnl_cents>0?"+":"")+last.pnl_cents.toFixed(0)+"¢"):"—"}`;
+    h+=`<div class="sigrow num">last exit · min ${num(last.exit_minute)?last.exit_minute.toFixed(0):"?"} <span class="sep">·</span> ${l}</div>`;
+  }
+  const t=X.tally;
+  if(t&&t.n){
+    h+=`<div class="sigrow num">exit basis (win = P&L &gt; 0): <b>${(t.wr*100).toFixed(0)}%</b> ${t.w}W-${t.l}L of ${t.n} <span class="sep">·</span> net <b class="${t.pnl_cents>0?"good":"bad"}">${(t.pnl_cents>0?"+":"")+t.pnl_cents.toFixed(0)}¢</b>${t.unavailable?` <span class="sep">·</span> ${t.unavailable} unavailable`:""}</div>`;
+  }
+  return h;
+}
+
 /* ---------- card ---------- */
 function card(key,r,rec,full){
   const d=r.dec==null?2:r.dec;
@@ -296,6 +328,8 @@ function card(key,r,rec,full){
     if(num(r.edge_points))l2.push("edge "+(r.edge_points>0?"+":"")+r.edge_points.toFixed(0)+" pts");
     h+=`<div class="line2 num">${esc(l2.join(" · ")||"expected — not recorded")}</div></div>`;
   }
+
+  h+=exitHTML(key,r);
 
   /* chips: tier + confidence */
   const chips=[];
@@ -414,11 +448,22 @@ window.addEventListener("hashchange",()=>{
   TAB=t||"all"; render();
 });
 
+const ASSETS8=["btc","doge","eth","gold","oil","silver","sol","xrp"];
+async function loadExits(){
+  await Promise.all(ASSETS8.map(async a=>{
+    try{
+      const r=await fetch("exit."+a+".json?t="+Date.now(),{cache:"no-store"});
+      if(r.ok)EXITS[a]=await r.json();
+    }catch(e){}
+  }));
+}
 async function load(){
   try{
     const r=await fetch("snapshot.json?t="+Date.now(),{cache:"no-store"});
-    SNAP=await r.json(); render();
+    SNAP=await r.json();
   }catch(e){}
+  try{await loadExits();}catch(e){}
+  if(SNAP)render();
 }
 load(); setInterval(load,10000); setInterval(()=>{if(SNAP)render();},1000);
 </script>

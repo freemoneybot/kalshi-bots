@@ -37,6 +37,8 @@
     "_min_edge_points_note": "Our win probability must beat the market's implied probability by at least this many points for the call to be tradeable. Added Sep 13 2026.",
     "fear_greed": true,
     "stretch_price": 0.0,
-    "_stretch_price_note": "Disabled (0.0) Sep 13 2026: a backtest of the last 116 settled calls showed the 65c cap alone is the only cut that turns paper P&L positive; letting 65-78c back in on edge alone had no support in the data."
+    "_stretch_price_note": "Disabled (0.0) Sep 13 2026: a backtest of the last 116 settled calls showed the 65c cap alone is the only cut that turns paper P&L positive; letting 65-78c back in on edge alone had no support in the data.",
+    "exit_minute": 10,
+    "_exit_minute_note": "Anthony Sep 13 2026 9:26 PM PT: 'I want the execution to be done by minute 10'. The position opened at the call mark is SOLD back at the market price at minute 10 (hard cap; a SELL NOW verdict exits earlier, a deep-ITM HOLD PAST 10 verdict may ride to settle). Exit prices are real orderbook reads only."
   }
 }
