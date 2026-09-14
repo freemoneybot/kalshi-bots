@@ -6,8 +6,7 @@ NOT A PRODUCT. NOT AN EDGE. These are near-coin-flip markets.
 import json, math, os, statistics, time, urllib.parse, urllib.request, datetime as dt
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.dirname(HERE)
-RECORD_DIR = os.environ.get("KALSHI_RECORD_DIR") or os.path.join(REPO, "record")
+RECORD_DIR = os.path.join(HERE, "record")
 KALSHI = "https://api.elections.kalshi.com/trade-api/v2"
 UA = {"User-Agent": "Mozilla/5.0 (kalshi-bots; personal use)"}
 
@@ -27,7 +26,17 @@ ASSETS = {
                    spot=("coinbase", "ETH"), ohlc=("coinbase", "ETH"), color=0x627EEA),
     "xrp":    dict(label="XRP",    series="KXXRP15M",    unit="$", dec=4,
                    spot=("coinbase", "XRP"), ohlc=("coinbase", "XRP"), color=0x23292F),
+    "doge":   dict(label="DOGE",   series="KXDOGE15M",   unit="$", dec=5,
+                   spot=("coinbase", "DOGE"), ohlc=("coinbase", "DOGE"), color=0xC2A633),
 }
+
+# Which assets are crypto. The crypto Fear & Greed index applies ONLY to these;
+# gold, silver and oil get their signals from their own candles.
+CRYPTO = {"btc", "eth", "sol", "xrp", "doge"}
+
+
+def is_crypto(asset):
+    return asset in CRYPTO
 
 DISCLAIMER = ("These are near coin-flip markets. This read is not an edge — it is a filter "
               "that tries to stay out of the noise. Size accordingly, or don't trade it at all.")
@@ -62,13 +71,29 @@ def get_spot(asset):
         ts = dt.datetime.strptime(j["updatedAt"], "%Y-%m-%dT%H:%M:%SZ").replace(
             tzinfo=dt.timezone.utc).timestamp()
         return Quote(j["price"], ts, "gold-api.com spot")
+    if kind == "yahoo_spot":
+        j = _get(f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}",
+                 dict(range="1d", interval="1m"))
+        meta = j["chart"]["result"][0]["meta"]
+        return Quote(meta["regularMarketPrice"], float(meta["regularMarketTime"]),
+                     "Yahoo " + sym)
     if kind == "cnbc":
+      try:
         j = _get("https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol",
                  dict(symbols=sym, requestMethod="itv", noform=1, partnerId=2,
                       exthrs=1, output="json"))
         q = j["FormattedQuoteResult"]["FormattedQuote"][0]
         ts = dt.datetime.fromisoformat(q["last_time"]).timestamp()
         return Quote(q["last"].replace(",", ""), ts, "CNBC " + sym)
+      except Exception:
+        # CNBC answers 403 from this box at times; the Yahoo futures chart is the
+        # same instrument and is used as the fallback rather than going blind.
+        ysym = ASSETS[asset]["ohlc"][1]
+        j = _get(f"https://query1.finance.yahoo.com/v8/finance/chart/{ysym}",
+                 dict(range="1d", interval="1m"))
+        meta = j["chart"]["result"][0]["meta"]
+        return Quote(meta["regularMarketPrice"], float(meta["regularMarketTime"]),
+                     "Yahoo " + ysym)
     raise ValueError(kind)
 
 
