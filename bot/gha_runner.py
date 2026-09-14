@@ -6,7 +6,7 @@ GitHub Actions job is one process tree with a hard 6-hour ceiling.
 
 Every loop (default 25s) it:
   * samples spot, reads the open Kalshi contract, builds each asset's call
-  * posts the open note at minute 1 and the CALL at minute 7 (Discord webhook)
+  * posts the open note at minute 1 and the CALL at minute 12 (Discord webhook)
   * settles anything whose close time has passed and writes the result
   * writes docs/snapshot.json and bakes it into docs/index.html (server-side)
   * every PUBLISH_EVERY seconds, commits record/ + docs/ back to the repo
@@ -183,23 +183,6 @@ def build_snapshot(runners, cfg):
         t["scalp"] = E.scalp_tally(rec["calls"])
         t["line"] = E.tally_line(ASSETS[a]["label"], t)
         out["record"][a] = t
-        head = [c for c in rec["calls"]
-                if not c.get("is_scalp") and not E.EARLY(c)
-                and c.get("call") in ("UP", "DOWN") and c.get("correct") is not None]
-        out.setdefault("recent", {})[a] = [
-            {"call": c["call"], "correct": bool(c["correct"]), "ts": c.get("ts"),
-             "ticker": c.get("ticker"), "entry_price": c.get("entry_price")}
-            for c in head[-14:]]
-        streak = 0
-        if head:
-            want = bool(head[-1]["correct"])
-            for c in reversed(head):
-                if bool(c["correct"]) != want:
-                    break
-                streak += 1
-            if not want:
-                streak = -streak
-        t["streak"] = streak
     ov = E.tally(allc, cfg["settings"]["small_sample_threshold"])
     ov["scalp"] = E.scalp_tally(allc)
     ov["line"] = E.tally_line("ALL ASSETS", ov)
