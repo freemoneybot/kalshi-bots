@@ -692,21 +692,8 @@ def save_record(asset, rec):
     os.replace(tmp, record_path(asset))
 
 
-EXIT_FIELDS = ("exit_recorded", "exit_status", "exit_cents", "exit_price",
-               "pnl_cents", "exit_minute", "exit_reason", "exit_verdict",
-               "exit_error", "exit_quote", "exit_ts", "exit_win", "entry_cents")
-
-
 def append_call(asset, entry):
     rec = load_record(asset)
-    # A row that already carries a recorded exit never loses it to a later
-    # rewrite of the same ticker (a mid-round restart used to wipe it).
-    prev = next((c for c in rec["calls"] if c.get("ticker") == entry.get("ticker")), None)
-    if prev and prev.get("exit_recorded") and not entry.get("exit_recorded"):
-        for k in EXIT_FIELDS:
-            if k in prev:
-                entry.setdefault(k, prev[k])
-                entry[k] = prev[k]
     rec["calls"] = [c for c in rec["calls"] if c.get("ticker") != entry.get("ticker")]
     rec["calls"].append(entry)
     rec["calls"] = rec["calls"][-2000:]
@@ -781,9 +768,17 @@ def flow_reversal(call, wt, wo, mom_multi, sigma, gap, gap_dir, tech=None):
                 why.append(f"{against} takers {theirs:,.0f} vs {mine:,.0f}")
                 trigger = "flow_imbalance"
 
-    # Resting-order stacking was tried and dropped: these books show 1,000-lot
-    # orders appearing and vanishing constantly, so it fired on a third of rounds
-    # and meant nothing. Executed flow only.
+    if trigger is None and wo and wo.get("available"):
+        import re as _re
+        for note in (wo.get("changes") or []):
+            if f"{against} order appeared" not in note:
+                continue
+            m = _re.match(r"a ([\d,]+)-lot", note)
+            size = float(m.group(1).replace(",", "")) if m else 0.0
+            if size >= MIN_ORDER:
+                why.append(f"{size:,.0f}-lot {against} order just stacked")
+                trigger = "whale_order"
+                break
 
     if trigger is None:
         return dict(flag=False, text="", why=[], trigger=None)
@@ -870,17 +865,12 @@ def tally(calls, small_sample=30):
         avg_entry=avg_entry, breakeven=be,
         small_sample=len(settled) < small_sample, threshold=small_sample,
         beats_breakeven=(all_wr is not None and be is not None and all_wr > be),
-        # NEW basis (Sep 13 2026): win = money made on the minute-10 exit.
-        # The settlement-based fields above are untouched and kept for comparison.
-        exit=exit_tally(calls),
     )
 
 
 def tally_line(label, t):
-    x = t.get("exit") or {}
     if t["settled"] == 0:
-        base = f"{label}: no settled calls yet ({t['no_calls']} no-calls)"
-        return base + (" | " + exit_tally_line("exit", x) if x.get("n") else "")
+        return f"{label}: no settled calls yet ({t['no_calls']} no-calls)"
     pct = f"{t['win_rate']*100:.0f}%"
     s = f"{label}: {pct} ({t['right']}W-{t['wrong']}L, {t['no_calls']} no-calls)"
     if t["small_sample"]:
@@ -890,11 +880,6 @@ def tally_line(label, t):
               f"{t['avg_entry']*100:.0f}\u00a2 incl. fees")
     if t["last20"] is not None:
         s += f" | last 20: {t['last20']*100:.0f}% ({t['last20_w']}W-{t['last20_l']}L)"
-    if x.get("n"):
-        s += (f" || EXIT BASIS (min-10, win = P&L > 0): {x['wr']*100:.0f}% "
-              f"({x['w']}W-{x['l']}L of {x['n']}), net {x['pnl_cents']:+.0f}\u00a2")
-        if x.get("unavailable"):
-            s += f", {x['unavailable']} exit price unavailable"
     return s
 
 
@@ -912,191 +897,3 @@ def scalp_tally(calls):
     fees = sum(kalshi_fee(c.get("entry_price") or 0) for c in s)
     roi = ((returned - staked - fees) / staked) if staked else None
     return dict(n=len(s), w=w, l=len(s) - w, wr=w / len(s), avg_price=avg, roi=roi)
-
-
-# ---------------------------------------------------------------- MINUTE-10 EXIT
-# Anthony, Sep 13 2026 9:26 PM PT: "I want you to call them cheap yet settle by
-# the 10 minute mark ... I want the execution to be done by minute 10" /
-# "We're not expecting to home until min 15 bro".
-# The round's position is OPENED early (cheap, as before) and CLOSED at the
-# minute-10 mark by selling the called side back at whatever the book pays then.
-# Every exit price is a REAL orderbook read; a failed read is recorded as
-# unavailable and never invented. Minute 10 is a hard cap; a hard reversal may
-# close earlier. The 15-minute settlement outcome is still recorded, untouched,
-# in `result`/`correct` for comparison.
-EXIT_MINUTE_DEFAULT = 10.0
-
-
-def exit_minute(st):
-    try:
-        m = float(st.get("exit_minute") or EXIT_MINUTE_DEFAULT)
-    except Exception:
-        m = EXIT_MINUTE_DEFAULT
-    return min(m, EXIT_MINUTE_DEFAULT)          # hard cap: never later than 10
-
-
-def exit_side_price(call, market):
-    """What the side we bought can be SOLD for right now, from a live book read.
-    UP = we hold YES -> we sell into yes_bid. DOWN = we hold NO -> no_bid."""
-    yb = float(market.get("yes_bid_dollars") or 0)
-    ya = float(market.get("yes_ask_dollars") or 0)
-    nb = market.get("no_bid_dollars")
-    nb = float(nb) if nb is not None else 0.0
-    if not nb and ya:
-        nb = round(1.0 - ya, 2)                 # the book's own other side
-    q = dict(yes_bid=yb, yes_ask=ya, no_bid=nb,
-             no_ask=float(market.get("no_ask_dollars") or 0))
-    if call == "UP":
-        return yb, q
-    if call == "DOWN":
-        return nb, q
-    return None, q
-
-
-def record_exit(asset, entry, minute, reason, market=None, error=None):
-    """Mutates `entry` in place (so a later settlement keeps these fields) and
-    appends it to the record. Adds exit_cents / pnl_cents; never deletes."""
-    entry["exit_minute"] = round(float(minute), 1)
-    entry["exit_reason"] = reason
-    entry["exit_ts"] = time.time()
-    entry["exit_recorded"] = True
-    ep = entry.get("entry_price")
-    entry["entry_cents"] = (round(ep * 100, 1) if ep
-                            else entry.get("call_entry_cents"))
-    px, q = (None, {}) if market is None else exit_side_price(entry.get("call"), market)
-    if market is None or px is None or px <= 0:
-        entry["exit_status"] = "unavailable"
-        entry["exit_error"] = str(error or (
-            "no live bid on the called side at the exit read" if market is not None
-            else "orderbook read failed"))
-        entry["exit_cents"] = None
-        entry["exit_price"] = None
-        entry["pnl_cents"] = None
-        entry["exit_win"] = None
-    else:
-        entry["exit_status"] = "filled"
-        entry["exit_price"] = px
-        entry["exit_cents"] = round(px * 100, 1)
-        entry["exit_quote"] = q
-        entry["exit_error"] = None
-        if ep:
-            entry["pnl_cents"] = round((px - ep) * 100, 1)
-            entry["exit_win"] = bool(entry["pnl_cents"] > 0)
-        else:
-            entry["pnl_cents"] = None
-            entry["exit_win"] = None
-    append_call(asset, entry)
-    return entry
-
-
-def exit_label(entry):
-    """One plain line for the log and the card: entry -> exit -> P&L, in cents."""
-    ec = entry.get("entry_cents")
-    ec = ec if ec is not None else (round((entry.get("entry_price") or 0) * 100, 1) or None)
-    if entry.get("exit_status") == "unavailable":
-        return (f"entry {ec:.0f}\u00a2 \u2192 exit UNAVAILABLE (no price read) "
-                f"\u2192 P&L n/a" if ec else "exit UNAVAILABLE (no price read)")
-    xc = entry.get("exit_cents")
-    if xc is None or ec is None:
-        return "no exit recorded"
-    p = entry.get("pnl_cents")
-    return (f"entry {ec:.0f}\u00a2 \u2192 exit {xc:.0f}\u00a2 "
-            f"\u2192 P&L {p:+.0f}\u00a2" if p is not None
-            else f"entry {ec:.0f}\u00a2 \u2192 exit {xc:.0f}\u00a2")
-
-
-def exit_tally(calls):
-    """The NEW headline basis: a call is a WIN when pnl_cents > 0 (money made on
-    the minute-10 exit). The settlement-based tally is kept beside it."""
-    c = [x for x in calls if not x.get("is_scalp") and not EARLY(x)]
-    done = [x for x in c if x.get("pnl_cents") is not None]
-    w = sum(1 for x in done if x["pnl_cents"] > 0)
-    l = len(done) - w
-    pnl = sum(x["pnl_cents"] for x in done)
-    return dict(n=len(done), w=w, l=l,
-                wr=(w / len(done) if done else None),
-                pnl_cents=round(pnl, 1),
-                avg_pnl_cents=(round(pnl / len(done), 2) if done else None),
-                unavailable=sum(1 for x in c if x.get("exit_status") == "unavailable"))
-
-
-def exit_tally_line(label, x):
-    if not x or not x["n"]:
-        return f"{label}: no minute-10 exits recorded yet"
-    s = (f"{label} (exit basis): {x['wr']*100:.0f}% ({x['w']}W-{x['l']}L of {x['n']} exits), "
-         f"net {x['pnl_cents']:+.0f}\u00a2, avg {x['avg_pnl_cents']:+.2f}\u00a2/call")
-    if x["unavailable"]:
-        s += f" \u2014 {x['unavailable']} exit(s) unavailable (no price read)"
-    return s
-
-
-# ---------------------------------------------------------------- THE EXIT CALL
-# Anthony, Sep 13 2026 9:29 PM PT: "give 1 directional call, and then another
-# call that is the call to sell by minute 10 and if it's worth holding day hold
-# or sell before". So the exit is its own CALL with a live verdict, published
-# from the moment of entry and updated every cycle:
-#   SELL_NOW          - signals turned, or the profit is there to take
-#   HOLD_10           - still working; take the market price at minute 10 (DEFAULT)
-#   HOLD_PAST_10      - argued exception: deep in the money, the run to a 100c
-#                       settle beats the current bid by a real margin
-VERDICT_LABEL = {"SELL_NOW": "SELL NOW",
-                 "HOLD_10": "HOLD TO MINUTE 10",
-                 "HOLD_PAST_10": "HOLD PAST 10 / TO SETTLE"}
-
-
-def exit_verdict(entry, market, minute, c=None):
-    """Live exit call for an open position. Every number here comes from the
-    orderbook read passed in; nothing is invented. Returns None if no live price."""
-    c = c or {}
-    call = entry.get("call")
-    ep = entry.get("entry_price")
-    px, q = exit_side_price(call, market) if market else (None, {})
-    if px is None or px <= 0 or not ep:
-        return dict(verdict="HOLD_10", label=VERDICT_LABEL["HOLD_10"],
-                    why=["no live bid on the called side right now - no price to sell into"],
-                    bid_cents=None, entry_cents=(round(ep * 100, 1) if ep else None),
-                    pnl_cents=None, minute=round(float(minute), 1),
-                    holding_bet="a live bid coming back before minute 10",
-                    quote=q, price_unavailable=True)
-    pnl = round((px - ep) * 100, 1)
-    bid_c = round(px * 100, 1)
-    upside = round(100.0 - bid_c, 1)          # what a full settle pays over selling now
-    with_us = ((call == "UP" and c.get("gap_dir") == "up") or
-               (call == "DOWN" and c.get("gap_dir") == "down"))
-    dv = c.get("dist_vol")
-    why, verdict = [], "HOLD_10"
-
-    turned = (not with_us and c.get("gap_dir") in ("up", "down"))
-    hard_rev = bool(c.get("reversal_flag") and c.get("reversal_trigger"))
-
-    if turned:
-        verdict = "SELL_NOW"
-        why.append(f"price has crossed back through the line against the {call} call "
-                   f"- the position is losing, not waiting")
-    elif hard_rev:
-        verdict = "SELL_NOW"
-        why.append("reversal flag fired hard on order flow against our side: "
-                   + (c.get("reversal_text") or "size against the call"))
-    elif pnl >= 12 and (dv is not None and dv < 1.0):
-        verdict = "SELL_NOW"
-        why.append(f"already up {pnl:+.0f}c and the move has stalled "
-                   f"({dv:.1f} vol-units from the line) - take it")
-    elif with_us and dv is not None and dv >= 2.0 and upside >= 8 and minute >= 6:
-        verdict = "HOLD_PAST_10"
-        why.append(f"deep in the money: {dv:.1f} vol-units the right side of the line "
-                   f"with the book only paying {bid_c:.0f}c - a settle pays {upside:.0f}c "
-                   f"more than selling now")
-    else:
-        why.append(f"still working: {('with us' if with_us else 'flat/undecided')}"
-                   + (f", {dv:.1f} vol-units from the line" if dv is not None else "")
-                   + f"; book pays {bid_c:.0f}c, sell at the 10-minute mark")
-
-    holding = ("a full 100c settle at minute 15" if verdict == "HOLD_PAST_10"
-               else ("nothing - selling now" if verdict == "SELL_NOW"
-                     else "the price at minute 10 being no worse than now"))
-    return dict(verdict=verdict, label=VERDICT_LABEL[verdict], why=why,
-                bid_cents=bid_c, entry_cents=round(ep * 100, 1), pnl_cents=pnl,
-                upside_cents=upside, minute=round(float(minute), 1),
-                holding_bet=holding, quote=q, price_unavailable=False,
-                line=(f"{VERDICT_LABEL[verdict]} - quoted {bid_c:.0f}c, "
-                      f"entry {ep*100:.0f}c -> sell now {pnl:+.0f}c"))
